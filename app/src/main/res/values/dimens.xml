@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="space_between_text_and_icon">7dp</dimen>
+  <dimen name="app_padding">10dp</dimen>
+  <dimen name="image_corners_radius">10dp</dimen>
+</resources>
