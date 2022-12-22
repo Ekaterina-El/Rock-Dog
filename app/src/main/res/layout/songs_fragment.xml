@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+  </data>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.SongsFragment">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/app_padding"
+      android:layout_marginTop="@dimen/app_padding"
+      android:orientation="horizontal">
+
+      <LinearLayout style="@style/main_menu_item">
+
+        <ImageView
+          style="@style/icon"
+          android:src="@drawable/ic_shuffle" />
+
+        <TextView
+          style="@style/text.header3"
+          android:layout_marginTop="@dimen/space_between_text_and_icon"
+          android:text="@string/shuffle" />
+      </LinearLayout>
+
+      <LinearLayout style="@style/main_menu_item">
+
+        <ImageView
+          style="@style/icon"
+          android:src="@drawable/ic_favorite" />
+
+        <TextView
+          style="@style/text.header3"
+          android:layout_marginTop="@dimen/space_between_text_and_icon"
+          android:text="@string/favorite" />
+      </LinearLayout>
+
+      <LinearLayout style="@style/main_menu_item">
+
+        <ImageView
+          style="@style/icon"
+          android:src="@drawable/ic_playlist" />
+
+        <TextView
+          style="@style/text.header3"
+          android:layout_marginTop="@dimen/space_between_text_and_icon"
+          android:text="@string/playlists" />
+      </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+      style="@style/text"
+      android:layout_marginTop="5dp"
+      android:layout_marginHorizontal="@dimen/app_padding"
+      tools:text="Total songs: 134" />
+
+    <androidx.recyclerview.widget.RecyclerView
+      tools:listitem="@layout/item_music"
+      android:layout_marginTop="10dp"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginHorizontal="@dimen/app_padding" />
+  </LinearLayout>
+</layout>
