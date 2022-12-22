@@ -5,11 +5,16 @@
     <item name="android:layout_height">match_parent</item>
   </style>
 
-  <style name="main_menu_item.wrapper">
-    <item name="android:layout_width">0dp</item>
-    <item name="android:layout_weight">1</item>
+  <style name="cardClickable">
     <item name="android:clickable">true</item>
     <item name="android:foreground">?android:attr/selectableItemBackground</item>
+  </style>
+
+  <style name="main_menu_item.wrapper" parent="cardClickable">
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_weight">1</item>
+    <item name="android:layout_height">match_parent</item>
+
   </style>
 
   <style name="main_menu_item.content">

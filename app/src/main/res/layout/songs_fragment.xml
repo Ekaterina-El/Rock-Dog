@@ -4,6 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools">
 
   <data>
+
     <variable
       name="countOfSongs"
       type="int" />
@@ -11,7 +12,7 @@
     <variable
       name="master"
       type="el.ka.rockdog.view.ui.SongsFragment" />
-    
+
     <variable
       name="songsAdapter"
       type="el.ka.rockdog.view.adapter.songs.SongsAdapter" />
@@ -30,13 +31,17 @@
       android:layout_marginTop="@dimen/app_padding"
       android:orientation="horizontal">
 
-      <androidx.cardview.widget.CardView style="@style/main_menu_item.wrapper">
+      <androidx.cardview.widget.CardView
+        style="@style/main_menu_item.wrapper"
+        android:onClick="@{() -> master.openPlayer()}">
 
-        <LinearLayout style="@style/main_menu_item.content">
+        <LinearLayout
+          style="@style/main_menu_item.content">
 
           <ImageView
             style="@style/icon"
-            android:src="@drawable/ic_shuffle" />
+            android:src="@drawable/ic_shuffle"
+            android:contentDescription="TODO" />
 
           <TextView
             style="@style/text.header3"
@@ -45,7 +50,9 @@
         </LinearLayout>
       </androidx.cardview.widget.CardView>
 
-      <androidx.cardview.widget.CardView style="@style/main_menu_item.wrapper">
+      <androidx.cardview.widget.CardView
+        style="@style/main_menu_item.wrapper"
+        android:onClick="@{() -> master.goToAccount()}">
 
         <LinearLayout style="@style/main_menu_item.content">
 
@@ -62,7 +69,9 @@
 
       <androidx.cardview.widget.CardView style="@style/main_menu_item.wrapper">
 
-        <LinearLayout style="@style/main_menu_item.content">
+        <LinearLayout
+          style="@style/main_menu_item.content"
+          android:onClick="@{() -> master.goToPlaylists()}">
 
           <ImageView
             style="@style/icon"
@@ -77,7 +86,8 @@
     </LinearLayout>
 
     <TextView
-      style="@style/text"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/app_padding"
       android:layout_marginTop="5dp"
       android:text="@{@string/total_songs(countOfSongs)}"

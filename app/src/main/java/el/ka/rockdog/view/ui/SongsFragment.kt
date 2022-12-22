@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import el.ka.rockdog.R
 import el.ka.rockdog.databinding.SongsFragmentBinding
 import el.ka.rockdog.service.model.Album
 import el.ka.rockdog.service.model.Song
@@ -78,11 +80,24 @@ class SongsFragment : Fragment() {
         coverUrl = "https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/4b/88/b9/4b88b930-0692-1651-f264-7c8a4483796b/859731738825_cover.jpg/1200x1200bf-60.jpg"
       ),
     ),
-
-    )
+  )
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     songsAdapter.setSongs(fakeSongs)
+  }
+
+  private val navController by lazy { findNavController() }
+
+  fun openPlayer() {
+    navController.navigate(R.id.action_songsFragment_to_playerFragment)
+  }
+
+  fun goToPlaylists() {
+    navController.navigate(R.id.action_songsFragment_to_playlistsFragment)
+  }
+
+  fun goToAccount() {
+    navController.navigate(R.id.action_songsFragment_to_accountFragment)
   }
 }

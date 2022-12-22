@@ -7,5 +7,27 @@
   <fragment
     android:id="@+id/songsFragment"
     android:name="el.ka.rockdog.view.ui.SongsFragment"
-    android:label="SongsFragment" />
+    android:label="SongsFragment" >
+    <action
+      android:id="@+id/action_songsFragment_to_playlistsFragment"
+      app:destination="@id/playlistsFragment" />
+    <action
+      android:id="@+id/action_songsFragment_to_playerFragment"
+      app:destination="@id/playerFragment" />
+    <action
+      android:id="@+id/action_songsFragment_to_accountFragment"
+      app:destination="@id/accountFragment" />
+  </fragment>
+  <fragment
+    android:id="@+id/playlistsFragment"
+    android:name="el.ka.rockdog.view.ui.PlaylistsFragment"
+    android:label="PlaylistsFragment" />
+  <fragment
+    android:id="@+id/playerFragment"
+    android:name="el.ka.rockdog.view.ui.PlayerFragment"
+    android:label="PlayerFragment" />
+  <fragment
+    android:id="@+id/accountFragment"
+    android:name="el.ka.rockdog.view.ui.AccountFragment"
+    android:label="AccountFragment" />
 </navigation>
