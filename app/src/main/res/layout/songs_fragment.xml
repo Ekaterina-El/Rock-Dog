@@ -64,7 +64,7 @@
       tools:text="Total songs: 134" />
 
     <androidx.recyclerview.widget.RecyclerView
-      tools:listitem="@layout/item_music"
+      tools:listitem="@layout/item_song"
       android:layout_marginTop="10dp"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
