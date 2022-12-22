@@ -4,4 +4,5 @@
   <string name="favorite">Favorite</string>
   <string name="playlists">Playlists</string>
   <string name="song_cover">Song cover</string>
+  <string name="create_playlist">Create playlist</string>
 </resources>
