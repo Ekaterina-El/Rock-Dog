@@ -28,7 +28,8 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:padding="7dp"
-        android:src="@drawable/ic_back" />
+        android:src="@drawable/ic_back"
+        android:contentDescription="@string/go_back" />
 
       <TextView
         style="@style/text.header1"

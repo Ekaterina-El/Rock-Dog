@@ -5,4 +5,10 @@
   <string name="playlists">Playlists</string>
   <string name="song_cover">Song cover</string>
   <string name="create_playlist">Create playlist</string>
+  <string name="go_back">Go back</string>
+  <string name="account">Account</string>
+  <string name="settings">Settings</string>
+  <string name="about">About</string>
+  <string name="exit">Exit</string>
+  <string name="artist_profile">Artist profile</string>
 </resources>

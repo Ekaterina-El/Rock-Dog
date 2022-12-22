@@ -2,11 +2,27 @@
 <resources>
 
   <style name="main_menu_item">
+    <item name="android:layout_height">match_parent</item>
+  </style>
+
+  <style name="main_menu_item.wrapper">
     <item name="android:layout_width">0dp</item>
     <item name="android:layout_weight">1</item>
-    <item name="android:layout_height">match_parent</item>
+    <item name="android:clickable">true</item>
+    <item name="android:foreground">?android:attr/selectableItemBackground</item>
+  </style>
+
+  <style name="main_menu_item.content">
+    <item name="android:layout_width">match_parent</item>
     <item name="android:paddingVertical">15dp</item>
     <item name="android:orientation">vertical</item>
     <item name="android:gravity">center</item>
+  </style>
+
+  <style name="settings_item">
+    <item name="android:layout_width">30dp</item>
+    <item name="android:layout_height">30dp</item>
+    <item name="android:layout_marginEnd">10dp</item>
+    <item name="android:tint">@color/second_color</item>
   </style>
 </resources>
