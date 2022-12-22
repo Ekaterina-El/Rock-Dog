@@ -96,7 +96,7 @@
     <androidx.recyclerview.widget.RecyclerView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_marginHorizontal="@dimen/app_padding"
+      android:overScrollMode="never"
       android:layout_marginTop="10dp"
       android:adapter="@{songsAdapter}"
       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
