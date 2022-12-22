@@ -4,7 +4,13 @@
   xmlns:tools="http://schemas.android.com/tools">
 
   <data>
+    <variable
+      name="master"
+      type="el.ka.rockdog.view.ui.PlaylistsFragment" />
 
+    <variable
+      name="adapter"
+      type="el.ka.rockdog.view.adapter.playlists.PlaylistsAdapter" />
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,6 +31,8 @@
       app:layout_constraintTop_toTopOf="parent">
 
       <ImageView
+        android:onClick="@{() -> master.goBack()}"
+        android:clickable="true"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:padding="7dp"
@@ -40,7 +48,9 @@
 
       <ImageView
         android:layout_width="40dp"
+        android:clickable="true"
         android:layout_height="40dp"
+        android:onClick="@{() -> master.addPlaylist()}"
         android:contentDescription="@string/create_playlist"
         android:padding="6dp"
         android:src="@drawable/ic_add"
@@ -49,9 +59,12 @@
     <!--  endregion  -->
 
     <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/recyclerViewPlaylists"
+      android:overScrollMode="never"
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:layout_marginTop="15dp"
+      android:adapter="@{adapter}"
       android:layout_marginHorizontal="@dimen/app_padding"
       app:layout_constraintTop_toBottomOf="@id/layoutHeader"
       app:layout_constraintBottom_toBottomOf="parent"
