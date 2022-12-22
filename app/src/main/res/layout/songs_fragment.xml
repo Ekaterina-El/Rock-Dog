@@ -4,14 +4,24 @@
   xmlns:tools="http://schemas.android.com/tools">
 
   <data>
+    <variable
+      name="countOfSongs"
+      type="int" />
 
+    <variable
+      name="master"
+      type="el.ka.rockdog.view.ui.SongsFragment" />
+    
+    <variable
+      name="songsAdapter"
+      type="el.ka.rockdog.view.adapter.songs.SongsAdapter" />
   </data>
 
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.SongsFragment">
+    tools:context=".view.ui.SongsFragment">
 
     <LinearLayout
       android:layout_width="match_parent"
@@ -38,6 +48,7 @@
       <androidx.cardview.widget.CardView style="@style/main_menu_item.wrapper">
 
         <LinearLayout style="@style/main_menu_item.content">
+
           <ImageView
             style="@style/icon"
             android:src="@drawable/ic_account" />
@@ -50,6 +61,7 @@
       </androidx.cardview.widget.CardView>
 
       <androidx.cardview.widget.CardView style="@style/main_menu_item.wrapper">
+
         <LinearLayout style="@style/main_menu_item.content">
 
           <ImageView
@@ -68,6 +80,7 @@
       style="@style/text"
       android:layout_marginHorizontal="@dimen/app_padding"
       android:layout_marginTop="5dp"
+      android:text="@{@string/total_songs(countOfSongs)}"
       tools:text="Total songs: 134" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -75,6 +88,7 @@
       android:layout_height="match_parent"
       android:layout_marginHorizontal="@dimen/app_padding"
       android:layout_marginTop="10dp"
+      android:adapter="@{songsAdapter}"
       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
       tools:listitem="@layout/item_song" />
   </LinearLayout>

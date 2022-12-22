@@ -1,23 +1,21 @@
-package el.ka.rockdog.ui
+package el.ka.rockdog.view.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import el.ka.rockdog.databinding.PlayerFragmentBinding
+import el.ka.rockdog.databinding.PlaylistFragmentBinding
 
-class PlayerFragment: Fragment() {
-  private lateinit var binding: PlayerFragmentBinding
+class PlaylistFragment : Fragment() {
+  private lateinit var binding: PlaylistFragmentBinding
 
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    binding = PlayerFragmentBinding.inflate(layoutInflater)
+    binding = PlaylistFragmentBinding.inflate(layoutInflater)
     return binding.root
   }
-
-
 }

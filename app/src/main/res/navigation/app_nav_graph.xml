@@ -6,6 +6,6 @@
 
   <fragment
     android:id="@+id/songsFragment"
-    android:name="el.ka.rockdog.ui.SongsFragment"
+    android:name="el.ka.rockdog.view.ui.SongsFragment"
     android:label="SongsFragment" />
 </navigation>

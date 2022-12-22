@@ -24,6 +24,10 @@
     <item name="android:fontFamily">@font/montserrat_regular</item>
   </style>
 
+  <style name="text.hint.small" parent="text.hint">
+    <item name="android:textSize">12sp</item>
+  </style>
+
   <style name="text.hint">
     <item name="android:textColor">@color/grey</item>
   </style>
