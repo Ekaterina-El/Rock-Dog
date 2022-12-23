@@ -15,4 +15,10 @@
   <string name="tracks">Tracks: %1$d</string>
   <string name="two_artists">%1$s &amp;&amp; %2$s></string>
   <string name="more_artists">%1$, %2$s &amp;&amp; %3$d other artists></string>
+  <string name="welcomeText">To work with the service you need to log in.</string>
+  <string name="login">Log In</string>
+  <string name="register">Sing Up</string>
+  <string name="app_name_part_left">Rock</string>
+  <string name="app_name_part_right">Dog</string>
+  <string name="tagline"><![CDATA[Anywhere for Everyone!]]></string>
 </resources>
