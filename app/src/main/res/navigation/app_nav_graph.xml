@@ -46,7 +46,7 @@
   </fragment>
   <fragment
     android:id="@+id/singUpFragment"
-    android:name="el.ka.rockdog.view.ui.auth.SingUpFragment"
+    android:name="el.ka.rockdog.view.ui.auth.SignUpFragment"
     android:label="SingUpFragment" >
     <action
       android:id="@+id/action_singUpFragment_to_logInFragment"

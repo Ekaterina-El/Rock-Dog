@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
+
   <data>
+
+    <variable
+      name="viewModel"
+      type="el.ka.rockdog.viewModel.SignUpViewModel" />
+
     <variable
       name="master"
-      type="el.ka.rockdog.view.ui.auth.SingUpFragment" />
-  </data >
+      type="el.ka.rockdog.view.ui.auth.SignUpFragment" />
+  </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -92,6 +98,7 @@
       app:layout_constraintTop_toBottomOf="@id/textSubtitle">
 
       <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/fieldEmail"
         style="@style/FieldWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -101,10 +108,12 @@
         <com.google.android.material.textfield.TextInputEditText
           style="@style/FieldContent"
           android:imeOptions="actionNext"
-          android:inputType="textEmailAddress" />
+          android:inputType="textEmailAddress"
+          android:text="@={viewModel.email}" />
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/fieldUserName"
         style="@style/FieldWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -114,20 +123,25 @@
         <com.google.android.material.textfield.TextInputEditText
           style="@style/FieldContent"
           android:imeOptions="actionNext"
-          android:inputType="text" />
+          android:inputType="text"
+          android:text="@={viewModel.userName}" />
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/fieldPassword"
         style="@style/FieldWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/password"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/on_second_color"
         app:startIconDrawable="@drawable/ic_lock">
 
         <com.google.android.material.textfield.TextInputEditText
           style="@style/FieldContent"
           android:imeOptions="actionNext"
-          android:inputType="textPassword" />
+          android:inputType="textPassword"
+          android:text="@={viewModel.password}" />
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
@@ -135,12 +149,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/password_repeat"
+        app:passwordToggleEnabled="true"
+        app:errorIconDrawable="@null"
+        app:passwordToggleTint="@color/on_second_color"
         app:startIconDrawable="@drawable/ic_lock">
 
         <com.google.android.material.textfield.TextInputEditText
           style="@style/FieldContent"
           android:imeOptions="actionNext"
-          android:inputType="textPassword" />
+          android:inputType="textPassword"
+          android:text="@={viewModel.passwordRepeat}" />
       </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 

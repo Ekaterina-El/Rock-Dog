@@ -1,11 +1,25 @@
 package el.ka.rockdog.service.repository
 
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import el.ka.rockdog.service.model.ErrorApp
+import el.ka.rockdog.service.model.Errors
+import el.ka.rockdog.service.model.User
+import kotlinx.coroutines.tasks.await
 
 object AuthRepository {
-  val currentUid: String
-    get() {
-//      return FirebaseAuth.getInstance().uid
-      return "T06ZD1oR0N1T6xjT6r61"
+  private val auth = Firebase.auth
+
+  suspend fun createAccount(user: User, password: String): ErrorApp? {
+    try {
+      val uid = auth.createUserWithEmailAndPassword(user.email, password).await().user?.uid
+      user.uid = uid!!
+    } catch (e: Exception) {
+      return Errors.unknownError
     }
+
+    return UsersRepository.addProfileData(user)
+  }
+
+  val currentUid: String? get() = auth.uid
 }

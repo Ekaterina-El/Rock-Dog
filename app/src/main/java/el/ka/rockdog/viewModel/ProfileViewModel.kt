@@ -16,7 +16,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
 
   fun loadProfile() {
     viewModelScope.launch {
-      val uid = AuthRepository.currentUid
+      val uid = AuthRepository.currentUid ?: ""  // TODO: logout
       _profile.value = UsersRepository.getUser(uid)
     }
   }
