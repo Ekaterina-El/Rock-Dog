@@ -29,7 +29,7 @@ class WelcomeFragment: Fragment() {
   private val navController by lazy { findNavController() }
 
   fun goLogIn() {
-
+    navController.navigate(R.id.action_welcomeFragment_to_logInFragment)
   }
 
   fun goSignUp() {

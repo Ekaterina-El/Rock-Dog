@@ -40,9 +40,20 @@
     <action
       android:id="@+id/action_welcomeFragment_to_singUpFragment"
       app:destination="@id/singUpFragment" />
+    <action
+      android:id="@+id/action_welcomeFragment_to_logInFragment"
+      app:destination="@id/logInFragment" />
   </fragment>
   <fragment
     android:id="@+id/singUpFragment"
     android:name="el.ka.rockdog.view.ui.auth.SingUpFragment"
-    android:label="SingUpFragment" />
+    android:label="SingUpFragment" >
+    <action
+      android:id="@+id/action_singUpFragment_to_logInFragment"
+      app:destination="@id/logInFragment" />
+  </fragment>
+  <fragment
+    android:id="@+id/logInFragment"
+    android:name="el.ka.rockdog.view.ui.auth.LogInFragment"
+    android:label="LogInFragment" />
 </navigation>
