@@ -13,4 +13,6 @@
   <string name="artist_profile">Artist profile</string>
   <string name="total_songs">Total songs: %1$d</string>
   <string name="tracks">Tracks: %1$d</string>
+  <string name="two_artists">%1$s &amp;&amp; %2$s></string>
+  <string name="more_artists">%1$, %2$s &amp;&amp; %3$d other artists></string>
 </resources>

@@ -6,8 +6,8 @@
   <data>
 
     <variable
-      name="countOfSongs"
-      type="int" />
+      name="viewModel"
+      type="el.ka.rockdog.viewModel.SongsViewModel" />
 
     <variable
       name="master"
@@ -90,7 +90,7 @@
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/app_padding"
       android:layout_marginTop="5dp"
-      android:text="@{@string/total_songs(countOfSongs)}"
+      android:text="@{@string/total_songs(viewModel.topSongs.size)}"
       tools:text="Total songs: 134" />
 
     <androidx.recyclerview.widget.RecyclerView
