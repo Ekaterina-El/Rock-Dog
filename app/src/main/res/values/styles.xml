@@ -31,12 +31,13 @@
     <item name="android:tint">@color/second_color</item>
   </style>
 
-  <style name="button" parent="android:Widget.Button">
+  <style name="button" parent="ThemeOverlay.Material3.Button">
     <item name="android:layout_width">0dp</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:fontFamily">@font/montserrat_regular</item>
     <item name="android:shadowRadius">100</item>
     <item name="android:textAllCaps">false</item>
+    <item name="android:clipToPadding">false</item>
   </style>
 
   <style name="button.fill" parent="button">

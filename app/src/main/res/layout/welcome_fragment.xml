@@ -107,8 +107,6 @@
       android:layout_marginBottom="15dp"
       app:layout_constraintBottom_toTopOf="@id/text" />
 
-<!--    android:background="#AD333333"-->
-
     <Button
       android:id="@+id/buttonLogin"
       style="@style/button.fill"

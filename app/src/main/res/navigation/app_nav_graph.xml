@@ -37,5 +37,12 @@
     <action
       android:id="@+id/action_welcomeFragment_to_songsFragment"
       app:destination="@id/songsFragment" />
+    <action
+      android:id="@+id/action_welcomeFragment_to_singUpFragment"
+      app:destination="@id/singUpFragment" />
   </fragment>
+  <fragment
+    android:id="@+id/singUpFragment"
+    android:name="el.ka.rockdog.view.ui.auth.SingUpFragment"
+    android:label="SingUpFragment" />
 </navigation>
