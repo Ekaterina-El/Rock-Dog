@@ -1,7 +1,6 @@
-package el.ka.rockdog.viewModel
+package el.ka.rockdog.viewModel.auth
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -10,9 +9,10 @@ import el.ka.rockdog.service.model.ErrorApp
 import el.ka.rockdog.service.model.User
 import el.ka.rockdog.service.repository.AuthRepository
 import el.ka.rockdog.service.repository.UsersRepository
+import el.ka.rockdog.viewModel.BaseViewModel
 import kotlinx.coroutines.launch
 
-class SignUpViewModel(application: Application) : AndroidViewModel(application) {
+class SignUpViewModel(application: Application): BaseViewModel(application) {
   private val _error = MutableLiveData<ErrorApp?>(null)
   val error: LiveData<ErrorApp?> = _error
 
@@ -20,26 +20,6 @@ class SignUpViewModel(application: Application) : AndroidViewModel(application) 
   val userName = MutableLiveData("")
   val password = MutableLiveData("")
   val passwordRepeat = MutableLiveData("")
-
-  private val workStack = MutableLiveData<List<Work>>(listOf())
-  val work: LiveData<List<Work>> get() = workStack
-
-  private fun addWork(work: Work) {
-    changeWorks(work, Action.ADD)
-  }
-
-  private fun removeWork(work: Work) {
-    changeWorks(work, Action.REMOVE)
-  }
-
-  private fun changeWorks(work: Work, action: Action) {
-    val works = workStack.value!!.toMutableList()
-    when (action) {
-      Action.ADD -> works.add(work)
-      Action.REMOVE -> works.remove(work)
-    }
-    workStack.value = works
-  }
 
   private suspend fun signUpProfile() {
     addWork(Work.SIGN_UP)

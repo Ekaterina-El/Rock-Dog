@@ -6,7 +6,7 @@
 
     <variable
       name="viewModel"
-      type="el.ka.rockdog.viewModel.SignUpViewModel" />
+      type="el.ka.rockdog.viewModel.auth.SignUpViewModel" />
 
     <variable
       name="master"
