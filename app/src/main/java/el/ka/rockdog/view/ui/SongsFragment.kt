@@ -33,8 +33,9 @@ class SongsFragment : Fragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    binding = SongsFragmentBinding.inflate(layoutInflater)
+    requireActivity().window.statusBarColor = requireContext().getColor(R.color.on_second_color)
 
+    binding = SongsFragmentBinding.inflate(layoutInflater)
     songsAdapter = SongsAdapter()
     binding.apply {
       lifecycleOwner = viewLifecycleOwner
@@ -45,7 +46,6 @@ class SongsFragment : Fragment() {
 
     return binding.root
   }
-
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

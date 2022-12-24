@@ -18,6 +18,7 @@ class WelcomeFragment: Fragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
+    requireActivity().window.statusBarColor = requireContext().getColor(R.color.second_color)
     binding = WelcomeFragmentBinding.inflate(LayoutInflater.from(container!!.context), container, false)
     binding.apply {
       lifecycleOwner = viewLifecycleOwner

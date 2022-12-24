@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/app_nav_graph"
-  app:startDestination="@id/welcomeFragment">
+  app:startDestination="@id/splashFragment">
 
   <fragment
     android:id="@+id/songsFragment"
@@ -35,9 +35,6 @@
     android:name="el.ka.rockdog.view.ui.WelcomeFragment"
     android:label="WelcomeFragment" >
     <action
-      android:id="@+id/action_welcomeFragment_to_songsFragment"
-      app:destination="@id/songsFragment" />
-    <action
       android:id="@+id/action_welcomeFragment_to_singUpFragment"
       app:destination="@id/singUpFragment" />
     <action
@@ -58,6 +55,21 @@
     android:label="LogInFragment" >
     <action
       android:id="@+id/action_logInFragment_to_songsFragment"
-      app:destination="@id/songsFragment" />
+      app:destination="@id/songsFragment"
+      app:popUpTo="@id/songsFragment"
+      app:popUpToInclusive="true" />
+  </fragment>
+  <fragment
+    android:id="@+id/splashFragment"
+    android:name="el.ka.rockdog.view.ui.SplashFragment"
+    android:label="SplashFragment" >
+    <action
+      android:id="@+id/action_splashFragment_to_songsFragment"
+      app:destination="@id/songsFragment"
+      app:popUpTo="@id/songsFragment"
+      app:popUpToInclusive="true" />
+    <action
+      android:id="@+id/action_splashFragment_to_welcomeFragment"
+      app:destination="@id/welcomeFragment" />
   </fragment>
 </navigation>

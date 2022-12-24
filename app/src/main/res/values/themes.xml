@@ -109,7 +109,7 @@
   </style>
 
   <style name="AppTheme.FullScreenDialog" parent="Theme.MaterialComponents.Light.Dialog">
-    <item name="colorPrimaryDark">@color/accent_color</item>
+    <item name="colorPrimaryDark">@color/primary_color_dark</item>
     <item name="colorAccent">@color/text_on_primary</item>
     <item name="colorPrimary">@color/primary_color</item>
     <item name="android:windowIsFloating">false</item>
