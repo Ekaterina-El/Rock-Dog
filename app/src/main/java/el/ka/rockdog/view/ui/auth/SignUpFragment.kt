@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import el.ka.rockdog.databinding.SignUpFragmentBinding
 import el.ka.rockdog.other.Field
 import el.ka.rockdog.other.FieldError
 import el.ka.rockdog.other.Work
+import el.ka.rockdog.service.model.ErrorApp
 import el.ka.rockdog.view.ui.BaseFragment
 import el.ka.rockdog.viewModel.SignUpViewModel
 
@@ -23,6 +25,10 @@ class SignUpFragment: BaseFragment() {
 
   private val workObserver = Observer<List<Work>> {
     if (it.isNotEmpty()) showLoadingDialog() else hideLoadingDialog()
+  }
+
+  private val errorObserver = Observer<ErrorApp?> {
+    if (it != null) showErrorDialog(it)
   }
 
   override fun onCreateView(
@@ -49,12 +55,14 @@ class SignUpFragment: BaseFragment() {
   override fun onResume() {
     super.onResume()
     viewModel.errors.observe(viewLifecycleOwner, errorsObserver)
+    viewModel.error.observe(viewLifecycleOwner, errorObserver)
     viewModel.work.observe(viewLifecycleOwner, workObserver)
   }
 
   override fun onDestroy() {
     super.onDestroy()
     viewModel.errors.removeObserver(errorsObserver)
+    viewModel.error.removeObserver(errorObserver)
     viewModel.work.removeObserver(workObserver)
   }
 

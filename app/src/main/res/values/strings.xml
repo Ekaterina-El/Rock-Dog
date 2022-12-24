@@ -32,4 +32,5 @@
   <string name="is_require">Is require</string>
   <string name="password_repeat_no_equal">Password and repeat aren`t equal</string>
   <string name="is_not_email">Isn`t email</string>
+  <string name="networkError">Networt error. Check your network connection</string>
 </resources>
