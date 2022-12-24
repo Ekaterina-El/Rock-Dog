@@ -6,7 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import el.ka.rockdog.R
 import el.ka.rockdog.databinding.SignUpFragmentBinding
+import el.ka.rockdog.other.Action
 import el.ka.rockdog.other.Field
 import el.ka.rockdog.other.FieldError
 import el.ka.rockdog.other.Work
@@ -25,6 +28,13 @@ class SignUpFragment: BaseFragment() {
   private val workObserver = Observer<List<Work>> {
     if (it.isNotEmpty()) showLoadingDialog() else hideLoadingDialog()
   }
+
+  private val externalActionObserver = Observer<Action?> {
+    if (it == Action.GO_NEXT) {
+      findNavController().navigate(R.id.action_singUpFragment_to_logInFragment)
+    }
+  }
+
 
   private val errorObserver = Observer<ErrorApp?> {
     if (it != null) showErrorDialog(it)
@@ -56,6 +66,7 @@ class SignUpFragment: BaseFragment() {
     viewModel.errors.observe(viewLifecycleOwner, errorsObserver)
     viewModel.error.observe(viewLifecycleOwner, errorObserver)
     viewModel.work.observe(viewLifecycleOwner, workObserver)
+    viewModel.externalAction.observe(viewLifecycleOwner, externalActionObserver)
   }
 
   override fun onDestroy() {
@@ -63,6 +74,7 @@ class SignUpFragment: BaseFragment() {
     viewModel.errors.removeObserver(errorsObserver)
     viewModel.error.removeObserver(errorObserver)
     viewModel.work.removeObserver(workObserver)
+    viewModel.externalAction.removeObserver(externalActionObserver)
   }
 
   private fun showErrors(errors: List<FieldError>?) {

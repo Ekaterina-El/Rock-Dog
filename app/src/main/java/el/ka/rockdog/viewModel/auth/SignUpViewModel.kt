@@ -16,6 +16,9 @@ class SignUpViewModel(application: Application): BaseViewModel(application) {
   private val _error = MutableLiveData<ErrorApp?>(null)
   val error: LiveData<ErrorApp?> = _error
 
+  private val _externalAction = MutableLiveData<Action?>(null)
+  val externalAction: LiveData<Action?> = _externalAction
+
   val email = MutableLiveData("")
   val userName = MutableLiveData("")
   val password = MutableLiveData("")
@@ -24,9 +27,11 @@ class SignUpViewModel(application: Application): BaseViewModel(application) {
   private suspend fun signUpProfile() {
     addWork(Work.SIGN_UP)
     val user = User(name = userName.value!!, email = email.value!!)
-    AuthRepository.createAccount(user, password.value!!)?.let {
-      _error.value = it
-    }
+    val err = AuthRepository.createAccount(user, password.value!!)
+
+    if (err != null) _error.value = err
+    else _externalAction.value = Action.GO_NEXT
+
     removeWork(Work.SIGN_UP)
   }
 

@@ -3,6 +3,7 @@ package el.ka.rockdog.viewModel.auth
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.viewModelScope
 import el.ka.rockdog.other.*
 import el.ka.rockdog.service.model.ErrorApp
