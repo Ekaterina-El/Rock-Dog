@@ -33,6 +33,10 @@
     <item name="android:layout_height">wrap_content</item>
   </style>
 
+  <style name="FieldContent.contrast" parent="FieldContent">
+    <item name="android:textColor">@color/second_color</item>
+  </style>
+
   <style name="FieldWrapper" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
     <item name="boxStrokeColor">@color/box_color</item>
     <item name="hintTextColor">@color/white</item>
@@ -40,6 +44,13 @@
     <item name="startIconTint">@color/white</item>
     <item name="android:textColorHint">@color/white</item>
     <item name="errorEnabled">true</item>
+  </style>
+
+  <style name="FieldWrapper.contrast" parent="FieldWrapper">
+    <item name="boxStrokeColor">@color/box_color_contrast</item>
+    <item name="hintTextColor">@color/second_color</item>
+    <item name="startIconTint">@color/second_color</item>
+    <item name="android:textColorHint">@color/second_color</item>
   </style>
 
   <style name="text" parent="android:Widget.TextView">

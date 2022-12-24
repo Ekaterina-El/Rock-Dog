@@ -68,4 +68,8 @@ class LogInViewModel(application: Application) : BaseViewModel(application) {
   fun externalActionNullable() {
     _externalAction.value = null
   }
+
+  fun resetPassword(email: String) {
+    AuthRepository.resetPassword(email)
+  }
 }

@@ -46,5 +46,9 @@ object AuthRepository {
     }
   }
 
+  fun resetPassword(email: String) {
+    auth.sendPasswordResetEmail(email)
+  }
+
   val currentUid: String? get() = auth.uid
 }

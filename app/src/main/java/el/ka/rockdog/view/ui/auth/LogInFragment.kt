@@ -15,6 +15,7 @@ import el.ka.rockdog.other.FieldError
 import el.ka.rockdog.other.Work
 import el.ka.rockdog.service.model.ErrorApp
 import el.ka.rockdog.view.ui.BaseFragment
+import el.ka.rockdog.view.ui.dialog.ResetPasswordDialog
 import el.ka.rockdog.viewModel.auth.LogInViewModel
 
 class LogInFragment : BaseFragment() {
@@ -75,8 +76,18 @@ class LogInFragment : BaseFragment() {
     viewModel.work.removeObserver(workObserver)
   }
 
-  fun forgetPassword() {
+  private val resetPasswordDialog by lazy {
+    ResetPasswordDialog(requireContext()) {
+      resetPassword(it)
+    }
+  }
 
+  private fun resetPassword(email: String) {
+    viewModel.resetPassword(email)
+  }
+
+  fun forgetPassword() {
+    resetPasswordDialog.openConfirmDialog()
   }
 
   fun logIn() {
