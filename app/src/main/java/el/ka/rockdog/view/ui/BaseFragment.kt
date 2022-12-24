@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import el.ka.rockdog.MainActivity
 import el.ka.rockdog.R
 import el.ka.rockdog.service.model.ErrorApp
+import el.ka.rockdog.view.ui.dialog.ErrorDialog
 
 open class BaseFragment: Fragment() {
   private fun getLoadingDialog(): Dialog {
@@ -39,7 +40,10 @@ open class BaseFragment: Fragment() {
     activity.loadingDialog = loadingDialog
   }
 
+  private val errorDialog by lazy { ErrorDialog(requireContext()) }
+
   fun showErrorDialog(error: ErrorApp) {
-    Toast.makeText(requireContext(), getString(error.messageRes), Toast.LENGTH_SHORT).show()
+    val message = getString(error.messageRes)
+    errorDialog.openConfirmDialog(message)
   }
 }

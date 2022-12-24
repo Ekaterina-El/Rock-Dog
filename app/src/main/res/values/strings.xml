@@ -33,4 +33,6 @@
   <string name="password_repeat_no_equal">Password and repeat aren`t equal</string>
   <string name="is_not_email">Isn`t email</string>
   <string name="networkError">Networt error. Check your network connection</string>
+  <string name="error_dialog_title">Oops...</string>
+  <string name="ok">OK</string>
 </resources>
