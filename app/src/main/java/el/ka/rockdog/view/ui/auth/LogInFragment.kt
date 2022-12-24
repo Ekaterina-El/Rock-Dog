@@ -12,6 +12,7 @@ import el.ka.rockdog.databinding.LogInFragmentBinding
 import el.ka.rockdog.other.Action
 import el.ka.rockdog.other.Field
 import el.ka.rockdog.other.FieldError
+import el.ka.rockdog.other.Work
 import el.ka.rockdog.service.model.ErrorApp
 import el.ka.rockdog.view.ui.BaseFragment
 import el.ka.rockdog.viewModel.auth.LogInViewModel
@@ -36,6 +37,10 @@ class LogInFragment : BaseFragment() {
     }
   }
 
+  private val workObserver = Observer<List<Work>> {
+    if (it.isEmpty()) hideLoadingDialog() else showLoadingDialog()
+  }
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -58,13 +63,16 @@ class LogInFragment : BaseFragment() {
     viewModel.errors.observe(viewLifecycleOwner, errorsObserver)
     viewModel.error.observe(viewLifecycleOwner, appErrorObserver)
     viewModel.externalAction.observe(viewLifecycleOwner, externalActionObserver)
+    viewModel.work.observe(viewLifecycleOwner, workObserver)
   }
 
   override fun onDestroy() {
     super.onDestroy()
+    viewModel.externalActionNullable()
     viewModel.errors.removeObserver(errorsObserver)
     viewModel.error.removeObserver(appErrorObserver)
     viewModel.externalAction.removeObserver(externalActionObserver)
+    viewModel.work.removeObserver(workObserver)
   }
 
   fun forgetPassword() {

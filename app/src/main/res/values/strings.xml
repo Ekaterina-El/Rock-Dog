@@ -36,4 +36,5 @@
   <string name="error_dialog_title">Oops...</string>
   <string name="ok">OK</string>
   <string name="invalidCredentials">Invalide credentials</string>
+  <string name="no_verified_email">The email is not confirmed! An email with information has been sent to your email account (the email may be in your spam folder)</string>
 </resources>

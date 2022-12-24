@@ -64,4 +64,8 @@ class LogInViewModel(application: Application) : BaseViewModel(application) {
     }
     return if (errorType != null) FieldError(Field.PASSWORD, errorType) else null
   }
+
+  fun externalActionNullable() {
+    _externalAction.value = null
+  }
 }

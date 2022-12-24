@@ -27,7 +27,12 @@ object AuthRepository {
 
   suspend fun logIn(email: String, password: String): ErrorApp? {
     return try {
-      auth.signInWithEmailAndPassword(email, password).await()
+      val user = auth.signInWithEmailAndPassword(email, password).await().user!!
+      val isVerified = user.isEmailVerified
+      if (!isVerified) {
+        user.sendEmailVerification()
+        return Errors.noVerifiedEmail
+      }
       null
     }
     catch (e: FirebaseAuthInvalidCredentialsException) {
