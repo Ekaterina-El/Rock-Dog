@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import el.ka.rockdog.R
 import el.ka.rockdog.databinding.AccountFragmentBinding
 import el.ka.rockdog.other.Action
 import el.ka.rockdog.other.Work
@@ -61,5 +62,19 @@ class AccountFragment: BaseFragment() {
 
   fun logout() {
     viewModel.logout()
+  }
+
+  private val navController by lazy { findNavController() }
+
+  fun goSettings() {
+    navController.navigate(R.id.action_accountFragment_to_settingsFragment)
+  }
+
+  fun goAbout() {
+    navController.navigate(R.id.action_accountFragment_to_aboutFragment)
+  }
+
+  fun goArtist() {
+    navController.navigate(R.id.action_accountFragment_to_artisProfileFragment)
   }
 }

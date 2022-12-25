@@ -93,6 +93,7 @@
 
         <androidx.cardview.widget.CardView
           style="@style/cardClickable"
+          android:onClick="@{() -> master.goArtist()}"
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
 
@@ -122,6 +123,7 @@
 
         <androidx.cardview.widget.CardView
           style="@style/cardClickable"
+          android:onClick="@{() -> master.goSettings()}"
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
 
@@ -151,6 +153,7 @@
 
         <androidx.cardview.widget.CardView
           style="@style/cardClickable"
+          android:onClick="@{() -> master.goAbout()}"
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
 

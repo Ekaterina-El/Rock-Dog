@@ -29,7 +29,17 @@
   <fragment
     android:id="@+id/accountFragment"
     android:name="el.ka.rockdog.view.ui.profile.AccountFragment"
-    android:label="AccountFragment" />
+    android:label="AccountFragment" >
+    <action
+      android:id="@+id/action_accountFragment_to_settingsFragment"
+      app:destination="@id/settingsFragment" />
+    <action
+      android:id="@+id/action_accountFragment_to_artisProfileFragment"
+      app:destination="@id/artisProfileFragment" />
+    <action
+      android:id="@+id/action_accountFragment_to_aboutFragment"
+      app:destination="@id/aboutFragment" />
+  </fragment>
   <fragment
     android:id="@+id/welcomeFragment"
     android:name="el.ka.rockdog.view.ui.WelcomeFragment"
@@ -72,4 +82,16 @@
       android:id="@+id/action_splashFragment_to_welcomeFragment"
       app:destination="@id/welcomeFragment" />
   </fragment>
+  <fragment
+    android:id="@+id/settingsFragment"
+    android:name="el.ka.rockdog.view.ui.profile.SettingsFragment"
+    android:label="SettingsFragment" />
+  <fragment
+    android:id="@+id/artisProfileFragment"
+    android:name="el.ka.rockdog.view.ui.profile.ArtisProfileFragment"
+    android:label="ArtisProfileFragment" />
+  <fragment
+    android:id="@+id/aboutFragment"
+    android:name="el.ka.rockdog.view.ui.profile.AboutFragment"
+    android:label="AboutFragment" />
 </navigation>
