@@ -28,7 +28,7 @@
     android:label="PlayerFragment" />
   <fragment
     android:id="@+id/accountFragment"
-    android:name="el.ka.rockdog.view.ui.AccountFragment"
+    android:name="el.ka.rockdog.view.ui.profile.AccountFragment"
     android:label="AccountFragment" />
   <fragment
     android:id="@+id/welcomeFragment"

@@ -4,5 +4,6 @@ enum class Work {
   SIGN_UP,
   CHECK_FIELDS,
   SIGN_UP_PROCESS,
-  LOG_IN
+  LOG_IN,
+  LOAD_PROFILE
 }
