@@ -1,15 +1,18 @@
 package el.ka.rockdog.view.ui
 
+import android.annotation.SuppressLint
 import android.app.Dialog
-import android.widget.Toast
+import android.content.Intent
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import el.ka.rockdog.MainActivity
 import el.ka.rockdog.R
 import el.ka.rockdog.service.model.ErrorApp
 import el.ka.rockdog.view.ui.dialog.ErrorDialog
 
-open class BaseFragment: Fragment() {
+
+open class BaseFragment : Fragment() {
   private fun getLoadingDialog(): Dialog {
     val activity = requireActivity() as MainActivity
     if (activity.loadingDialog == null) createLoadingDialog()
@@ -45,5 +48,13 @@ open class BaseFragment: Fragment() {
   fun showErrorDialog(error: ErrorApp) {
     val message = getString(error.messageRes)
     errorDialog.openConfirmDialog(message)
+  }
+
+  fun restartApp() {
+    val i = requireContext().packageManager.getLaunchIntentForPackage(requireContext().packageName)
+      ?: return
+    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    startActivity(i)
+    ActivityCompat.finishAfterTransition(requireActivity())
   }
 }

@@ -8,6 +8,9 @@ import el.ka.rockdog.other.Action
 import el.ka.rockdog.other.Work
 
 open class BaseViewModel(application: Application) : AndroidViewModel(application) {
+  protected val _externalAction = MutableLiveData<Action?>(null)
+  val externalAction: LiveData<Action?> = _externalAction
+
   private val workStack = MutableLiveData<List<Work>>(listOf())
   val work: LiveData<List<Work>> get() = workStack
 

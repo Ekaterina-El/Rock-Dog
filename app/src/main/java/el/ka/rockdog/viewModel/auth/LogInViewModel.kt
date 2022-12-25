@@ -21,9 +21,6 @@ class LogInViewModel(application: Application) : BaseViewModel(application) {
   private val _error = MutableLiveData<ErrorApp?>(null)
   val error: LiveData<ErrorApp?> = _error
 
-  private val _externalAction = MutableLiveData<Action?>(null)
-  val externalAction: LiveData<Action?> = _externalAction
-
   fun login() {
     addWork(Work.LOG_IN)
     viewModelScope.launch {

@@ -1,5 +1,5 @@
 package el.ka.rockdog.other
 
 enum class Action {
-  ADD, REMOVE, GO_NEXT
+  ADD, REMOVE, GO_NEXT, RESTART
 }

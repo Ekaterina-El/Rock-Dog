@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import el.ka.rockdog.databinding.AccountFragmentBinding
+import el.ka.rockdog.other.Action
 import el.ka.rockdog.other.Work
 import el.ka.rockdog.service.model.User
 import el.ka.rockdog.view.ui.BaseFragment
@@ -20,6 +21,10 @@ class AccountFragment: BaseFragment() {
 
   private val workObserver = Observer<List<Work>> {
     if (it.isEmpty()) hideLoadingDialog() else showLoadingDialog()
+  }
+
+  private val externalActionObserver = Observer<Action?> {
+    if (it == Action.RESTART) restartApp()
   }
 
   override fun onCreateView(
@@ -45,10 +50,16 @@ class AccountFragment: BaseFragment() {
   override fun onResume() {
     super.onResume()
     viewModel.work.observe(viewLifecycleOwner, workObserver)
+    viewModel.externalAction.observe(viewLifecycleOwner, externalActionObserver)
   }
 
   override fun onStop() {
     super.onStop()
     viewModel.work.removeObserver(workObserver)
+    viewModel.externalAction.removeObserver(externalActionObserver)
+  }
+
+  fun logout() {
+    viewModel.logout()
   }
 }

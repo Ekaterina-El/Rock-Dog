@@ -50,5 +50,9 @@ object AuthRepository {
     auth.sendPasswordResetEmail(email)
   }
 
+  fun logout() {
+    auth.signOut()
+  }
+
   val currentUid: String? get() = auth.uid
 }

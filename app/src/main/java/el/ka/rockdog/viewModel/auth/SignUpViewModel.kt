@@ -16,9 +16,6 @@ class SignUpViewModel(application: Application): BaseViewModel(application) {
   private val _error = MutableLiveData<ErrorApp?>(null)
   val error: LiveData<ErrorApp?> = _error
 
-  private val _externalAction = MutableLiveData<Action?>(null)
-  val externalAction: LiveData<Action?> = _externalAction
-
   val email = MutableLiveData("")
   val userName = MutableLiveData("")
   val password = MutableLiveData("")
