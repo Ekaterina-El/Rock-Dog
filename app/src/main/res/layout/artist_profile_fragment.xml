@@ -39,10 +39,19 @@
         style="@style/text.header1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
         android:layout_weight="1"
         android:gravity="center"
         android:text="@string/artists_profile" />
+
+      <ImageView
+        android:layout_width="40dp"
+        android:clickable="true"
+        android:layout_height="40dp"
+        android:onClick="@{() -> master.showDialogToRequestToRegistrationArtist()}"
+        android:contentDescription="@string/create_request_to_registration_artist"
+        android:padding="6dp"
+        android:src="@drawable/ic_add"
+        app:tint="@color/second_color" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

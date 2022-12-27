@@ -27,7 +27,8 @@
         android:contentDescription="@null"
         android:scaleType="centerCrop"
         android:src="@drawable/example"
-        app:imageUrl="@{viewModel.profile.profileUrl}" />
+        />
+<!--  app:imageUrl="@{viewModel.profile.profileUrl}"   -->
     </androidx.cardview.widget.CardView>
 
     <TextView

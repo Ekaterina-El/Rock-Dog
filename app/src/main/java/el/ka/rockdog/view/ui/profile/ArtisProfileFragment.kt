@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import el.ka.rockdog.databinding.ArtistProfileFragmentBinding
 import el.ka.rockdog.view.ui.BaseFragment
+import el.ka.rockdog.view.ui.dialog.ArtistRegistrationRequestDialog
 
 class ArtisProfileFragment : BaseFragment() {
   private lateinit var binding: ArtistProfileFragmentBinding
@@ -26,5 +27,10 @@ class ArtisProfileFragment : BaseFragment() {
 
   fun goBack() {
     findNavController().popBackStack()
+  }
+
+  private val artistRequestDialog by lazy { ArtistRegistrationRequestDialog(requireContext()) }
+  fun showDialogToRequestToRegistrationArtist() {
+    artistRequestDialog.open()
   }
 }
