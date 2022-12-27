@@ -10,7 +10,7 @@
   <string name="settings">Settings</string>
   <string name="about">About</string>
   <string name="exit">Exit</string>
-  <string name="artist_profile">Artist profile</string>
+  <string name="artists_profile">Artists profile</string>
   <string name="total_songs">Total songs: %1$d</string>
   <string name="tracks">Tracks: %1$d</string>
   <string name="two_artists">%1$s &amp;&amp; %2$s></string>

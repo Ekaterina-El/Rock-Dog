@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
 
   <data>
+
     <variable
       name="master"
       type="el.ka.rockdog.view.ui.profile.ArtisProfileFragment" />
@@ -28,8 +30,8 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:clickable="true"
-        android:onClick="@{() -> master.goBack()}"
         android:contentDescription="@string/go_back"
+        android:onClick="@{() -> master.goBack()}"
         android:padding="7dp"
         android:src="@drawable/ic_back" />
 
@@ -40,8 +42,19 @@
         android:layout_marginEnd="40dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="@string/artist_profile" />
+        android:text="@string/artists_profile" />
     </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:layout_width="match_parent"
+      android:layout_marginHorizontal="@dimen/app_padding"
+      android:layout_height="0dp"
+      android:overScrollMode="never"
+      tools:listitem="@layout/artist_item"
+      android:layout_marginTop="15dp"
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/layoutHeader" />
 
 
   </androidx.constraintlayout.widget.ConstraintLayout>

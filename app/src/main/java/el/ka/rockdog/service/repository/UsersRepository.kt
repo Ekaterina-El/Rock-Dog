@@ -49,7 +49,6 @@ object UsersRepository {
     }
   }
 
-  //  "userId_time.jpg"
   suspend fun changeProfileCurrentUser(uri: Uri, onLoad: (String) -> Unit): ErrorApp? {
     return try {
       val time = Calendar.getInstance().time
