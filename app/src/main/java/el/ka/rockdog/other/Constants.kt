@@ -6,5 +6,6 @@ object Constants {
   const val SONGS_COLLECTION = "songs"
 
   const val USER_NAME_FIELD = "name"
+  const val PROFILE_URL_FIELD  = "profileUrl"
   const val EMAIL_FIELD = "email"
 }

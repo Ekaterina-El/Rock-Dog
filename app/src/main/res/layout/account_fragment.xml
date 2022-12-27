@@ -66,6 +66,7 @@
         app:cardElevation="20dp">
 
         <ImageView
+          android:onClick="@{() -> master.changeProfileImage()}"
           app:imageUrl="@{viewModel.profile.profileUrl}"
           android:layout_width="match_parent"
           android:layout_height="match_parent"

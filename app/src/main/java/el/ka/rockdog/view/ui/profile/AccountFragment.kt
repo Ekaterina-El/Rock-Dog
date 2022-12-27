@@ -1,22 +1,29 @@
 package el.ka.rockdog.view.ui.profile
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageContractOptions
+import com.canhub.cropper.CropImageOptions
+import com.canhub.cropper.CropImageView
 import el.ka.rockdog.R
 import el.ka.rockdog.databinding.AccountFragmentBinding
 import el.ka.rockdog.other.Action
 import el.ka.rockdog.other.Work
-import el.ka.rockdog.service.model.User
 import el.ka.rockdog.view.ui.BaseFragment
 import el.ka.rockdog.viewModel.ProfileViewModel
 
-class AccountFragment: BaseFragment() {
+class AccountFragment : BaseFragment() {
   private lateinit var binding: AccountFragmentBinding
   private val viewModel: ProfileViewModel by activityViewModels()
 
@@ -77,4 +84,36 @@ class AccountFragment: BaseFragment() {
   fun goArtist() {
     navController.navigate(R.id.action_accountFragment_to_artisProfileFragment)
   }
+
+  // region Change profile image
+  fun changeProfileImage() {
+    val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+    imagePickerLauncher.launch(intent)
+  }
+
+  private val profileCropImageOptions by lazy {
+    CropImageOptions(
+      guidelines = CropImageView.Guidelines.ON,
+      aspectRatioY = 1,
+      aspectRatioX = 1,
+      fixAspectRatio = true
+    )
+  }
+
+  private val imagePickerLauncher =
+    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+      if (result.resultCode == Activity.RESULT_OK) {
+        val uri: Uri? = result.data?.data
+        cropImageLauncher.launch(CropImageContractOptions(uri, profileCropImageOptions))
+      }
+    }
+
+  private val cropImageLauncher =
+    registerForActivityResult(CropImageContract()) { result ->
+      if (!result.isSuccessful || result.uriContent == null) return@registerForActivityResult
+
+      val uri = result.uriContent!!
+      viewModel.updateProfile(uri)
+    }
+  // endregion
 }

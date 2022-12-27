@@ -6,6 +6,7 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import el.ka.rockdog.other.Constants
 import kotlinx.coroutines.tasks.await
 
@@ -19,6 +20,10 @@ object FirebaseService {
       null
     }
   }
+
+  private const val PROFILE_PHOTOS_COLLECTION = "profilePhotos/"
+
+  val profilePhotosStore by lazy { Firebase.storage.reference.child(PROFILE_PHOTOS_COLLECTION) }
   val albumsCollection by lazy { Firebase.firestore.collection(Constants.ALBUMS_COLLECTION) }
   val songsCollection by lazy { Firebase.firestore.collection(Constants.ALBUMS_COLLECTION) }
   val usersCollection by lazy { Firebase.firestore.collection(Constants.USERS_COLLECTION) }
