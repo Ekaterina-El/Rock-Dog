@@ -77,24 +77,28 @@
     <item name="android:textSize">12sp</item>
   </style>
 
-  <style name="text.hint">
+  <style name="text.hint" parent="text">
     <item name="android:textColor">@color/grey</item>
   </style>
 
-  <style name="text.header1">
+  <style name="text.header1" parent="text">
     <item name="android:textSize">18sp</item>
   </style>
 
-  <style name="text.big">
+  <style name="text.big" parent="text">
     <item name="android:textSize">34sp</item>
   </style>
 
-  <style name="text.header2">
+  <style name="text.header2" parent="text">
     <item name="android:textSize">16sp</item>
   </style>
 
-  <style name="text.header3">
+  <style name="text.header3" parent="text">
     <item name="android:textSize">15sp</item>
+  </style>
+
+  <style name="text.error" parent="text">
+    <item name="android:textColor">@color/accent_color</item>
   </style>
 
   <style name="icon">
