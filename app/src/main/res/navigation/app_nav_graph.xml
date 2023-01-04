@@ -100,5 +100,13 @@
   <fragment
     android:id="@+id/adminPanelFragment"
     android:name="el.ka.rockdog.view.ui.profile.adminPanel.AdminPanelFragment"
-    android:label="AdminPanelFragment" />
+    android:label="AdminPanelFragment" >
+    <action
+      android:id="@+id/action_adminPanelFragment_to_requestsToRegistrationArtists"
+      app:destination="@id/requestsToRegistrationArtists" />
+  </fragment>
+  <fragment
+    android:id="@+id/requestsToRegistrationArtists"
+    android:name="el.ka.rockdog.view.ui.profile.adminPanel.RequestsToRegistrationArtists"
+    android:label="RequestsToRegistrationArtists" />
 </navigation>

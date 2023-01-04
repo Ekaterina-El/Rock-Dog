@@ -105,6 +105,10 @@
     <item name="android:textSize">15sp</item>
   </style>
 
+  <style name="text.header3.bold" parent="text.bold">
+    <item name="android:textSize">15sp</item>
+  </style>
+
   <style name="text.error" parent="text">
     <item name="android:textColor">@color/accent_color</item>
   </style>
