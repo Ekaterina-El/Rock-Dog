@@ -51,10 +51,6 @@ class AccountFragment : BaseFragment() {
     return binding.root
   }
 
-  fun goBack() {
-    findNavController().popBackStack()
-  }
-
   override fun onResume() {
     super.onResume()
     viewModel.work.observe(viewLifecycleOwner, workObserver)
@@ -83,6 +79,10 @@ class AccountFragment : BaseFragment() {
 
   fun goArtist() {
     navController.navigate(R.id.action_accountFragment_to_artisProfileFragment)
+  }
+
+  fun goAdminPanel() {
+    navController.navigate(R.id.action_accountFragment_to_adminPanelFragment)
   }
 
   // region Change profile image

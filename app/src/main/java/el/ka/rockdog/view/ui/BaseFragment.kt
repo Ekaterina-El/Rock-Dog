@@ -6,6 +6,7 @@ import android.content.Intent
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import el.ka.rockdog.MainActivity
 import el.ka.rockdog.R
 import el.ka.rockdog.service.model.ErrorApp
@@ -56,5 +57,9 @@ open class BaseFragment : Fragment() {
     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
     startActivity(i)
     ActivityCompat.finishAfterTransition(requireActivity())
+  }
+
+  fun goBack() {
+    findNavController().popBackStack()
   }
 }

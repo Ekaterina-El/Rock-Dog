@@ -17,7 +17,7 @@
     <item name="android:windowIsFloating">false</item>
     <item name="android:windowBackground">@color/text_on_primary</item>
 
-<!--    <item name="android:windowFullscreen">true</item>-->
+    <!--    <item name="android:windowFullscreen">true</item>-->
     <item name="android:textViewStyle">@style/text</item>
     <item name="android:autofilledHighlight">@android:color/transparent</item>
 
@@ -60,6 +60,10 @@
     <item name="android:fontFamily">@font/montserrat_regular</item>
   </style>
 
+  <style name="text.bold" parent="text">
+    <item name="android:fontFamily">@font/montserrat_medium</item>
+  </style>
+
 
   <style name="text.clickable" parent="text">
     <item name="android:textColor">@color/accent_color</item>
@@ -90,6 +94,10 @@
   </style>
 
   <style name="text.header2" parent="text">
+    <item name="android:textSize">16sp</item>
+  </style>
+
+  <style name="text.header2.bold" parent="text.bold">
     <item name="android:textSize">16sp</item>
   </style>
 

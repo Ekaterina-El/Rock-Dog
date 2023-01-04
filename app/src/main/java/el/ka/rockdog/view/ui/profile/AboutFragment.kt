@@ -25,7 +25,4 @@ class AboutFragment : BaseFragment() {
     return binding.root
   }
 
-  fun goBack() {
-    findNavController().popBackStack()
-  }
 }

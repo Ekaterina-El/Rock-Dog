@@ -11,7 +11,6 @@ import el.ka.rockdog.view.ui.BaseFragment
 class SettingsFragment : BaseFragment() {
   private lateinit var binding: SettingsFragmentBinding
 
-
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -25,7 +24,4 @@ class SettingsFragment : BaseFragment() {
     return binding.root
   }
 
-  fun goBack() {
-    findNavController().popBackStack()
-  }
 }

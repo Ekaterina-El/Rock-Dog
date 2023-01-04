@@ -75,10 +75,6 @@ class ArtisProfileFragment : BaseFragment() {
     artistViewModel.externalAction.removeObserver(externalActionObserver)
   }
 
-  fun goBack() {
-    findNavController().popBackStack()
-  }
-
   private val artistRequestDialog by lazy { ArtistRegistrationRequestDialog(requireContext()) }
   fun showDialogToRequestToRegistrationArtist() {
     artistRequestDialog.open {

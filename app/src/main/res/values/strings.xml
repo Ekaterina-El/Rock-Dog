@@ -71,4 +71,11 @@
   <string name="save">Save</string>
   <string name="request_to_registration_artist">Request to registration artist</string>
   <string name="after_send_request_to_registration_artis">Your artist registration request has been sent. The service administrator will review your request.</string>
+  <string name="admin_panel">Admin panel</string>
+  <string name="add_admin">Add admin</string>
+  <string name="administrators">Administrators</string>
+  <string name="users">Users</string>
+  <string name="requests_to_registration_artist">Requests to registration artist</string>
+  <string name="welcome_text">Hi, %1$s</string>
+  <string name="your_admin_level">You are a level %1$d administrator</string>
 </resources>
