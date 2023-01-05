@@ -1,4 +1,4 @@
-package el.ka.rockdog.view.ui.dialog
+package el.ka.rockdog.view.dialog
 
 import android.app.Dialog
 import android.content.Context

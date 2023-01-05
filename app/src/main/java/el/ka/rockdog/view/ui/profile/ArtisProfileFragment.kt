@@ -15,16 +15,12 @@ import el.ka.rockdog.other.FieldError
 import el.ka.rockdog.other.Work
 import el.ka.rockdog.service.model.ErrorApp
 import el.ka.rockdog.view.ui.BaseFragment
-import el.ka.rockdog.view.ui.dialog.ArtistRegistrationRequestDialog
+import el.ka.rockdog.view.dialog.ArtistRegistrationRequestDialog
 import el.ka.rockdog.viewModel.ArtistsViewModel
 
 class ArtisProfileFragment : BaseFragment() {
   private lateinit var binding: ArtistProfileFragmentBinding
   private lateinit var artistViewModel: ArtistsViewModel
-
-  private val workObserver = Observer<List<Work>> {
-    if (it.isEmpty()) hideLoadingDialog() else showLoadingDialog()
-  }
 
   private val addArtistErrorsObserver = Observer<List<FieldError>> {
     if (it.isEmpty()) artistRequestDialog.close() else artistRequestDialog.showWithErrors(it)

@@ -27,10 +27,6 @@ class AccountFragment : BaseFragment() {
   private lateinit var binding: AccountFragmentBinding
   private val viewModel: ProfileViewModel by activityViewModels()
 
-  private val workObserver = Observer<List<Work>> {
-    if (it.isEmpty()) hideLoadingDialog() else showLoadingDialog()
-  }
-
   private val externalActionObserver = Observer<Action?> {
     if (it == Action.RESTART) restartApp()
   }

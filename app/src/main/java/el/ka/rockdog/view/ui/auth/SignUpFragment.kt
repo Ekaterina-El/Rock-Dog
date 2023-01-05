@@ -25,19 +25,10 @@ class SignUpFragment: BaseFragment() {
     showErrors(it)
   }
 
-  private val workObserver = Observer<List<Work>> {
-    if (it.isNotEmpty()) showLoadingDialog() else hideLoadingDialog()
-  }
-
   private val externalActionObserver = Observer<Action?> {
     if (it == Action.GO_NEXT) {
       findNavController().navigate(R.id.action_singUpFragment_to_logInFragment)
     }
-  }
-
-
-  private val errorObserver = Observer<ErrorApp?> {
-    if (it != null) showErrorDialog(it)
   }
 
   override fun onCreateView(

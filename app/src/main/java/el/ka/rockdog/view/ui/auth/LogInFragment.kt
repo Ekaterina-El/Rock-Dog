@@ -15,7 +15,7 @@ import el.ka.rockdog.other.FieldError
 import el.ka.rockdog.other.Work
 import el.ka.rockdog.service.model.ErrorApp
 import el.ka.rockdog.view.ui.BaseFragment
-import el.ka.rockdog.view.ui.dialog.ResetPasswordDialog
+import el.ka.rockdog.view.dialog.ResetPasswordDialog
 import el.ka.rockdog.viewModel.auth.LogInViewModel
 
 class LogInFragment : BaseFragment() {
@@ -36,10 +36,6 @@ class LogInFragment : BaseFragment() {
     if (it == Action.GO_NEXT) {
       navController.navigate(R.id.action_logInFragment_to_songsFragment)
     }
-  }
-
-  private val workObserver = Observer<List<Work>> {
-    if (it.isEmpty()) hideLoadingDialog() else showLoadingDialog()
   }
 
   override fun onCreateView(

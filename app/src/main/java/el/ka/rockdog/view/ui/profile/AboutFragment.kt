@@ -11,7 +11,6 @@ import el.ka.rockdog.view.ui.BaseFragment
 class AboutFragment : BaseFragment() {
   private lateinit var binding: AboutFragmentBinding
 
-
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,

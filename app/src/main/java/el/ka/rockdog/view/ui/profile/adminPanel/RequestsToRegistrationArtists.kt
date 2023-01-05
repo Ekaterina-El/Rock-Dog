@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import el.ka.rockdog.databinding.RequestsToRegistrationArtistsFragmentBinding
+import el.ka.rockdog.other.Work
 import el.ka.rockdog.view.ui.BaseFragment
 import el.ka.rockdog.viewModel.RequestsToRegistrationArtistsViewModel
 
 class RequestsToRegistrationArtists : BaseFragment() {
-
-  //  private val profileViewModel by activityViewModels<ProfileViewModel>()
   private val requestsViewModel by lazy {
     ViewModelProvider(this)[RequestsToRegistrationArtistsViewModel:: class.java]
   }
@@ -32,11 +32,23 @@ class RequestsToRegistrationArtists : BaseFragment() {
     super.onViewCreated(view, savedInstanceState)
     requestsViewModel.loadRequests()
   }
+
+  override fun onResume() {
+    super.onResume()
+    requestsViewModel.work.observe(viewLifecycleOwner, workObserver)
+    requestsViewModel.error.observe(viewLifecycleOwner, errorObserver)
+  }
+
+  override fun onStop() {
+    super.onStop()
+    requestsViewModel.work.removeObserver(workObserver)
+    requestsViewModel.error.removeObserver(errorObserver)
+  }
 }
 
 /*
 // Загрузить данные о завяках с сервара +
-// Отображение индикации о загрузке
+// Отображение индикации о загрузке +
 // Вывод заявок на экран
 // Если заявок нет то выводить соответсвующее сообщение
 // Открытие завяки
