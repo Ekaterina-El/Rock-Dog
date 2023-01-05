@@ -29,6 +29,7 @@ class RequestsToRegistrationArtists : BaseFragment() {
     binding.apply {
       lifecycleOwner = viewLifecycleOwner
       master = this@RequestsToRegistrationArtists
+      viewModel = this@RequestsToRegistrationArtists.requestsViewModel
       requestsAdapter = requestToRegistrationArtistAdapter
     }
   }
@@ -63,7 +64,7 @@ class RequestsToRegistrationArtists : BaseFragment() {
 /*
 // Загрузить данные о завяках с сервара +
 // Отображение индикации о загрузке +
-// Вывод заявок на экран
+// Вывод заявок на экран +
 // Если заявок нет то выводить соответсвующее сообщение
 // Открытие завяки
 // Загрузка дополнительных данных о авторе завяки

@@ -4,10 +4,16 @@
   xmlns:tools="http://schemas.android.com/tools">
 
   <data>
+    <import type="android.view.View" />
+
     <variable
       name="requestsAdapter"
       type="el.ka.rockdog.view.adapter.requestToRegistrationArtist.RequestToRegistrationArtistAdapter" />
-    
+
+    <variable
+      name="viewModel"
+      type="el.ka.rockdog.viewModel.RequestsToRegistrationArtistsViewModel" />
+
     <variable
       name="master"
       type="el.ka.rockdog.view.ui.profile.adminPanel.RequestsToRegistrationArtists" />
@@ -49,6 +55,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+      android:visibility="@{viewModel.requests.size() > 0 ? View.VISIBLE : View.INVISIBLE}"
       android:id="@+id/recyclerViewRequests"
       android:layout_width="match_parent"
       android:adapter="@{requestsAdapter}"
@@ -56,10 +63,29 @@
       android:layout_marginTop="10dp"
       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
       tools:listitem="@layout/request_to_registration_artist"
-      android:layout_marginHorizontal="@dimen/app_padding"
       app:layout_constraintTop_toBottomOf="@id/layoutHeader"
       app:layout_constraintBottom_toBottomOf="parent" />
 
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toBottomOf="@id/layoutHeader"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      android:visibility="@{viewModel.requests.size() == 0 ? View.VISIBLE : View.INVISIBLE}"
+      android:gravity="center_horizontal"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:orientation="vertical">
 
+      <ImageView
+        android:layout_width="80dp"
+        android:layout_marginBottom="15dp"
+        android:layout_height="70dp"
+        android:src="@drawable/error" />
+
+      <TextView
+        style="@style/text.header3"
+        android:text="@string/no_requests_were_found" />
+    </LinearLayout>
   </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
