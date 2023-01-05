@@ -10,7 +10,7 @@ import el.ka.rockdog.databinding.RequestToRegistrationArtistBinding
 import el.ka.rockdog.other.MusicGenre
 import el.ka.rockdog.service.model.RequestToRegistrationArtist
 
-class RequestToRegistrationArtistViewHolder(private val binding: RequestToRegistrationArtistBinding) :
+class RequestToRegistrationArtistViewHolder(val binding: RequestToRegistrationArtistBinding) :
   RecyclerView.ViewHolder(binding.root) {
   fun bind(request: RequestToRegistrationArtist) {
     binding.request = request

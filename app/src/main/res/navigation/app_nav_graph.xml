@@ -108,5 +108,17 @@
   <fragment
     android:id="@+id/requestsToRegistrationArtists"
     android:name="el.ka.rockdog.view.ui.profile.adminPanel.RequestsToRegistrationArtists"
-    android:label="RequestsToRegistrationArtists" />
+    android:label="RequestsToRegistrationArtists" >
+    <action
+      android:id="@+id/action_requestsToRegistrationArtists_to_requestToRegistrationArtistFragment"
+      app:destination="@id/requestToRegistrationArtistFragment" />
+  </fragment>
+  <fragment
+    android:id="@+id/requestToRegistrationArtistFragment"
+    android:name="el.ka.rockdog.view.ui.profile.adminPanel.RequestToRegistrationArtistFragment"
+    android:label="RequestToRegistrationArtistFragment" >
+    <argument
+      android:name="request"
+      app:argType="el.ka.rockdog.service.model.RequestToRegistrationArtist" />
+  </fragment>
 </navigation>

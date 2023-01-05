@@ -6,9 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import el.ka.rockdog.databinding.RequestToRegistrationArtistBinding
 import el.ka.rockdog.service.model.RequestToRegistrationArtist
 
-class RequestToRegistrationArtistAdapter :
+class RequestToRegistrationArtistAdapter(val listener: ((RequestToRegistrationArtist) -> Unit)? = null) :
   RecyclerView.Adapter<RequestToRegistrationArtistViewHolder>() {
   private val items = mutableListOf<RequestToRegistrationArtist>()
+  fun getItems() = items
 
   override fun onCreateViewHolder(
     parent: ViewGroup,
@@ -25,7 +26,20 @@ class RequestToRegistrationArtistAdapter :
 
   override fun getItemCount() = items.size
 
-  fun addItem(item: RequestToRegistrationArtist) {
+  override fun onViewAttachedToWindow(holder: RequestToRegistrationArtistViewHolder) {
+    super.onViewAttachedToWindow(holder)
+    holder.binding.root.setOnClickListener {
+      val item = items[holder.adapterPosition]
+      listener?.invoke(item)
+    }
+  }
+
+  override fun onViewDetachedFromWindow(holder: RequestToRegistrationArtistViewHolder) {
+    super.onViewDetachedFromWindow(holder)
+    holder.binding.root.setOnClickListener(null)
+  }
+
+  private fun addItem(item: RequestToRegistrationArtist) {
     items.add(item)
     notifyItemInserted(items.size - 1)
   }
@@ -34,7 +48,7 @@ class RequestToRegistrationArtistAdapter :
     val idx = items.indexOf(item)
     if (idx == -1) return
 
-    items.removeAt(idx)
+//    items.removeAt(idx)
     notifyItemRemoved(idx)
   }
 
@@ -45,5 +59,7 @@ class RequestToRegistrationArtistAdapter :
 
   private fun clear() {
     items.forEach { removeItem(it) }
+    items.clear()
   }
+
 }

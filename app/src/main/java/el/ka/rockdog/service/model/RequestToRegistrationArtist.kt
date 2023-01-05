@@ -10,4 +10,4 @@ data class RequestToRegistrationArtist(
   var artistDescription: String = "",
   var genres: List<MusicGenre> = listOf(),
   var createAt: Date? = null
-)
+): java.io.Serializable

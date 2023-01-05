@@ -18,6 +18,7 @@
   <color name="light_gray">#DDDDDD</color>
   <color name="text_on_primary">#ffffff</color>
   <color name="accent_color">#EE4F43</color>
+  <color name="good">#007832</color>
 
   <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">@color/white</color>
   <color name="grey_light">#D8D8D8</color>

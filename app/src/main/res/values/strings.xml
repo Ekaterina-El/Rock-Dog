@@ -80,4 +80,6 @@
   <string name="your_admin_level">You are a level %1$d administrator</string>
   <string name="progressive_rock">Progressive rock</string>
   <string name="no_requests_were_found">No requests were found</string>
+  <string name="deny">Deny</string>
+  <string name="approve">Approve</string>
 </resources>

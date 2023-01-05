@@ -71,6 +71,12 @@
     <item name="android:clickable">true</item>
   </style>
 
+  <style name="text.clickable.good" parent="text.clickable">
+    <item name="android:textColor">@color/good</item>
+    <item name="android:focusable">true</item>
+    <item name="android:clickable">true</item>
+  </style>
+
   <style name="text.contrast" parent="text">
     <item name="android:textColor">@color/on_second_color</item>
     <item name="android:fontFamily">@font/nothing_you_could_do_regular</item>

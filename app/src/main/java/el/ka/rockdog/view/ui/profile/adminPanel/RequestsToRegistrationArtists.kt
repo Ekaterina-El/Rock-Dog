@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import el.ka.rockdog.databinding.RequestsToRegistrationArtistsFragmentBinding
 import el.ka.rockdog.service.model.RequestToRegistrationArtist
@@ -14,29 +15,35 @@ import el.ka.rockdog.view.ui.BaseFragment
 import el.ka.rockdog.viewModel.RequestsToRegistrationArtistsViewModel
 
 class RequestsToRegistrationArtists : BaseFragment() {
-  private val requestToRegistrationArtistAdapter by lazy { RequestToRegistrationArtistAdapter() }
+  private lateinit var requestToRegistrationArtistAdapter: RequestToRegistrationArtistAdapter
+  private lateinit var binding: RequestsToRegistrationArtistsFragmentBinding
+
+  private fun openRequest(request: RequestToRegistrationArtist) {
+    val direction = RequestsToRegistrationArtistsDirections
+      .actionRequestsToRegistrationArtistsToRequestToRegistrationArtistFragment(request)
+    findNavController().navigate(direction)
+  }
 
   private val requestsViewModel by lazy {
     ViewModelProvider(this)[RequestsToRegistrationArtistsViewModel::class.java]
   }
 
   private val requestsObserver = Observer<List<RequestToRegistrationArtist>> {
+    if (it == requestToRegistrationArtistAdapter.getItems()) return@Observer
     requestToRegistrationArtistAdapter.setItems(it)
   }
 
-  private val binding by lazy {
-    val binding = RequestsToRegistrationArtistsFragmentBinding.inflate(layoutInflater)
-    binding.apply {
-      lifecycleOwner = viewLifecycleOwner
-      master = this@RequestsToRegistrationArtists
-      viewModel = this@RequestsToRegistrationArtists.requestsViewModel
-      requestsAdapter = requestToRegistrationArtistAdapter
-    }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    requestToRegistrationArtistAdapter = RequestToRegistrationArtistAdapter { openRequest(it) }
   }
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-  ) = binding.root
+  ): View {
+    binding = RequestsToRegistrationArtistsFragmentBinding.inflate(layoutInflater)
+    return binding.root
+  }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -44,6 +51,13 @@ class RequestsToRegistrationArtists : BaseFragment() {
 
     val decorator = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
     binding.recyclerViewRequests.addItemDecoration(decorator)
+
+    binding.apply {
+      lifecycleOwner = viewLifecycleOwner
+      master = this@RequestsToRegistrationArtists
+      viewModel = this@RequestsToRegistrationArtists.requestsViewModel
+      requestsAdapter = requestToRegistrationArtistAdapter
+    }
   }
 
   override fun onResume() {
@@ -65,9 +79,9 @@ class RequestsToRegistrationArtists : BaseFragment() {
 // Загрузить данные о завяках с сервара +
 // Отображение индикации о загрузке +
 // Вывод заявок на экран +
-// Если заявок нет то выводить соответсвующее сообщение
-// Открытие завяки
-// Загрузка дополнительных данных о авторе завяки
+// Если заявок нет то выводить соответсвующее сообщение +
+// Открытие завяки +
+// Загрузка дополнительных данных о авторе завяки +
 // Принятие решения о создании автора
 // Уведомление пользователя о том, что было принято решение по завяке
 */

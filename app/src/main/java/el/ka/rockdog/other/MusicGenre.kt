@@ -28,3 +28,4 @@ enum class MusicGenre(val stringRes: Int) {
   REGGAE(R.string.reggae),
   LATIN(R.string.latin),
 }
+
