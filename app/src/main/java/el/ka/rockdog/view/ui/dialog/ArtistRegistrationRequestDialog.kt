@@ -57,7 +57,7 @@ class ArtistRegistrationRequestDialog(context: Context) : Dialog(context) {
           .checkedChipIds.map { return@map findViewById<Chip>(it).tag as MusicGenre }
         val createAt = Calendar.getInstance().time
 
-        val request = RequestToRegistrationArtist(uid, name, description, genres, createAt)
+        val request = RequestToRegistrationArtist(id = "", uid, name, description, genres, createAt)
         it(request)
       }
     }
