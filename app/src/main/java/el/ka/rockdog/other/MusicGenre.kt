@@ -5,6 +5,7 @@ import el.ka.rockdog.R
 enum class MusicGenre(val stringRes: Int) {
   ROCK(R.string.rock),
   ALTERNATIVE_ROCK(R.string.alternative_rock),
+  PROGRESSIVE_ROCK(R.string.progressive_rock),
   PUNK_ROCK(R.string.punk_rock),
   POP_ROCK(R.string.pop_rock),
   INDIE_ROCK(R.string.indie_rock),

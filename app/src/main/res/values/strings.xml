@@ -78,4 +78,5 @@
   <string name="requests_to_registration_artist">Requests to registration artist</string>
   <string name="welcome_text">Hi, %1$s</string>
   <string name="your_admin_level">You are a level %1$d administrator</string>
+  <string name="progressive_rock">Progressive rock</string>
 </resources>

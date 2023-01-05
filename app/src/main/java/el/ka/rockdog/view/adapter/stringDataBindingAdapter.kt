@@ -4,6 +4,8 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import el.ka.rockdog.R
 import el.ka.rockdog.service.model.User
+import java.text.SimpleDateFormat
+import java.util.*
 
 @BindingAdapter("app:artists")
 fun showArtists(textView: TextView, artists: List<User>? = null) {
@@ -27,4 +29,11 @@ fun showArtists(textView: TextView, artists: List<User>? = null) {
       }
     }
   }
+}
+
+@BindingAdapter("app:showTime")
+fun showTime(textView: TextView, date: Date) {
+  val sdf = SimpleDateFormat("dd MMMM, HH:mm", Locale.getDefault())
+  val dateString = sdf.format(date)
+  textView.text = dateString
 }

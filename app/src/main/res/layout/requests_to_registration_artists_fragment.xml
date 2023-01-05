@@ -5,6 +5,10 @@
 
   <data>
     <variable
+      name="requestsAdapter"
+      type="el.ka.rockdog.view.adapter.requestToRegistrationArtist.RequestToRegistrationArtistAdapter" />
+    
+    <variable
       name="master"
       type="el.ka.rockdog.view.ui.profile.adminPanel.RequestsToRegistrationArtists" />
   </data>
@@ -45,7 +49,9 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/recyclerViewRequests"
       android:layout_width="match_parent"
+      android:adapter="@{requestsAdapter}"
       android:layout_height="0dp"
       android:layout_marginTop="10dp"
       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

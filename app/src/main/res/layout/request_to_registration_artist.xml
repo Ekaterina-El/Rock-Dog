@@ -4,7 +4,6 @@
   xmlns:tools="http://schemas.android.com/tools">
 
   <data>
-
     <variable
       name="request"
       type="el.ka.rockdog.service.model.RequestToRegistrationArtist" />
@@ -24,12 +23,14 @@
         android:id="@+id/createAt"
         style="@style/text.hint.small"
         app:layout_constraintEnd_toEndOf="parent"
+        app:showTime="@{request.createAt}"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="13 Dec, 15:43" />
 
       <TextView
         android:id="@+id/artistName"
         style="@style/text.header3.bold"
+        android:text="@{request.artistName}"
         android:layout_width="0dp"
         app:layout_constraintEnd_toStartOf="@id/createAt"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,12 +40,14 @@
       <TextView
         android:id="@+id/artistDescription"
         android:layout_marginTop="10dp"
+        android:text="@{request.artistDescription}"
         style="@style/text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/artistName"
         tools:text="AC/DC are an Australian rock band formed in Sydney in 1973 by Scottish-born brothers Malcolm and Angus Young. Their music has been variously described as hard rock, blues rock, and heavy metal, but the band calls it simply rock and roll." />
 
       <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroupGenres"
         app:layout_constraintTop_toBottomOf="@id/artistDescription"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="20dp"

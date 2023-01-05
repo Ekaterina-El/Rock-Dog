@@ -17,7 +17,7 @@ object RequestToRegistrationArtistRepository {
           val request = doc.toObject(RequestToRegistrationArtist::class.java)
           request.id = doc.id
           return@map request
-        }
+        }.sortedBy { it.createAt }
       listener(requests)
     } catch (e: FirebaseNetworkException) {
       return Errors.networkError
