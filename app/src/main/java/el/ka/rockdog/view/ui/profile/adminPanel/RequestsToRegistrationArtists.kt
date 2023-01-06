@@ -8,7 +8,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import el.ka.rockdog.databinding.RequestsToRegistrationArtistsFragmentBinding
+import el.ka.rockdog.other.WrapContentLinearLayoutManager
 import el.ka.rockdog.service.model.RequestToRegistrationArtist
 import el.ka.rockdog.view.adapter.requestToRegistrationArtist.RequestToRegistrationArtistAdapter
 import el.ka.rockdog.view.ui.BaseFragment
@@ -33,15 +35,18 @@ class RequestsToRegistrationArtists : BaseFragment() {
     requestToRegistrationArtistAdapter.setItems(it)
   }
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    requestToRegistrationArtistAdapter = RequestToRegistrationArtistAdapter { openRequest(it) }
-  }
-
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
   ): View {
+    requestToRegistrationArtistAdapter = RequestToRegistrationArtistAdapter { openRequest(it) }
     binding = RequestsToRegistrationArtistsFragmentBinding.inflate(layoutInflater)
+
+    binding.apply {
+      lifecycleOwner = viewLifecycleOwner
+      master = this@RequestsToRegistrationArtists
+      viewModel = this@RequestsToRegistrationArtists.requestsViewModel
+      requestsAdapter = requestToRegistrationArtistAdapter
+    }
     return binding.root
   }
 
@@ -51,13 +56,8 @@ class RequestsToRegistrationArtists : BaseFragment() {
 
     val decorator = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
     binding.recyclerViewRequests.addItemDecoration(decorator)
-
-    binding.apply {
-      lifecycleOwner = viewLifecycleOwner
-      master = this@RequestsToRegistrationArtists
-      viewModel = this@RequestsToRegistrationArtists.requestsViewModel
-      requestsAdapter = requestToRegistrationArtistAdapter
-    }
+    binding.recyclerViewRequests.layoutManager =
+      WrapContentLinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
   }
 
   override fun onResume() {
