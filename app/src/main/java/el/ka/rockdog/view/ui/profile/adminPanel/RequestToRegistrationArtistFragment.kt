@@ -56,11 +56,13 @@ class RequestToRegistrationArtistFragment : BaseFragment() {
     super.onResume()
     viewModel.error.observe(viewLifecycleOwner, errorObserver)
     viewModel.externalAction.observe(viewLifecycleOwner, externalActionObserver)
+    viewModel.work.observe(viewLifecycleOwner, workObserver)
   }
 
   override fun onDestroy() {
     super.onDestroy()
     viewModel.error.removeObserver(errorObserver)
     viewModel.externalAction.removeObserver(externalActionObserver)
+    viewModel.work.removeObserver(workObserver)
   }
 }
