@@ -5,11 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import el.ka.rockdog.other.Action
+import el.ka.rockdog.other.NotificationType
 import el.ka.rockdog.other.Work
-import el.ka.rockdog.service.model.ErrorApp
-import el.ka.rockdog.service.model.Errors
-import el.ka.rockdog.service.model.RequestToRegistrationArtist
-import el.ka.rockdog.service.model.User
+import el.ka.rockdog.service.model.*
+import el.ka.rockdog.service.repository.ArtistsRepository
 import el.ka.rockdog.service.repository.RequestToRegistrationArtistRepository
 import el.ka.rockdog.service.repository.UsersRepository
 import kotlinx.coroutines.launch
@@ -68,35 +67,42 @@ class RequestToRegistrationArtistViewModel(application: Application) :
 
       if (_error.value != null) return@launch
 
-      // Удалить заявку
-      _error.value = RequestToRegistrationArtistRepository.deleteRequest(_request.value!!.id)
-
-      // Вернутся назад
-      if (_error.value == null) {
-        _externalAction.value = Action.GO_BACK
-      }
-
+      deleteRequest()
       removeWork(work)
     }
   }
 
   fun approveRequest() {
-    // Создать артиста
-    // Добавить пользователю id артиста
-    // Добавить уведомление пользовтеля о том, что в одобренно создание артиста
-    // Удалить заявку
-    // Вернутся назад
+    val work = Work.APPROVE_REQUEST
+    addWork(work)
+
+    viewModelScope.launch {
+      val uid = _user.value!!.uid
+
+      // Create artist
+      _error.value = ArtistsRepository.createArtistByRequest(_request.value!!)
+
+      if (_error.value != null) return@launch
+
+      // Add a notification to the user that an artist is approved
+      val notification =
+        getRequestNotification(NotificationType.APPROVED_REQUEST_TO_REGISTRATION_ARTIST)
+      _error.value = UsersRepository.notifyUser(uid, notification)
+
+      if (_error.value != null) return@launch
+
+      deleteRequest()
+      removeWork(work)
+    }
   }
-}
 
-data class Notification(
-  var uid: String = "",
-  var createdAt: Date = Calendar.getInstance().time,
-  var notificationType: NotificationType? = null,
-  var params: List<Any> = listOf()
-)
+  private suspend fun deleteRequest() {
+    // Delete request
+    _error.value = RequestToRegistrationArtistRepository.deleteRequest(_request.value!!.id)
 
-enum class NotificationType {
-  DENIED_REQUEST_TO_REGISTRATION_ARTIST,
-  APPROVED_REQUEST_TO_REGISTRATION_ARTIST,
+    // Go back
+    if (_error.value == null) {
+      _externalAction.value = Action.GO_BACK
+    }
+  }
 }

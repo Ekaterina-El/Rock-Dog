@@ -2,14 +2,15 @@ package el.ka.rockdog.service.repository
 
 import android.net.Uri
 import com.google.firebase.firestore.FieldValue
+import el.ka.rockdog.other.Constants.ARTIST_IDS_FIELD
 import el.ka.rockdog.other.Constants.EMAIL_FIELD
 import el.ka.rockdog.other.Constants.NOTIFICATIONS_IDS_FIELD
 import el.ka.rockdog.other.Constants.PROFILE_URL_FIELD
 import el.ka.rockdog.other.Constants.USER_NAME_FIELD
 import el.ka.rockdog.service.model.ErrorApp
 import el.ka.rockdog.service.model.Errors
+import el.ka.rockdog.service.model.Notification
 import el.ka.rockdog.service.model.User
-import el.ka.rockdog.viewModel.Notification
 import kotlinx.coroutines.tasks.await
 import java.util.*
 
@@ -82,5 +83,13 @@ object UsersRepository {
       Errors.unknownError
     }
 
+  }
+
+  suspend fun addArtistId(uid: String, artisId: String): ErrorApp? = try {
+    FirebaseService.usersCollection.document(uid)
+      .update(ARTIST_IDS_FIELD, FieldValue.arrayUnion(artisId)).await()
+    null
+  } catch (e: Exception) {
+    Errors.unknownError
   }
 }

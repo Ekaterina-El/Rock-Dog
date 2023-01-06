@@ -1,6 +1,7 @@
 package el.ka.rockdog.service.repository
 
 import el.ka.rockdog.other.Constants
+import el.ka.rockdog.service.model.Artist
 import el.ka.rockdog.service.model.ErrorApp
 import el.ka.rockdog.service.model.Errors
 import el.ka.rockdog.service.model.RequestToRegistrationArtist
@@ -29,5 +30,21 @@ object ArtistsRepository {
     }
 
     return null
+  }
+
+  suspend fun createArtistByRequest(request: RequestToRegistrationArtist): ErrorApp? {
+    return try {
+      val artists = Artist(
+        uid = request.uid,
+        artistName = request.artistName,
+        artistDescription = request.artistDescription,
+        genres = request.genres
+      )
+
+      val artisId = FirebaseService.artistsCollection.add(artists).await().id
+      UsersRepository.addArtistId(request.uid, artisId)   // Add artist id to user document
+    } catch (e: Exception) {
+      Errors.unknownError
+    }
   }
 }

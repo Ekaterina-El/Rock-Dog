@@ -2,7 +2,7 @@ package el.ka.rockdog.service.repository
 
 import el.ka.rockdog.service.model.ErrorApp
 import el.ka.rockdog.service.model.Errors
-import el.ka.rockdog.viewModel.Notification
+import el.ka.rockdog.service.model.Notification
 import kotlinx.coroutines.tasks.await
 
 object NotificationRepository {
