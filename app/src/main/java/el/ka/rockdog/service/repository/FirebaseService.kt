@@ -27,6 +27,7 @@ object FirebaseService {
   val songsCollection by lazy { Firebase.firestore.collection(Constants.SONGS_COLLECTION) }
   val usersCollection by lazy { Firebase.firestore.collection(Constants.USERS_COLLECTION) }
   val artistsCollection by lazy { Firebase.firestore.collection(Constants.ARTISTS_COLLECTION) }
+  val notificationsCollection by lazy { Firebase.firestore.collection(Constants.NOTIFICATIONS_COLLECTION) }
   val requestsToRegistrationArtistCollection by lazy {
     Firebase.firestore.collection(Constants.REQUESTS_TO_REGISTRATION_ARTIST_COLLECTION)
   }

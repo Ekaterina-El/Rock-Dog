@@ -30,4 +30,14 @@ object RequestToRegistrationArtistRepository {
     return null
   }
 
+  suspend fun deleteRequest(id: String): ErrorApp? {
+    try {
+      FirebaseService.requestsToRegistrationArtistCollection.document(id).delete().await()
+    } catch (e: Exception) {
+      return Errors.unknownError
+    }
+
+    return null
+  }
+
 }

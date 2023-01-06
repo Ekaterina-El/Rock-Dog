@@ -1,6 +1,7 @@
 package el.ka.rockdog.other
 
 object Constants {
+  const val NOTIFICATIONS_COLLECTION = "notifications"
   const val ARTISTS_COLLECTION = "artists"
   const val USERS_COLLECTION = "users"
   const val REQUESTS_TO_REGISTRATION_ARTIST_COLLECTION = "requests_to_registration_user"
@@ -9,6 +10,7 @@ object Constants {
 
   const val USER_NAME_FIELD = "name"
   const val PROFILE_URL_FIELD  = "profileUrl"
+  const val NOTIFICATIONS_IDS_FIELD  = "notification"
   const val EMAIL_FIELD = "email"
 
   const val ARTIST_NAME_FIELD = "artistName"

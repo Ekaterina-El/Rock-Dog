@@ -1,12 +1,15 @@
 package el.ka.rockdog.service.repository
 
 import android.net.Uri
+import com.google.firebase.firestore.FieldValue
 import el.ka.rockdog.other.Constants.EMAIL_FIELD
+import el.ka.rockdog.other.Constants.NOTIFICATIONS_IDS_FIELD
 import el.ka.rockdog.other.Constants.PROFILE_URL_FIELD
 import el.ka.rockdog.other.Constants.USER_NAME_FIELD
 import el.ka.rockdog.service.model.ErrorApp
 import el.ka.rockdog.service.model.Errors
 import el.ka.rockdog.service.model.User
+import el.ka.rockdog.viewModel.Notification
 import kotlinx.coroutines.tasks.await
 import java.util.*
 
@@ -65,5 +68,19 @@ object UsersRepository {
     } catch (e: Exception) {
       Errors.unknownError
     }
+  }
+
+  suspend fun notifyUser(uid: String, notification: Notification): ErrorApp? {
+    return try {
+      // Add notification
+      NotificationRepository.addNotification(notification) { notificationId ->
+        // Add notification ID to user document
+        FirebaseService.usersCollection.document(uid)
+          .update(NOTIFICATIONS_IDS_FIELD, FieldValue.arrayUnion(notificationId)).await()
+      }
+    } catch (e: Exception) {
+      Errors.unknownError
+    }
+
   }
 }

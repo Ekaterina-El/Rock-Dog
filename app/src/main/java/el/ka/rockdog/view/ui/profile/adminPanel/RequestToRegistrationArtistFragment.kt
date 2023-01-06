@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import el.ka.rockdog.databinding.RequestToRegistrationArtistFragmentBinding
+import el.ka.rockdog.other.Action
 import el.ka.rockdog.view.ui.BaseFragment
 import el.ka.rockdog.viewModel.RequestToRegistrationArtistViewModel
 
@@ -14,6 +16,10 @@ class RequestToRegistrationArtistFragment : BaseFragment() {
 
   private val viewModel by lazy {
     ViewModelProvider(this)[RequestToRegistrationArtistViewModel::class.java]
+  }
+
+  private val externalActionObserver = Observer<Action?> {
+    if (it == Action.GO_BACK) goBack()
   }
 
   override fun onCreateView(
@@ -25,6 +31,7 @@ class RequestToRegistrationArtistFragment : BaseFragment() {
     binding.apply {
       viewModel = this@RequestToRegistrationArtistFragment.viewModel
       lifecycleOwner = viewLifecycleOwner
+      master = this@RequestToRegistrationArtistFragment
     }
     return binding.root
   }
@@ -38,20 +45,22 @@ class RequestToRegistrationArtistFragment : BaseFragment() {
   }
 
   fun deny() {
-
+    viewModel.denyRequest()
   }
 
   fun approve() {
-
+    viewModel.approveRequest()
   }
 
   override fun onResume() {
     super.onResume()
     viewModel.error.observe(viewLifecycleOwner, errorObserver)
+    viewModel.externalAction.observe(viewLifecycleOwner, externalActionObserver)
   }
 
   override fun onDestroy() {
     super.onDestroy()
     viewModel.error.removeObserver(errorObserver)
+    viewModel.externalAction.removeObserver(externalActionObserver)
   }
 }
