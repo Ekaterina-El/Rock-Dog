@@ -47,4 +47,32 @@ object ArtistsRepository {
       Errors.unknownError
     }
   }
+
+
+  suspend fun loadUserArtists(listener: (List<Artist>) -> Unit): ErrorApp? {
+    try {
+      val uid = AuthRepository.currentUid ?: return Errors.unknownError
+      val user = UsersRepository.getUser(uid) ?: return Errors.unknownError
+
+      val artists = mutableListOf<Artist>()
+      user.artists.forEach { id ->
+        val err = loadArtistById(id) { artist -> artists.add(artist) }
+        if (err != null) return Errors.unknownError
+      }
+
+      listener(artists)
+      return null
+    } catch (e: Exception) {
+      return Errors.unknownError
+    }
+  }
+
+  private suspend fun loadArtistById(id: String, onSuccess: (Artist) -> Unit): ErrorApp? = try {
+    val artist =
+      FirebaseService.artistsCollection.document(id).get().await().toObject(Artist::class.java)
+    onSuccess(artist!!)
+    null
+  } catch (e: Exception) {
+    Errors.unknownError
+  }
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import el.ka.rockdog.other.*
+import el.ka.rockdog.service.model.Artist
 import el.ka.rockdog.service.model.ErrorApp
 import el.ka.rockdog.service.model.RequestToRegistrationArtist
 import el.ka.rockdog.service.repository.ArtistsRepository
@@ -16,6 +17,9 @@ class ArtistsViewModel(application: Application) : BaseViewModel(application) {
 
   private val _error = MutableLiveData<ErrorApp?>(null)
   val error: LiveData<ErrorApp?> = _error
+
+  private val _artists = MutableLiveData<List<Artist>>(listOf())
+  val artists: LiveData<List<Artist>> get() = _artists
 
   fun sendRequest(request: RequestToRegistrationArtist) {
     addWork(Work.SEND_REQUEST)
@@ -78,5 +82,17 @@ class ArtistsViewModel(application: Application) : BaseViewModel(application) {
 
   fun afterAction() {
     _externalAction.value = null
+  }
+
+  fun loadArtists() {
+    val work = Work.LOAD_ARTISTS
+    addWork(work)
+
+    viewModelScope.launch {
+      _error.value =  ArtistsRepository.loadUserArtists {
+        _artists.value = it
+      }
+      removeWork(work)
+    }
   }
 }

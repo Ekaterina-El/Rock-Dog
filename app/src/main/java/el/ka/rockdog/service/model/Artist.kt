@@ -9,5 +9,6 @@ data class Artist(
   var artistName: String = "",
   var artistDescription: String = "",
   var genres: List<MusicGenre> = listOf(),
-  var createAt: Date = Calendar.getInstance().time
+  var createAt: Date = Calendar.getInstance().time,
+  var coverUrl: String = "",
 ): java.io.Serializable

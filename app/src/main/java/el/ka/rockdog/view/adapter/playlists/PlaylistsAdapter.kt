@@ -4,9 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import el.ka.rockdog.databinding.ItemPlaylistBinding
-import el.ka.rockdog.databinding.ItemSongBinding
 import el.ka.rockdog.service.model.Playlist
-import el.ka.rockdog.service.model.Song
+import el.ka.rockdog.view.adapter.playlists.PlaylistViewHolder
 
 class PlaylistsAdapter: RecyclerView.Adapter<PlaylistViewHolder>() {
   private val items = mutableListOf<Playlist>()

@@ -4,6 +4,9 @@
   xmlns:tools="http://schemas.android.com/tools">
 
   <data>
+    <variable
+      name="artistsAdapter"
+      type="el.ka.rockdog.view.adapter.artists.ArtistsAdapter" />
 
     <variable
       name="master"
@@ -58,6 +61,7 @@
       android:layout_width="match_parent"
       android:layout_marginHorizontal="@dimen/app_padding"
       android:layout_height="0dp"
+      android:adapter="@{artistsAdapter}"
       android:overScrollMode="never"
       tools:listitem="@layout/artist_item"
       android:layout_marginTop="15dp"

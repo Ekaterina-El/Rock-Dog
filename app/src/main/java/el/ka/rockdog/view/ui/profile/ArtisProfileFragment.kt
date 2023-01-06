@@ -13,7 +13,9 @@ import el.ka.rockdog.databinding.ArtistProfileFragmentBinding
 import el.ka.rockdog.other.Action
 import el.ka.rockdog.other.FieldError
 import el.ka.rockdog.other.Work
+import el.ka.rockdog.service.model.Artist
 import el.ka.rockdog.service.model.ErrorApp
+import el.ka.rockdog.view.adapter.artists.ArtistsAdapter
 import el.ka.rockdog.view.ui.BaseFragment
 import el.ka.rockdog.view.dialog.ArtistRegistrationRequestDialog
 import el.ka.rockdog.viewModel.ArtistsViewModel
@@ -21,6 +23,7 @@ import el.ka.rockdog.viewModel.ArtistsViewModel
 class ArtisProfileFragment : BaseFragment() {
   private lateinit var binding: ArtistProfileFragmentBinding
   private lateinit var artistViewModel: ArtistsViewModel
+  private lateinit var artistsAdapter: ArtistsAdapter
 
   private val addArtistErrorsObserver = Observer<List<FieldError>> {
     if (it.isEmpty()) artistRequestDialog.close() else artistRequestDialog.showWithErrors(it)
@@ -31,6 +34,10 @@ class ArtisProfileFragment : BaseFragment() {
 
     if (it  == Action.REQUEST_TO_REGISTRATION_ADDED) afterSendRequestToRegistrationArtis()
     artistViewModel.afterAction()
+  }
+
+  private val artistsObserver = Observer<List<Artist>> {
+    artistsAdapter.setItems(it)
   }
 
   private fun afterSendRequestToRegistrationArtis() {
@@ -47,12 +54,20 @@ class ArtisProfileFragment : BaseFragment() {
     savedInstanceState: Bundle?
   ): View {
     artistViewModel = ViewModelProvider(this)[ArtistsViewModel::class.java]
+    artistsAdapter = ArtistsAdapter()
+
     binding = ArtistProfileFragmentBinding.inflate(layoutInflater)
     binding.apply {
       lifecycleOwner = viewLifecycleOwner
       master = this@ArtisProfileFragment
+      artistsAdapter = this@ArtisProfileFragment.artistsAdapter
     }
     return binding.root
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    artistViewModel.loadArtists()
   }
 
   override fun onResume() {
@@ -61,6 +76,7 @@ class ArtisProfileFragment : BaseFragment() {
     artistViewModel.errors.observe(viewLifecycleOwner, addArtistErrorsObserver)
     artistViewModel.work.observe(viewLifecycleOwner, workObserver)
     artistViewModel.externalAction.observe(viewLifecycleOwner, externalActionObserver)
+    artistViewModel.artists.observe(viewLifecycleOwner, artistsObserver)
   }
 
   override fun onStop() {
@@ -69,6 +85,7 @@ class ArtisProfileFragment : BaseFragment() {
     artistViewModel.errors.removeObserver(addArtistErrorsObserver)
     artistViewModel.work.removeObserver(workObserver)
     artistViewModel.externalAction.removeObserver(externalActionObserver)
+    artistViewModel.artists.removeObserver(artistsObserver)
   }
 
   private val artistRequestDialog by lazy { ArtistRegistrationRequestDialog(requireContext()) }
