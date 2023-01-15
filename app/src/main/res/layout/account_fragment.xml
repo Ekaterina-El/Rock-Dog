@@ -4,6 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools">
 
   <data>
+
     <variable
       name="master"
       type="el.ka.rockdog.view.ui.profile.AccountFragment" />
@@ -36,8 +37,8 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:clickable="true"
-        android:onClick="@{() -> master.goBack()}"
         android:contentDescription="@string/go_back"
+        android:onClick="@{() -> master.goBack()}"
         android:padding="7dp"
         android:src="@drawable/ic_back" />
 
@@ -50,9 +51,20 @@
         android:gravity="center"
         android:text="@string/account" />
     </LinearLayout>
+
+    <TextView
+      style="@style/text.notification"
+      android:layout_width="wrap_content"
+      android:layout_height="25dp"
+      android:paddingHorizontal="15dp"
+      app:layout_constraintBottom_toBottomOf="@id/layoutHeader"
+      app:layout_constraintEnd_toEndOf="@id/layoutHeader"
+      app:layout_constraintTop_toTopOf="@id/layoutHeader"
+      app:countOfNotification="@{viewModel.profile.notification.size()}"
+      tools:text="+9" />
     <!--  endregion  -->
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:gravity="center_horizontal"
@@ -61,64 +73,73 @@
       app:layout_constraintTop_toBottomOf="@id/layoutHeader">
 
       <androidx.cardview.widget.CardView
+        android:id="@+id/imageWrapperProfile"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        app:cardCornerRadius="100dp"
         android:layout_marginTop="30dp"
-        app:cardElevation="20dp">
+        app:cardCornerRadius="100dp"
+        app:cardElevation="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-          android:onClick="@{() -> master.changeProfileImage()}"
-          app:imageUrl="@{viewModel.profile.profileUrl}"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
+          android:contentDescription="@null"
+          android:onClick="@{() -> master.changeProfileImage()}"
           android:scaleType="centerCrop"
-          tools:background="@color/grey"
-          android:contentDescription="@null" />
+          app:imageUrl="@{viewModel.profile.profileUrl}"
+          tools:background="@color/grey" />
       </androidx.cardview.widget.CardView>
 
       <TextView
-        android:text="@{viewModel.profile.name}"
-        android:layout_width="match_parent"
-        android:layout_marginHorizontal="@dimen/app_padding"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
+        android:id="@+id/textProfileName"
         style="@style/text.header2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/app_padding"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@{viewModel.profile.name}"
+        app:layout_constraintTop_toBottomOf="@id/imageWrapperProfile"
         tools:text="Ekaterina El" />
 
       <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/app_padding"
         android:layout_marginTop="30dp"
-        android:layout_height="wrap_content">
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textProfileName">
 
         <androidx.cardview.widget.CardView
           style="@style/cardClickable"
-          android:visibility="@{viewModel.profile.adminLevel > 0 ? View.VISIBLE : View.GONE}"
-          android:onClick="@{() -> master.goAdminPanel()}"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content">
+          android:layout_height="wrap_content"
+          android:onClick="@{() -> master.goAdminPanel()}"
+          android:visibility="@{viewModel.profile.adminLevel > 0 ? View.VISIBLE : View.GONE}">
 
           <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:layout_marginVertical="10dp"
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
             android:gravity="center"
-            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
-              android:src="@drawable/ic_admin_panel"
               style="@style/settings_item"
-              android:contentDescription="@null" />
+              android:contentDescription="@null"
+              android:src="@drawable/ic_admin_panel" />
 
             <TextView
               android:layout_width="0dp"
-              android:layout_weight="1"
               android:layout_height="wrap_content"
+              android:layout_weight="1"
               android:text="@string/admin_panel" />
 
           </LinearLayout>
@@ -127,28 +148,28 @@
 
         <androidx.cardview.widget.CardView
           style="@style/cardClickable"
-          android:onClick="@{() -> master.goArtist()}"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content">
+          android:layout_height="wrap_content"
+          android:onClick="@{() -> master.goArtist()}">
 
           <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:layout_marginVertical="10dp"
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
             android:gravity="center"
-            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
-              android:src="@drawable/ic_rock"
               style="@style/settings_item"
-              android:contentDescription="@null" />
+              android:contentDescription="@null"
+              android:src="@drawable/ic_rock" />
 
             <TextView
               android:layout_width="0dp"
-              android:layout_weight="1"
               android:layout_height="wrap_content"
+              android:layout_weight="1"
               android:text="@string/artists_profile" />
 
           </LinearLayout>
@@ -157,28 +178,28 @@
 
         <androidx.cardview.widget.CardView
           style="@style/cardClickable"
-          android:onClick="@{() -> master.goSettings()}"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content">
+          android:layout_height="wrap_content"
+          android:onClick="@{() -> master.goSettings()}">
 
           <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:layout_marginVertical="10dp"
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
             android:gravity="center"
-            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
-              android:src="@drawable/ic_settings"
               style="@style/settings_item"
-              android:contentDescription="@null" />
+              android:contentDescription="@null"
+              android:src="@drawable/ic_settings" />
 
             <TextView
               android:layout_width="0dp"
-              android:layout_weight="1"
               android:layout_height="wrap_content"
+              android:layout_weight="1"
               android:text="@string/settings" />
 
           </LinearLayout>
@@ -187,28 +208,28 @@
 
         <androidx.cardview.widget.CardView
           style="@style/cardClickable"
-          android:onClick="@{() -> master.goAbout()}"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content">
+          android:layout_height="wrap_content"
+          android:onClick="@{() -> master.goAbout()}">
 
           <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:layout_marginVertical="10dp"
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
             android:gravity="center"
-            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
-              android:src="@drawable/ic_info"
               style="@style/settings_item"
-              android:contentDescription="@null" />
+              android:contentDescription="@null"
+              android:src="@drawable/ic_info" />
 
             <TextView
               android:layout_width="0dp"
-              android:layout_weight="1"
               android:layout_height="wrap_content"
+              android:layout_weight="1"
               android:text="@string/about" />
 
           </LinearLayout>
@@ -217,28 +238,28 @@
 
         <androidx.cardview.widget.CardView
           style="@style/cardClickable"
-          android:onClick="@{() -> master.logout()}"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content">
+          android:layout_height="wrap_content"
+          android:onClick="@{() -> master.logout()}">
 
           <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:layout_marginVertical="10dp"
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
             android:gravity="center"
-            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
-              android:src="@drawable/ic_exit"
               style="@style/settings_item"
-              android:contentDescription="@null" />
+              android:contentDescription="@null"
+              android:src="@drawable/ic_exit" />
 
             <TextView
               android:layout_width="0dp"
-              android:layout_weight="1"
               android:layout_height="wrap_content"
+              android:layout_weight="1"
               android:text="@string/exit" />
 
           </LinearLayout>
@@ -246,7 +267,7 @@
         </androidx.cardview.widget.CardView>
 
       </LinearLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

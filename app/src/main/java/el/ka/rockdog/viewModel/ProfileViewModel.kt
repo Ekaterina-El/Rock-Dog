@@ -23,7 +23,7 @@ class ProfileViewModel(application: Application) : BaseViewModel(application) {
   fun loadProfile() {
     addWork(Work.LOAD_PROFILE)
     viewModelScope.launch {
-      val uid = AuthRepository.currentUid  // TODO: logout
+      val uid = AuthRepository.currentUid
       if (uid != null) _profile.value = UsersRepository.getUser(uid) else logout()
       removeWork(Work.LOAD_PROFILE)
     }
