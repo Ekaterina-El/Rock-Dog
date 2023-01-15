@@ -81,6 +81,10 @@ class AccountFragment : BaseFragment() {
     navController.navigate(R.id.action_accountFragment_to_adminPanelFragment)
   }
 
+  fun goNotifications() {
+    navController.navigate(R.id.action_accountFragment_to_notificationsFragment)
+  }
+
   // region Change profile image
   fun changeProfileImage() {
     val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)

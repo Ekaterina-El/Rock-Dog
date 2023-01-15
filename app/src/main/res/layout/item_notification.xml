@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+    <variable
+      name="notification"
+      type="el.ka.rockdog.service.model.Notification" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/app_padding"
+    android:paddingVertical="5dp">
+
+    <ImageView
+      android:id="@+id/imageClose"
+      android:layout_width="25dp"
+      android:layout_height="25dp"
+      android:clickable="true"
+      android:focusable="true"
+      android:src="@drawable/ic_close"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:tint="@color/red_color" />
+
+    <TextView
+      android:id="@+id/textNotificationHeader"
+      style="@style/text.header3.bold"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      app:notificationHeader="@{notification}"
+      android:layout_marginEnd="10dp"
+      app:layout_constraintBottom_toBottomOf="@id/imageClose"
+      app:layout_constraintEnd_toStartOf="@id/imageClose"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/imageClose"
+      tools:text="@string/approved_to_reg_artist_header" />
+
+    <TextView
+      style="@style/text"
+      android:id="@+id/textNotificationDesc"
+      android:layout_width="match_parent"
+      app:layout_constraintTop_toBottomOf="@id/textNotificationHeader"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="5dp"
+      app:notificationDescription="@{notification}"
+      android:justificationMode="inter_word"
+      tools:text="@string/approve_to_registration_artist_desc" />
+
+    <TextView
+      android:layout_marginTop="5dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      style="@style/text.hint.small"
+      app:showTime="@{notification.createdAt}"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toBottomOf="@id/textNotificationDesc"
+      tools:text="13 Dec, 15:43" />
+
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -42,6 +42,9 @@
     <action
       android:id="@+id/action_accountFragment_to_adminPanelFragment"
       app:destination="@id/adminPanelFragment" />
+    <action
+      android:id="@+id/action_accountFragment_to_notificationsFragment"
+      app:destination="@id/notificationsFragment" />
   </fragment>
   <fragment
     android:id="@+id/welcomeFragment"
@@ -121,4 +124,8 @@
       android:name="request"
       app:argType="el.ka.rockdog.service.model.RequestToRegistrationArtist" />
   </fragment>
+  <fragment
+    android:id="@+id/notificationsFragment"
+    android:name="el.ka.rockdog.view.ui.profile.NotificationsFragment"
+    android:label="NotificationsFragment" />
 </navigation>

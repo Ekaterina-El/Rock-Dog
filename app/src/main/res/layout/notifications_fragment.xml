@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+    <variable
+      name="master"
+      type="el.ka.rockdog.view.ui.profile.NotificationsFragment" />
+
+    <variable
+      name="adapter"
+      type="el.ka.rockdog.view.adapter.notifications.NotificationsAdapter" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--  region Header -->
+    <LinearLayout
+      android:id="@+id/layoutHeader"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/app_padding"
+      android:layout_marginTop="@dimen/app_padding"
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+      <ImageView
+        android:onClick="@{() -> master.goBack()}"
+        android:clickable="true"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="7dp"
+        android:src="@drawable/ic_back" />
+
+      <TextView
+        style="@style/text.header1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginEnd="40dp"
+        android:gravity="center"
+        android:text="@string/notifications" />
+    </LinearLayout>
+    <!--  endregion  -->
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/recyclerView"
+      android:overScrollMode="never"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_marginTop="15dp"
+      android:adapter="@{adapter}"
+      app:layout_constraintTop_toBottomOf="@id/layoutHeader"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      tools:listitem="@layout/item_notification" />
+
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -6,7 +6,10 @@ import el.ka.rockdog.service.model.Notification
 import kotlinx.coroutines.tasks.await
 
 object NotificationRepository {
-  suspend fun addNotification(notification: Notification, listener: suspend (String) -> Unit): ErrorApp? {
+  suspend fun addNotification(
+    notification: Notification,
+    listener: suspend (String) -> Unit
+  ): ErrorApp? {
     try {
       val id = FirebaseService.notificationsCollection.add(notification).await().id
       listener(id)
@@ -16,4 +19,28 @@ object NotificationRepository {
 
     return null
   }
+
+  suspend fun loadNotifications(
+    notificationsIds: List<String>,
+    onLoad: (List<Notification>) -> Unit
+  ): ErrorApp? {
+    try {
+      val notifications = mutableListOf<Notification>()
+      notificationsIds.forEach { idx ->
+        val notification = loadNotificationById(idx)
+        if (notification != null) notifications.add(notification)
+      }
+      onLoad(notifications)
+    } catch (e: Exception) {
+      return Errors.unknownError
+    }
+
+    return null
+  }
+
+  private suspend fun loadNotificationById(idx: String): Notification? {
+    return FirebaseService.notificationsCollection.document(idx)
+      .get().await().toObject(Notification::class.java)
+  }
+
 }

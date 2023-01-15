@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import el.ka.rockdog.databinding.ItemSongBinding
 import el.ka.rockdog.service.model.Song
 
-class SongsAdapter: RecyclerView.Adapter<SongViewHolder>() {
+class SongsAdapter : RecyclerView.Adapter<SongViewHolder>() {
   private val items = mutableListOf<Song>()
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
@@ -45,5 +45,4 @@ class SongsAdapter: RecyclerView.Adapter<SongViewHolder>() {
   private fun clear() {
     items.forEach { removeSong(it) }
   }
-
 }

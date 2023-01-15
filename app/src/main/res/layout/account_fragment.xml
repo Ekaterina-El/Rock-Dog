@@ -59,6 +59,7 @@
       android:paddingHorizontal="15dp"
       app:layout_constraintBottom_toBottomOf="@id/layoutHeader"
       app:layout_constraintEnd_toEndOf="@id/layoutHeader"
+      android:onClick="@{() -> master.goNotifications()}"
       app:layout_constraintTop_toTopOf="@id/layoutHeader"
       app:countOfNotification="@{viewModel.profile.notification.size()}"
       tools:text="+9" />

@@ -10,9 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import el.ka.rockdog.R
 import el.ka.rockdog.databinding.SongsFragmentBinding
-import el.ka.rockdog.service.model.Album
 import el.ka.rockdog.service.model.Song
-import el.ka.rockdog.service.model.User
 import el.ka.rockdog.view.adapter.songs.SongsAdapter
 import el.ka.rockdog.viewModel.ProfileViewModel
 import el.ka.rockdog.viewModel.SongsViewModel
