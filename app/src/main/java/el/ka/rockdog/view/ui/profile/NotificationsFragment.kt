@@ -28,6 +28,7 @@ class NotificationsFragment : BaseFragment() {
     if (action == Action.REMOVE && viewModel.deletedNotification != null) {
       notificationsAdapter.removeById(viewModel.deletedNotification!!)
       viewModel.afterDeleteNotification()
+      if (notificationsAdapter.itemCount == 0) goBack()
     }
   }
 
