@@ -9,4 +9,12 @@ class NotificationViewHolder(private val binding: ItemNotificationBinding) :
   fun bind(notification: Notification) {
     binding.notification = notification
   }
+
+  fun setListenerToDelete(listener: ((String) -> Unit)? = null) {
+    binding.imageClose.setOnClickListener {
+      if (listener != null && binding.notification != null) {
+        listener(binding.notification!!.uid)
+      }
+    }
+  }
 }

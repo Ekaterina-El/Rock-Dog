@@ -25,11 +25,7 @@ object NotificationRepository {
     onLoad: (List<Notification>) -> Unit
   ): ErrorApp? {
     try {
-      val notifications = mutableListOf<Notification>()
-      notificationsIds.forEach { idx ->
-        val notification = loadNotificationById(idx)
-        if (notification != null) notifications.add(notification)
-      }
+      val notifications = notificationsIds.mapNotNull { idx -> loadNotificationById(idx) }
       onLoad(notifications)
     } catch (e: Exception) {
       return Errors.unknownError
@@ -39,8 +35,21 @@ object NotificationRepository {
   }
 
   private suspend fun loadNotificationById(idx: String): Notification? {
-    return FirebaseService.notificationsCollection.document(idx)
-      .get().await().toObject(Notification::class.java)
+    val doc = FirebaseService.notificationsCollection.document(idx).get().await()
+
+    val notification = doc.toObject(Notification::class.java) ?: return null
+    notification.uid = doc.id
+    return notification
+  }
+
+  suspend fun deleteNotification(idx: String): ErrorApp? {
+    try {
+      FirebaseService.notificationsCollection.document(idx).delete().await()
+    } catch (e: Exception) {
+      return Errors.unknownError
+    }
+
+    return null
   }
 
 }

@@ -4,15 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import el.ka.rockdog.databinding.ItemNotificationBinding
-import el.ka.rockdog.databinding.ItemSongBinding
 import el.ka.rockdog.service.model.Notification
-import el.ka.rockdog.service.model.Song
 
-class NotificationsAdapter : RecyclerView.Adapter<NotificationViewHolder>() {
+class NotificationsAdapter(val listener: ((String) -> Unit)? = null) :
+  RecyclerView.Adapter<NotificationViewHolder>() {
   private val items = mutableListOf<Notification>()
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationViewHolder {
-    val binding = ItemNotificationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    val binding =
+      ItemNotificationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     return NotificationViewHolder(binding)
   }
 
@@ -46,5 +46,21 @@ class NotificationsAdapter : RecyclerView.Adapter<NotificationViewHolder>() {
   private fun clear() {
     items.forEach { removeItem(it) }
   }
+
+  override fun onViewAttachedToWindow(holder: NotificationViewHolder) {
+    super.onViewAttachedToWindow(holder)
+    holder.setListenerToDelete(listener)
+  }
+
+  override fun onViewDetachedFromWindow(holder: NotificationViewHolder) {
+    super.onViewDetachedFromWindow(holder)
+    holder.setListenerToDelete(null)
+  }
+
+  fun removeById(idx: String) {
+    val item = items.firstOrNull { it.uid == idx}
+    if (item != null) removeItem(item)
+  }
+
 
 }

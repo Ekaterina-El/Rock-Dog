@@ -92,4 +92,17 @@ object UsersRepository {
   } catch (e: Exception) {
     Errors.unknownError
   }
+
+  suspend fun deleteNotification(idx: String): ErrorApp? {
+    try {
+      val uid = AuthRepository.currentUid ?: return Errors.unknownError
+      FirebaseService.usersCollection.document(uid)
+        .update(NOTIFICATIONS_IDS_FIELD, FieldValue.arrayRemove(idx))
+        .await()
+    } catch (e: Exception) {
+      return Errors.unknownError
+    }
+
+    return null
+  }
 }

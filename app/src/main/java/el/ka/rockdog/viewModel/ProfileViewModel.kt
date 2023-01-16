@@ -2,6 +2,7 @@ package el.ka.rockdog.viewModel
 
 import android.app.Application
 import android.net.Uri
+import android.provider.VoicemailContract.Voicemails.DELETED
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -65,5 +66,41 @@ class ProfileViewModel(application: Application) : BaseViewModel(application) {
       }
       removeWork(work)
     }
+  }
+
+  var deletedNotification: String? = null
+  fun deleteNotification(idx: String) {
+    val work = Work.DELETE_NOTIFICATION
+    addWork(work)
+
+    viewModelScope.launch {
+      _error.value = NotificationRepository.deleteNotification(idx)
+      if (_error.value == null) {
+        deleteNotificationFromProfile(idx)
+        deletedNotification = idx
+        _externalAction.value = Action.REMOVE
+      }
+      removeWork(work)
+    }
+  }
+
+  private fun deleteNotificationFromProfile(idx: String) {
+    val work = Work.DELETE_NOTIFICATION_FROM_PROFILE
+    addWork(work)
+
+    viewModelScope.launch {
+      _error.value = UsersRepository.deleteNotification(idx)
+      if (_error.value == null) {
+        val notifications = _profile.value!!.notification.toMutableList()
+        notifications.remove(idx)
+        _profile.value!!.notification = notifications
+      }
+      removeWork(work)
+    }
+  }
+
+  fun afterDeleteNotification() {
+    _externalAction.value = null
+    deletedNotification = null
   }
 }
