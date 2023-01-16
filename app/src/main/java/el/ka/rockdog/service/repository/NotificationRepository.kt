@@ -25,7 +25,9 @@ object NotificationRepository {
     onLoad: (List<Notification>) -> Unit
   ): ErrorApp? {
     try {
-      val notifications = notificationsIds.mapNotNull { idx -> loadNotificationById(idx) }
+      val notifications = notificationsIds
+        .mapNotNull { idx -> loadNotificationById(idx) }
+        .sortedByDescending { it.createdAt }
       onLoad(notifications)
     } catch (e: Exception) {
       return Errors.unknownError
