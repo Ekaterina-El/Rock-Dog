@@ -89,4 +89,6 @@
 
   <string name="denied_to_registration_artist_desc">Your registration request for the artist "%1$s" has been denied</string>
   <string name="denied_to_reg_artist_header">Denied to registration artist</string>
+  <string name="artist">Artist</string>
+  <string name="albums">Albums</string>
 </resources>

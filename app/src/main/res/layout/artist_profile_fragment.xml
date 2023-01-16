@@ -4,19 +4,23 @@
   xmlns:tools="http://schemas.android.com/tools">
 
   <data>
-    <variable
-      name="artistsAdapter"
-      type="el.ka.rockdog.view.adapter.artists.ArtistsAdapter" />
 
     <variable
       name="master"
-      type="el.ka.rockdog.view.ui.profile.ArtisProfileFragment" />
+      type="el.ka.rockdog.view.ui.profile.AccountFragment" />
+
+    <variable
+      name="viewModel"
+      type="el.ka.rockdog.viewModel.ProfileViewModel" />
+
+    <import type="android.view.View" />
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--  region Account -->
     <LinearLayout
       android:id="@+id/layoutHeader"
       android:layout_width="match_parent"
@@ -42,33 +46,89 @@
         style="@style/text.header1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="@string/artists_profile" />
-
-      <ImageView
-        android:layout_width="40dp"
-        android:clickable="true"
-        android:layout_height="40dp"
-        android:onClick="@{() -> master.showDialogToRequestToRegistrationArtist()}"
-        android:contentDescription="@string/create_request_to_registration_artist"
-        android:padding="6dp"
-        android:src="@drawable/ic_add"
-        app:tint="@color/second_color" />
+        android:text="@string/artist" />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-      android:layout_width="match_parent"
-      android:layout_marginHorizontal="@dimen/app_padding"
-      android:layout_height="0dp"
-      android:adapter="@{artistsAdapter}"
-      android:overScrollMode="never"
-      tools:listitem="@layout/artist_item"
-      android:layout_marginTop="15dp"
-      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/layoutHeader" />
+    <!--  endregion  -->
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:gravity="center_horizontal"
+      android:orientation="vertical"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+      <androidx.cardview.widget.CardView
+        android:id="@+id/imageWrapperProfile"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="30dp"
+        app:cardCornerRadius="100dp"
+        app:cardElevation="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:contentDescription="@null"
+          android:onClick="@{() -> master.changeProfileImage()}"
+          android:scaleType="centerCrop"
+          app:imageUrl="@{viewModel.profile.profileUrl}"
+          tools:background="@color/grey" />
+      </androidx.cardview.widget.CardView>
+
+      <TextView
+        android:id="@+id/textArtistName"
+        style="@style/text.header1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/app_padding"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@{viewModel.profile.name}"
+        app:layout_constraintTop_toBottomOf="@id/imageWrapperProfile"
+        tools:text="AC/DC" />
+
+      <TextView
+        android:id="@+id/textArtistDescription"
+        style="@style/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/app_padding"
+        android:layout_marginTop="10dp"
+        android:text="@{viewModel.profile.name}"
+        app:layout_constraintTop_toBottomOf="@id/textArtistName"
+        tools:text="AC/DC are an Australian rock band formed in Sydney in 1973 by Scottish-born brothers Malcolm and Angus Young. Their music has been variously described as hard rock, blues rock, and heavy metal, but the band calls it simply rock and roll" />
+
+
+      <TextView
+        android:id="@+id/textViewAlbumsTitle"
+        style="@style/text.header2.bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/app_padding"
+        android:layout_marginTop="25dp"
+        android:text="@string/albums"
+        app:layout_constraintTop_toBottomOf="@id/textArtistDescription" />
+
+      <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/app_padding"
+        android:layout_marginTop="20dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/album_item"
+        app:layout_constraintTop_toBottomOf="@id/textViewAlbumsTitle"
+        app:spanCount="2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
