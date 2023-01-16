@@ -5,12 +5,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import el.ka.rockdog.databinding.NotificationsFragmentBinding
 import el.ka.rockdog.other.Action
 import el.ka.rockdog.service.model.Notification
+import el.ka.rockdog.view.adapter.notifications.NotificationViewHolder
 import el.ka.rockdog.view.adapter.notifications.NotificationsAdapter
 import el.ka.rockdog.view.ui.BaseFragment
 import el.ka.rockdog.viewModel.ProfileViewModel
@@ -21,10 +26,22 @@ class NotificationsFragment : BaseFragment() {
 
   private lateinit var notificationsAdapter: NotificationsAdapter
 
+  private val callback =
+    object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+      override fun onMove(
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder,
+        target: RecyclerView.ViewHolder
+      ): Boolean = false
+
+      override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+        val uid = (viewHolder as NotificationViewHolder).binding.notification?.uid ?: return
+        deleteNotification(uid)
+      }
+    }
+
   private val notificationsObserver = Observer<List<Notification>> {
     notificationsAdapter.setItems(it)
-    Log.d("LOAD_NOTIFICATIONS", "set items: ${it.size}")
-
   }
 
   private val externalObserver = Observer<Action?> { action ->
@@ -41,7 +58,7 @@ class NotificationsFragment : BaseFragment() {
     savedInstanceState: Bundle?
   ): View {
     binding = NotificationsFragmentBinding.inflate(layoutInflater)
-    notificationsAdapter = NotificationsAdapter { idx -> deleteNotification(idx) }
+    notificationsAdapter = NotificationsAdapter()
     binding.apply {
       adapter = notificationsAdapter
       lifecycleOwner = viewLifecycleOwner
@@ -61,6 +78,10 @@ class NotificationsFragment : BaseFragment() {
     binding.recyclerView.addItemDecoration(
       DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
     )
+
+    val helper = ItemTouchHelper(callback)
+    helper.attachToRecyclerView(binding.recyclerView)
+
   }
 
   override fun onResume() {

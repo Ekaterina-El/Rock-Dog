@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import el.ka.rockdog.databinding.ItemNotificationBinding
 import el.ka.rockdog.service.model.Notification
 
-class NotificationsAdapter(val listener: ((String) -> Unit)? = null) :
+class NotificationsAdapter() :
   RecyclerView.Adapter<NotificationViewHolder>() {
   private val items = mutableListOf<Notification>()
 
@@ -45,16 +45,6 @@ class NotificationsAdapter(val listener: ((String) -> Unit)? = null) :
 
   private fun clear() {
     items.forEach { removeItem(it) }
-  }
-
-  override fun onViewAttachedToWindow(holder: NotificationViewHolder) {
-    super.onViewAttachedToWindow(holder)
-    holder.setListenerToDelete(listener)
-  }
-
-  override fun onViewDetachedFromWindow(holder: NotificationViewHolder) {
-    super.onViewDetachedFromWindow(holder)
-    holder.setListenerToDelete(null)
   }
 
   fun removeById(idx: String) {
