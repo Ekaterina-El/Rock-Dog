@@ -3,6 +3,7 @@ package el.ka.rockdog.viewModel
 import android.app.Application
 import android.net.Uri
 import android.provider.VoicemailContract.Voicemails.DELETED
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -63,7 +64,9 @@ class ProfileViewModel(application: Application) : BaseViewModel(application) {
       val notificationsIds = _profile.value!!.notification
       _error.value = NotificationRepository.loadNotifications(notificationsIds) {
         _notifications.value = it
+        Log.d("LOAD_NOTIFICATIONS", "notifications size: ${it.size}")
       }
+      Log.d("LOAD_NOTIFICATIONS", "error: ${_error.value}")
       removeWork(work)
     }
   }
@@ -102,5 +105,9 @@ class ProfileViewModel(application: Application) : BaseViewModel(application) {
   fun afterDeleteNotification() {
     _externalAction.value = null
     deletedNotification = null
+  }
+
+  fun nullableNotifications() {
+    _notifications.value = listOf()
   }
 }

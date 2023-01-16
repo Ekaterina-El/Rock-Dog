@@ -1,6 +1,7 @@
 package el.ka.rockdog.view.ui.profile
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,8 @@ class NotificationsFragment : BaseFragment() {
 
   private val notificationsObserver = Observer<List<Notification>> {
     notificationsAdapter.setItems(it)
+    Log.d("LOAD_NOTIFICATIONS", "set items: ${it.size}")
+
   }
 
   private val externalObserver = Observer<Action?> { action ->
@@ -74,5 +77,10 @@ class NotificationsFragment : BaseFragment() {
     viewModel.error.removeObserver(errorObserver)
     viewModel.notifications.removeObserver(notificationsObserver)
     viewModel.externalAction.removeObserver(externalObserver)
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    viewModel.nullableNotifications()
   }
 }
