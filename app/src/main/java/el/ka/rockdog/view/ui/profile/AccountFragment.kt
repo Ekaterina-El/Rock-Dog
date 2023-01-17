@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -19,6 +20,7 @@ import com.canhub.cropper.CropImageView
 import el.ka.rockdog.R
 import el.ka.rockdog.databinding.AccountFragmentBinding
 import el.ka.rockdog.other.Action
+import el.ka.rockdog.other.ImageChanger
 import el.ka.rockdog.view.ui.BaseFragment
 import el.ka.rockdog.viewModel.ProfileViewModel
 
@@ -44,6 +46,11 @@ class AccountFragment : BaseFragment() {
     viewModel.loadProfile()
 
     return binding.root
+  }
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    imageChanger = ImageChanger(this)
   }
 
   override fun onResume() {
@@ -85,34 +92,16 @@ class AccountFragment : BaseFragment() {
   }
 
   // region Change profile image
-  fun changeProfileImage() {
-    val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-    imagePickerLauncher.launch(intent)
-  }
-
+  private lateinit var imageChanger: ImageChanger
   private val profileCropImageOptions by lazy {
     CropImageOptions(
       guidelines = CropImageView.Guidelines.ON,
-      aspectRatioY = 1,
-      aspectRatioX = 1,
-      fixAspectRatio = true
+      aspectRatioY = 1, aspectRatioX = 1, fixAspectRatio = true
     )
   }
 
-  private val imagePickerLauncher =
-    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-      if (result.resultCode == Activity.RESULT_OK) {
-        val uri: Uri? = result.data?.data
-        cropImageLauncher.launch(CropImageContractOptions(uri, profileCropImageOptions))
-      }
-    }
-
-  private val cropImageLauncher =
-    registerForActivityResult(CropImageContract()) { result ->
-      if (!result.isSuccessful || result.uriContent == null) return@registerForActivityResult
-
-      val uri = result.uriContent!!
-      viewModel.updateProfile(uri)
-    }
+  fun changeProfileImage() {
+    imageChanger.change(profileCropImageOptions) { uri -> viewModel.updateProfile(uri) }
+  }
   // endregion
 }
