@@ -4,10 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import el.ka.rockdog.databinding.ArtistItemBinding
-import el.ka.rockdog.databinding.ItemPlaylistBinding
 import el.ka.rockdog.service.model.Artist
-import el.ka.rockdog.service.model.Playlist
-import el.ka.rockdog.view.adapter.lists.playlists.PlaylistViewHolder
 
 class ArtistsAdapter(private val listener: ((Artist) -> Unit)? = null ) : RecyclerView.Adapter<ArtistViewHolder>() {
   private val items = mutableListOf<Artist>()
@@ -31,7 +28,7 @@ class ArtistsAdapter(private val listener: ((Artist) -> Unit)? = null ) : Recycl
     notifyItemInserted(items.size)
   }
 
-  private fun removePlaylist(artist: Artist) {
+  private fun removeArtist(artist: Artist) {
     val idx = items.indexOf(artist)
     if (idx == -1) return
 
@@ -45,7 +42,7 @@ class ArtistsAdapter(private val listener: ((Artist) -> Unit)? = null ) : Recycl
   }
 
   private fun clear() {
-    items.forEach { removePlaylist(it) }
+    items.forEach { removeArtist(it) }
   }
 
   override fun onViewAttachedToWindow(holder: ArtistViewHolder) {
