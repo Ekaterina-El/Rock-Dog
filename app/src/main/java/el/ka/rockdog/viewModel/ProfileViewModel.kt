@@ -64,9 +64,7 @@ class ProfileViewModel(application: Application) : BaseViewModel(application) {
       val notificationsIds = _profile.value!!.notification
       _error.value = NotificationRepository.loadNotifications(notificationsIds) {
         _notifications.value = it
-        Log.d("LOAD_NOTIFICATIONS", "notifications size: ${it.size}")
       }
-      Log.d("LOAD_NOTIFICATIONS", "error: ${_error.value}")
       removeWork(work)
     }
   }

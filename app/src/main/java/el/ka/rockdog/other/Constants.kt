@@ -14,5 +14,6 @@ object Constants {
   const val NOTIFICATIONS_IDS_FIELD  = "notification"
   const val EMAIL_FIELD = "email"
 
+  const val ARTIST_COVER_FIELD  = "coverUrl"
   const val ARTIST_NAME_FIELD = "artistName"
 }

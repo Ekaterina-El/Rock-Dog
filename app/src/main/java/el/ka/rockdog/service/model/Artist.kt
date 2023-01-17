@@ -5,7 +5,6 @@ import java.util.*
 
 data class Artist(
   var id: String = "",
-  var uid: String = "",
   var artistName: String = "",
   var artistDescription: String = "",
   var genres: List<MusicGenre> = listOf(),

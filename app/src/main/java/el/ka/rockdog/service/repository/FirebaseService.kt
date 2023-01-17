@@ -21,8 +21,10 @@ object FirebaseService {
   }
 
   private const val PROFILE_PHOTOS_COLLECTION = "profilePhotos/"
+  private const val ARTIS_PHOTOS_COLLECTION = "artistPhotos/"
 
   val profilePhotosStore by lazy { Firebase.storage.reference.child(PROFILE_PHOTOS_COLLECTION) }
+  val artistPhotosStore by lazy { Firebase.storage.reference.child(ARTIS_PHOTOS_COLLECTION) }
   val albumsCollection by lazy { Firebase.firestore.collection(Constants.ALBUMS_COLLECTION) }
   val songsCollection by lazy { Firebase.firestore.collection(Constants.SONGS_COLLECTION) }
   val usersCollection by lazy { Firebase.firestore.collection(Constants.USERS_COLLECTION) }
