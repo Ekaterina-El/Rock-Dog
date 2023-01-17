@@ -131,6 +131,35 @@
         tools:itemCount="6" />
       </androidx.cardview.widget.CardView>
 
+      <LinearLayout
+        android:id="@+id/btnAddPhoto"
+        android:layout_width="match_parent"
+        android:padding="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{() -> master.addPhoto()}"
+        app:layout_constraintTop_toBottomOf="@id/artistImagesWrapper"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="@dimen/app_padding"
+        android:gravity="center">
+
+        <ImageView
+          android:layout_width="20dp"
+          android:layout_height="20dp"
+          android:src="@drawable/ic_add"
+          app:tint="@color/primary_color_dark" />
+
+        <TextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:textStyle="bold"
+          android:layout_marginStart="10dp"
+          android:textColor="@color/primary_color_dark"
+          android:text="@string/add_photo" />
+
+      </LinearLayout>
 
       <TextView
         android:id="@+id/textViewSocialMediaTitle"
@@ -138,9 +167,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/app_padding"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:text="@string/social_media"
-        app:layout_constraintTop_toBottomOf="@id/artistImagesWrapper" />
+        app:layout_constraintTop_toBottomOf="@id/btnAddPhoto" />
 
 
       <TextView

@@ -92,4 +92,5 @@
   <string name="artist">Artist</string>
   <string name="albums">Albums</string>
   <string name="social_media">Social media</string>
+  <string name="add_photo">Add photo</string>
 </resources>

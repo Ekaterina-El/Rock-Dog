@@ -39,4 +39,8 @@ class ArtistViewModel(application: Application) : BaseViewModel(application) {
 
     }
   }
+
+  fun addPhoto(uri: Uri) {
+
+  }
 }
