@@ -37,12 +37,14 @@ class ArtistsAdapter(private val listener: ((Artist) -> Unit)? = null ) : Recycl
   }
 
   fun setItems(items: List<Artist>) {
+    if (items == this.items) return
     clear()
     items.forEach { addItem(it) }
   }
 
   private fun clear() {
-    items.forEach { removeArtist(it) }
+    notifyItemRangeRemoved(0, items.size)
+    items.clear()
   }
 
   override fun onViewAttachedToWindow(holder: ArtistViewHolder) {
