@@ -2,6 +2,7 @@ package el.ka.rockdog.service.repository
 
 import android.net.Uri
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.ktx.firestore
 import el.ka.rockdog.other.Constants.ARTIST_IDS_FIELD
 import el.ka.rockdog.other.Constants.EMAIL_FIELD
 import el.ka.rockdog.other.Constants.NOTIFICATIONS_IDS_FIELD
@@ -53,15 +54,24 @@ object UsersRepository {
     }
   }
 
-  suspend fun changeProfileCurrentUser(uri: Uri, onLoad: (String) -> Unit): ErrorApp? {
+  suspend fun changeProfileCurrentUser(
+    uri: Uri,
+    oldProfileImage: String,
+    onLoad: (String) -> Unit
+  ): ErrorApp? {
     return try {
       val time = Calendar.getInstance().time
       val uid = AuthRepository.currentUid!!
 
+      // load to store
       val url = FirebaseService.profilePhotosStore
         .child("$uid/$time")
         .putFile(uri).await().storage.downloadUrl.await()
 
+      // delete old version of profile image
+      if (oldProfileImage != "") FirebaseService.deleteByUrl(oldProfileImage)
+
+      // update note of artist
       FirebaseService.usersCollection.document(uid).update(PROFILE_URL_FIELD, url).await()
       onLoad(url.toString())
 

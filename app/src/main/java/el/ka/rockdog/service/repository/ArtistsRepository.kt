@@ -93,7 +93,7 @@ object ArtistsRepository {
       val url = task.storage.downloadUrl.await()
 
       // delete old version of cover
-      if (oldCoverUrl != "")  Firebase.storage.getReferenceFromUrl(oldCoverUrl).delete().await()
+      if (oldCoverUrl != "") FirebaseService.deleteByUrl(oldCoverUrl)
 
       // update note of artist
       FirebaseService.artistsCollection.document(artistId).update(ARTIST_COVER_FIELD, url).await()

@@ -20,6 +20,10 @@ object FirebaseService {
     }
   }
 
+  suspend fun deleteByUrl(url: String) {
+    Firebase.storage.getReferenceFromUrl(url).delete().await()
+  }
+
   private const val PROFILE_PHOTOS_COLLECTION = "profilePhotos/"
   private const val ARTIS_PHOTOS_COLLECTION = "artistPhotos/"
 

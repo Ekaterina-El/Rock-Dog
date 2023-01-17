@@ -46,7 +46,8 @@ class ProfileViewModel(application: Application) : BaseViewModel(application) {
     addWork(Work.CHANGE_PROFILE)
 
     viewModelScope.launch {
-      val error = UsersRepository.changeProfileCurrentUser(uri) { url ->
+      val currentProfileImage = _profile.value!!.profileUrl ?: ""
+      val error = UsersRepository.changeProfileCurrentUser(uri, currentProfileImage) { url ->
         val profile = _profile.value!!
         profile.profileUrl = url
         _profile.value = profile
