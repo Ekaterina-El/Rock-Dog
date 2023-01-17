@@ -7,6 +7,7 @@ data class Artist(
   var id: String = "",
   var artistName: String = "",
   var artistDescription: String = "",
+  var photos: List<String> = listOf(),
   var genres: List<MusicGenre> = listOf(),
   var createAt: Date = Calendar.getInstance().time,
   var coverUrl: String = "",

@@ -1,11 +1,12 @@
 package el.ka.rockdog.service.repository
 
 import android.net.Uri
+import android.util.Log
 import com.google.firebase.FirebaseNetworkException
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
+import com.google.firebase.firestore.FieldValue
 import el.ka.rockdog.other.Constants
 import el.ka.rockdog.other.Constants.ARTIST_COVER_FIELD
+import el.ka.rockdog.other.Constants.ARTIST_PHOTOS_FIELD
 import el.ka.rockdog.service.model.Artist
 import el.ka.rockdog.service.model.ErrorApp
 import el.ka.rockdog.service.model.Errors
@@ -83,7 +84,12 @@ object ArtistsRepository {
     Errors.unknownError
   }
 
-  suspend fun changeCover(artistId: String, uri: Uri, oldCoverUrl: String, onSuccess: (String) -> Unit): ErrorApp? {
+  suspend fun changeCover(
+    artistId: String,
+    uri: Uri,
+    oldCoverUrl: String,
+    onSuccess: (String) -> Unit
+  ): ErrorApp? {
     try {
       val time = Calendar.getInstance().time
       val path = "$artistId/$time"
@@ -105,5 +111,29 @@ object ArtistsRepository {
     }
 
     return null
+  }
+
+  suspend fun addPhoto(artistId: String, uri: Uri, onSuccess: (String) -> Unit): ErrorApp? {
+    try {
+      // add to store
+      val time = Calendar.getInstance().time
+      val path = "$artistId/photos/$time"
+      val task = FirebaseService.artistPhotosStore.child(path).putFile(uri).await()
+      val url = task.storage.downloadUrl.await()
+
+      // update note of artist
+      FirebaseService.artistsCollection.document(artistId)
+        .update(ARTIST_PHOTOS_FIELD, FieldValue.arrayUnion(url)).await()
+
+      onSuccess(url.toString())
+      return null
+    } catch (e: FirebaseNetworkException) {
+      return Errors.networkError
+    } catch (e: Exception) {
+      val a = e.message
+      Log.d("addPhoto", "$a")
+      return Errors.unknownError
+    }
+
   }
 }

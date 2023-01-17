@@ -44,7 +44,8 @@ class PhotosAdapter(private val limit: Int, private val listener: ((String) -> U
   }
 
   private fun clear() {
-    items.forEach { removeUrl(it) }
+    notifyItemRangeRemoved(0, items.size)
+    items.clear()
   }
 
   override fun onViewAttachedToWindow(holder: PhotosViewHolder) {

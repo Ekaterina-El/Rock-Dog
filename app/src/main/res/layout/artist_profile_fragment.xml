@@ -104,6 +104,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/app_padding"
+        android:justificationMode="inter_word"
         android:layout_marginTop="10dp"
         android:text="@{viewModel.artist.artistDescription}"
         app:layout_constraintTop_toBottomOf="@id/textArtistName"

@@ -18,8 +18,12 @@ class ArtistViewModel(application: Application) : BaseViewModel(application) {
   private val _error = MutableLiveData<ErrorApp?>(null)
   val error: LiveData<ErrorApp?> get() = _error
 
+  private val _photos = MutableLiveData<List<String>>(listOf())
+  val photos: LiveData<List<String>> get() = _photos
+
   fun setArtist(artist: Artist) {
     _artist.value = artist
+    _photos.value = artist.photos
     // load albums
   }
 
@@ -41,6 +45,23 @@ class ArtistViewModel(application: Application) : BaseViewModel(application) {
   }
 
   fun addPhoto(uri: Uri) {
+    val work = Work.ADD_PHOTO
+    addWork(work)
 
+    viewModelScope.launch {
+      val artistId = _artist.value!!.id
+      var url: String? = null
+      _error.value = ArtistsRepository.addPhoto(artistId, uri) { imageUrl ->
+        url = imageUrl
+      }
+
+      url?.let {
+        val photos = _photos.value!!.toMutableList()
+        photos.add(it)
+        _photos.value = photos
+      }
+
+      removeWork(work)
+    }
   }
 }
