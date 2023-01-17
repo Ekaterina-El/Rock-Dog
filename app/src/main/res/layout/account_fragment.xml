@@ -151,7 +151,7 @@
           style="@style/cardClickable"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:onClick="@{() -> master.goArtist()}">
+          android:onClick="@{() -> master.goArtists()}">
 
           <LinearLayout
             android:layout_width="match_parent"

@@ -34,9 +34,6 @@
       android:id="@+id/action_accountFragment_to_settingsFragment"
       app:destination="@id/settingsFragment" />
     <action
-      android:id="@+id/action_accountFragment_to_artisProfileFragment"
-      app:destination="@id/artisProfileFragment" />
-    <action
       android:id="@+id/action_accountFragment_to_aboutFragment"
       app:destination="@id/aboutFragment" />
     <action
@@ -45,6 +42,9 @@
     <action
       android:id="@+id/action_accountFragment_to_notificationsFragment"
       app:destination="@id/notificationsFragment" />
+    <action
+      android:id="@+id/action_accountFragment_to_artistsFragment"
+      app:destination="@id/artistsFragment" />
   </fragment>
   <fragment
     android:id="@+id/welcomeFragment"
@@ -93,10 +93,6 @@
     android:name="el.ka.rockdog.view.ui.profile.SettingsFragment"
     android:label="SettingsFragment" />
   <fragment
-    android:id="@+id/artisProfileFragment"
-    android:name="el.ka.rockdog.view.ui.profile.ArtistsFragment"
-    android:label="ArtisProfileFragment" />
-  <fragment
     android:id="@+id/aboutFragment"
     android:name="el.ka.rockdog.view.ui.profile.AboutFragment"
     android:label="AboutFragment" />
@@ -128,4 +124,20 @@
     android:id="@+id/notificationsFragment"
     android:name="el.ka.rockdog.view.ui.profile.NotificationsFragment"
     android:label="NotificationsFragment" />
+  <fragment
+    android:id="@+id/artistsFragment"
+    android:name="el.ka.rockdog.view.ui.profile.ArtistsFragment"
+    android:label="ArtistsFragment" >
+    <action
+      android:id="@+id/action_artistsFragment_to_artistProfileFragment"
+      app:destination="@id/artistProfileFragment" />
+  </fragment>
+  <fragment
+    android:id="@+id/artistProfileFragment"
+    android:name="el.ka.rockdog.view.ui.artist.ArtistProfileFragment"
+    android:label="ArtistProfileFragment" >
+    <argument
+      android:name="artist"
+      app:argType="el.ka.rockdog.service.model.Artist" />
+  </fragment>
 </navigation>

@@ -35,7 +35,7 @@
           android:layout_height="match_parent"
           android:contentDescription="@null"
           android:scaleType="centerCrop"
-          android:src="@drawable/example"
+          tools:src="@drawable/example"
           app:imageUrl="@{artist.coverUrl}" />
       </androidx.cardview.widget.CardView>
 

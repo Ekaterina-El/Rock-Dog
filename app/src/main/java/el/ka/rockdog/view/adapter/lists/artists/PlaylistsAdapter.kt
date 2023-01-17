@@ -9,7 +9,7 @@ import el.ka.rockdog.service.model.Artist
 import el.ka.rockdog.service.model.Playlist
 import el.ka.rockdog.view.adapter.lists.playlists.PlaylistViewHolder
 
-class ArtistsAdapter : RecyclerView.Adapter<ArtistViewHolder>() {
+class ArtistsAdapter(private val listener: ((Artist) -> Unit)? = null ) : RecyclerView.Adapter<ArtistViewHolder>() {
   private val items = mutableListOf<Artist>()
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistViewHolder {
@@ -46,5 +46,20 @@ class ArtistsAdapter : RecyclerView.Adapter<ArtistViewHolder>() {
 
   private fun clear() {
     items.forEach { removePlaylist(it) }
+  }
+
+  override fun onViewAttachedToWindow(holder: ArtistViewHolder) {
+    super.onViewAttachedToWindow(holder)
+    holder.itemView.setOnClickListener {
+      listener?.let {
+        val artis = items[holder.adapterPosition]
+        it(artis)
+      }
+    }
+  }
+
+  override fun onViewDetachedFromWindow(holder: ArtistViewHolder) {
+    super.onViewDetachedFromWindow(holder)
+    listener?.let { holder.itemView.setOnClickListener(null) }
   }
 }

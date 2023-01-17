@@ -19,7 +19,6 @@ import com.canhub.cropper.CropImageView
 import el.ka.rockdog.R
 import el.ka.rockdog.databinding.AccountFragmentBinding
 import el.ka.rockdog.other.Action
-import el.ka.rockdog.other.Work
 import el.ka.rockdog.view.ui.BaseFragment
 import el.ka.rockdog.viewModel.ProfileViewModel
 
@@ -73,8 +72,8 @@ class AccountFragment : BaseFragment() {
     navController.navigate(R.id.action_accountFragment_to_aboutFragment)
   }
 
-  fun goArtist() {
-    navController.navigate(R.id.action_accountFragment_to_artisProfileFragment)
+  fun goArtists() {
+    navController.navigate(R.id.action_accountFragment_to_artistsFragment)
   }
 
   fun goAdminPanel() {

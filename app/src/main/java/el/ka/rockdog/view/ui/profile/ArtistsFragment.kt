@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import el.ka.rockdog.R
 import el.ka.rockdog.databinding.ArtistProfileFragmentBinding
 import el.ka.rockdog.databinding.ArtistsFragmentBinding
@@ -53,7 +54,7 @@ class ArtistsFragment : BaseFragment() {
     savedInstanceState: Bundle?
   ): View {
     artistViewModel = ViewModelProvider(this)[ArtistsViewModel::class.java]
-    artistsAdapter = ArtistsAdapter()
+    artistsAdapter = ArtistsAdapter { artis -> openArtist(artis) }
 
     binding = ArtistsFragmentBinding.inflate(layoutInflater)
     binding.apply {
@@ -92,5 +93,11 @@ class ArtistsFragment : BaseFragment() {
     artistRequestDialog.open {
       artistViewModel.sendRequest(it)
     }
+  }
+
+
+  private fun openArtist(artis: Artist) {
+    val dir = ArtistsFragmentDirections.actionArtistsFragmentToArtistProfileFragment(artis)
+    findNavController().navigate(dir)
   }
 }

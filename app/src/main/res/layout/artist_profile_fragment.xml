@@ -5,13 +5,14 @@
 
   <data>
 
+
     <variable
       name="master"
-      type="el.ka.rockdog.view.ui.profile.AccountFragment" />
+      type="el.ka.rockdog.view.ui.artist.ArtistProfileFragment" />
 
     <variable
       name="viewModel"
-      type="el.ka.rockdog.viewModel.ProfileViewModel" />
+      type="el.ka.rockdog.viewModel.ArtistViewModel" />
 
     <import type="android.view.View" />
   </data>
@@ -79,7 +80,7 @@
           android:contentDescription="@null"
           android:onClick="@{() -> master.changeProfileImage()}"
           android:scaleType="centerCrop"
-          app:imageUrl="@{viewModel.profile.profileUrl}"
+          app:imageUrl="@{viewModel.artist.coverUrl}"
           tools:background="@color/grey" />
       </androidx.cardview.widget.CardView>
 
@@ -91,7 +92,7 @@
         android:layout_marginHorizontal="@dimen/app_padding"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="@{viewModel.profile.name}"
+        android:text="@{viewModel.artist.artistName}"
         app:layout_constraintTop_toBottomOf="@id/imageWrapperProfile"
         tools:text="AC/DC" />
 
@@ -102,7 +103,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/app_padding"
         android:layout_marginTop="10dp"
-        android:text="@{viewModel.profile.name}"
+        android:text="@{viewModel.artist.artistDescription}"
         app:layout_constraintTop_toBottomOf="@id/textArtistName"
         tools:text="AC/DC are an Australian rock band formed in Sydney in 1973 by Scottish-born brothers Malcolm and Angus Young. Their music has been variously described as hard rock, blues rock, and heavy metal, but the band calls it simply rock and roll" />
 
