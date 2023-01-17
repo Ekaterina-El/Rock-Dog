@@ -11,18 +11,18 @@
 
     <variable
       name="master"
-      type="el.ka.rockdog.view.ui.SongsFragment" />
+      type="el.ka.rockdog.view.ui.playlist.SongsFragment" />
 
     <variable
       name="songsAdapter"
-      type="el.ka.rockdog.view.adapter.songs.SongsAdapter" />
+      type="el.ka.rockdog.view.adapter.lists.songs.SongsAdapter" />
   </data>
 
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.ui.SongsFragment">
+    tools:context=".view.ui.playlist.SongsFragment">
 
     <LinearLayout
       android:layout_width="match_parent"

@@ -7,7 +7,7 @@
 
     <variable
       name="master"
-      type="el.ka.rockdog.view.ui.profile.adminPanel.RequestToRegistrationArtistFragment" />
+      type="el.ka.rockdog.view.ui.adminPanel.RequestToRegistrationArtistFragment" />
 
     <variable
       name="viewModel"

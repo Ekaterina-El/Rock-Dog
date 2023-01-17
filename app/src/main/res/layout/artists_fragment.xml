@@ -5,19 +5,18 @@
 
   <data>
     <variable
-      name="master"
-      type="el.ka.rockdog.view.ui.profile.NotificationsFragment" />
+      name="artistsAdapter"
+      type="el.ka.rockdog.view.adapter.lists.artists.ArtistsAdapter" />
 
     <variable
-      name="adapter"
-      type="el.ka.rockdog.view.adapter.lists.notifications.NotificationsAdapter" />
+      name="master"
+      type="el.ka.rockdog.view.ui.profile.ArtistsFragment" />
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--  region Header -->
     <LinearLayout
       android:id="@+id/layoutHeader"
       android:layout_width="match_parent"
@@ -31,10 +30,11 @@
       app:layout_constraintTop_toTopOf="parent">
 
       <ImageView
-        android:onClick="@{() -> master.goBack()}"
-        android:clickable="true"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:clickable="true"
+        android:contentDescription="@string/go_back"
+        android:onClick="@{() -> master.goBack()}"
         android:padding="7dp"
         android:src="@drawable/ic_back" />
 
@@ -43,23 +43,31 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_marginEnd="40dp"
         android:gravity="center"
-        android:text="@string/notifications" />
+        android:text="@string/artists_profile" />
+
+      <ImageView
+        android:layout_width="40dp"
+        android:clickable="true"
+        android:layout_height="40dp"
+        android:onClick="@{() -> master.showDialogToRequestToRegistrationArtist()}"
+        android:contentDescription="@string/create_request_to_registration_artist"
+        android:padding="6dp"
+        android:src="@drawable/ic_add"
+        app:tint="@color/second_color" />
     </LinearLayout>
-    <!--  endregion  -->
 
     <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/recyclerView"
-      android:overScrollMode="never"
       android:layout_width="match_parent"
+      android:layout_marginHorizontal="@dimen/app_padding"
       android:layout_height="0dp"
+      android:adapter="@{artistsAdapter}"
+      android:overScrollMode="never"
+      tools:listitem="@layout/artist_item"
       android:layout_marginTop="15dp"
-      android:adapter="@{adapter}"
-      app:layout_constraintTop_toBottomOf="@id/layoutHeader"
-      app:layout_constraintBottom_toBottomOf="parent"
       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-      tools:listitem="@layout/item_notification" />
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/layoutHeader" />
 
 
   </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,7 @@
 
   <fragment
     android:id="@+id/songsFragment"
-    android:name="el.ka.rockdog.view.ui.SongsFragment"
+    android:name="el.ka.rockdog.view.ui.playlist.SongsFragment"
     android:label="SongsFragment" >
     <action
       android:id="@+id/action_songsFragment_to_playlistsFragment"
@@ -20,11 +20,11 @@
   </fragment>
   <fragment
     android:id="@+id/playlistsFragment"
-    android:name="el.ka.rockdog.view.ui.PlaylistsFragment"
+    android:name="el.ka.rockdog.view.ui.playlist.PlaylistsFragment"
     android:label="PlaylistsFragment" />
   <fragment
     android:id="@+id/playerFragment"
-    android:name="el.ka.rockdog.view.ui.PlayerFragment"
+    android:name="el.ka.rockdog.view.ui.player.PlayerFragment"
     android:label="PlayerFragment" />
   <fragment
     android:id="@+id/accountFragment"
@@ -48,7 +48,7 @@
   </fragment>
   <fragment
     android:id="@+id/welcomeFragment"
-    android:name="el.ka.rockdog.view.ui.WelcomeFragment"
+    android:name="el.ka.rockdog.view.ui.splash.WelcomeFragment"
     android:label="WelcomeFragment" >
     <action
       android:id="@+id/action_welcomeFragment_to_singUpFragment"
@@ -77,7 +77,7 @@
   </fragment>
   <fragment
     android:id="@+id/splashFragment"
-    android:name="el.ka.rockdog.view.ui.SplashFragment"
+    android:name="el.ka.rockdog.view.ui.splash.SplashFragment"
     android:label="SplashFragment" >
     <action
       android:id="@+id/action_splashFragment_to_songsFragment"
@@ -94,7 +94,7 @@
     android:label="SettingsFragment" />
   <fragment
     android:id="@+id/artisProfileFragment"
-    android:name="el.ka.rockdog.view.ui.profile.ArtisProfileFragment"
+    android:name="el.ka.rockdog.view.ui.profile.ArtistsFragment"
     android:label="ArtisProfileFragment" />
   <fragment
     android:id="@+id/aboutFragment"
@@ -102,7 +102,7 @@
     android:label="AboutFragment" />
   <fragment
     android:id="@+id/adminPanelFragment"
-    android:name="el.ka.rockdog.view.ui.profile.adminPanel.AdminPanelFragment"
+    android:name="el.ka.rockdog.view.ui.adminPanel.AdminPanelFragment"
     android:label="AdminPanelFragment" >
     <action
       android:id="@+id/action_adminPanelFragment_to_requestsToRegistrationArtists"
@@ -110,7 +110,7 @@
   </fragment>
   <fragment
     android:id="@+id/requestsToRegistrationArtists"
-    android:name="el.ka.rockdog.view.ui.profile.adminPanel.RequestsToRegistrationArtists"
+    android:name="el.ka.rockdog.view.ui.adminPanel.RequestsToRegistrationArtists"
     android:label="RequestsToRegistrationArtists" >
     <action
       android:id="@+id/action_requestsToRegistrationArtists_to_requestToRegistrationArtistFragment"
@@ -118,7 +118,7 @@
   </fragment>
   <fragment
     android:id="@+id/requestToRegistrationArtistFragment"
-    android:name="el.ka.rockdog.view.ui.profile.adminPanel.RequestToRegistrationArtistFragment"
+    android:name="el.ka.rockdog.view.ui.adminPanel.RequestToRegistrationArtistFragment"
     android:label="RequestToRegistrationArtistFragment" >
     <argument
       android:name="request"

@@ -6,7 +6,7 @@
 
     <variable
       name="master"
-      type="el.ka.rockdog.view.ui.WelcomeFragment" />
+      type="el.ka.rockdog.view.ui.splash.WelcomeFragment" />
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout

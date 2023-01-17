@@ -103,6 +103,10 @@
     <item name="android:textSize">18sp</item>
   </style>
 
+  <style name="text.header1.bold" parent="text.header1">
+    <item name="android:fontFamily">@font/montserrat_medium</item>
+  </style>
+
   <style name="text.big" parent="text">
     <item name="android:textSize">34sp</item>
   </style>

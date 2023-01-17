@@ -15,8 +15,8 @@ import com.google.android.material.snackbar.Snackbar
 import el.ka.rockdog.databinding.NotificationsFragmentBinding
 import el.ka.rockdog.other.Action
 import el.ka.rockdog.service.model.Notification
-import el.ka.rockdog.view.adapter.notifications.NotificationViewHolder
-import el.ka.rockdog.view.adapter.notifications.NotificationsAdapter
+import el.ka.rockdog.view.adapter.lists.notifications.NotificationViewHolder
+import el.ka.rockdog.view.adapter.lists.notifications.NotificationsAdapter
 import el.ka.rockdog.view.ui.BaseFragment
 import el.ka.rockdog.viewModel.ProfileViewModel
 

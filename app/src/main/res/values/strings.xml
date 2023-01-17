@@ -91,4 +91,5 @@
   <string name="denied_to_reg_artist_header">Denied to registration artist</string>
   <string name="artist">Artist</string>
   <string name="albums">Albums</string>
+  <string name="social_media">Social media</string>
 </resources>

@@ -85,7 +85,7 @@
 
       <TextView
         android:id="@+id/textArtistName"
-        style="@style/text.header1"
+        style="@style/text.header1.bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/app_padding"
@@ -106,6 +106,16 @@
         app:layout_constraintTop_toBottomOf="@id/textArtistName"
         tools:text="AC/DC are an Australian rock band formed in Sydney in 1973 by Scottish-born brothers Malcolm and Angus Young. Their music has been variously described as hard rock, blues rock, and heavy metal, but the band calls it simply rock and roll" />
 
+      <TextView
+        android:id="@+id/textViewSocialMediaTitle"
+        style="@style/text.header2.bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/app_padding"
+        android:layout_marginTop="25dp"
+        android:text="@string/social_media"
+        app:layout_constraintTop_toBottomOf="@id/textArtistDescription" />
+
 
       <TextView
         android:id="@+id/textViewAlbumsTitle"
@@ -115,13 +125,13 @@
         android:layout_marginHorizontal="@dimen/app_padding"
         android:layout_marginTop="25dp"
         android:text="@string/albums"
-        app:layout_constraintTop_toBottomOf="@id/textArtistDescription" />
+        app:layout_constraintTop_toBottomOf="@id/textViewSocialMediaTitle" />
 
       <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/app_padding"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/album_item"

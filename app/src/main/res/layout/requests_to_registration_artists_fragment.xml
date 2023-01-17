@@ -8,7 +8,7 @@
 
     <variable
       name="requestsAdapter"
-      type="el.ka.rockdog.view.adapter.requestToRegistrationArtist.RequestToRegistrationArtistAdapter" />
+      type="el.ka.rockdog.view.adapter.lists.requestToRegistrationArtist.RequestToRegistrationArtistAdapter" />
 
     <variable
       name="viewModel"
@@ -16,7 +16,7 @@
 
     <variable
       name="master"
-      type="el.ka.rockdog.view.ui.profile.adminPanel.RequestsToRegistrationArtists" />
+      type="el.ka.rockdog.view.ui.adminPanel.RequestsToRegistrationArtists" />
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout

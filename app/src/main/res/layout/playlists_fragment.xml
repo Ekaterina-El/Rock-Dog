@@ -6,11 +6,11 @@
   <data>
     <variable
       name="master"
-      type="el.ka.rockdog.view.ui.PlaylistsFragment" />
+      type="el.ka.rockdog.view.ui.playlist.PlaylistsFragment" />
 
     <variable
       name="adapter"
-      type="el.ka.rockdog.view.adapter.playlists.PlaylistsAdapter" />
+      type="el.ka.rockdog.view.adapter.lists.playlists.PlaylistsAdapter" />
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout
