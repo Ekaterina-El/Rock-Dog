@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+    <variable
+      name="photosAdapter"
+      type="el.ka.rockdog.view.adapter.lists.photos.FullScreenPhotosAdapter" />
+
+
+    <variable
+      name="master"
+      type="el.ka.rockdog.view.ui.fullScreenViewer.FullScreenViewerFragment" />
+
+    <variable
+      name="viewModel"
+      type="el.ka.rockdog.viewModel.FullScreenViewerViewModel" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:background="@color/bg"
+    android:layout_height="match_parent">
+    
+    <androidx.viewpager2.widget.ViewPager2
+      android:id="@+id/viewPager"
+      android:adapter="@{photosAdapter}"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
+
+    <LinearLayout
+      android:id="@+id/layoutHeader"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center_vertical"
+      android:paddingVertical="5dp"
+      android:background="@color/bg_light"
+      android:paddingHorizontal="@dimen/app_padding"
+      android:orientation="horizontal"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+      <ImageView
+        android:onClick="@{() -> master.goBack()}"
+        android:clickable="true"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="7dp"
+        android:src="@drawable/ic_back" />
+
+      <TextView
+        style="@style/text.header2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@{@string/from_to(viewModel.currentPos + 1, viewModel.length)}"
+        tools:text="4/134" />
+
+      <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="8dp"
+        android:src="@drawable/ic_more"
+        app:tint="@color/second_color" />
+    </LinearLayout>
+
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -139,5 +139,20 @@
     <argument
       android:name="artist"
       app:argType="el.ka.rockdog.service.model.Artist" />
+    <action
+      android:id="@+id/action_artistProfileFragment_to_fullScreenViewerFragment"
+      app:destination="@id/fullScreenViewerFragment" />
+  </fragment>
+  <fragment
+    android:id="@+id/fullScreenViewerFragment"
+    android:name="el.ka.rockdog.view.ui.fullScreenViewer.FullScreenViewerFragment"
+    android:label="FullScreenViewerFragment" >
+    <argument
+      android:name="photos"
+      app:argType="string[]" />
+    <argument
+      android:name="currentPos"
+      app:argType="integer"
+      android:defaultValue="0" />
   </fragment>
 </navigation>

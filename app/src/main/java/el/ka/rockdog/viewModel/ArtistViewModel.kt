@@ -23,7 +23,7 @@ class ArtistViewModel(application: Application) : BaseViewModel(application) {
 
   fun setArtist(artist: Artist) {
     _artist.value = artist
-    _photos.value = artist.photos
+    _photos.value = artist.photos.asReversed()
     // load albums
   }
 
@@ -57,7 +57,7 @@ class ArtistViewModel(application: Application) : BaseViewModel(application) {
 
       url?.let {
         val photos = _photos.value!!.toMutableList()
-        photos.add(it)
+        photos.add(0, it)
         _photos.value = photos
       }
 

@@ -1,11 +1,13 @@
 package el.ka.rockdog.view.ui.artist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.canhub.cropper.CropImageOptions
 import el.ka.rockdog.databinding.ArtistProfileFragmentBinding
 import el.ka.rockdog.other.CropOptions
@@ -21,7 +23,7 @@ class ArtistProfileFragment : BaseFragment() {
 
   private lateinit var photosAdapter: PhotosAdapter
   private val photosObserver = Observer<List<String>> {
-    photosAdapter.setItems(it.asReversed())
+    photosAdapter.setItems(it)
   }
 
   override fun onCreateView(
@@ -41,10 +43,6 @@ class ArtistProfileFragment : BaseFragment() {
     }
 
     return binding.root
-  }
-
-  private fun openGallerySince(url: String) {
-
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,4 +90,14 @@ class ArtistProfileFragment : BaseFragment() {
     viewModel.addPhoto(uri)
   }
   // endregion
+
+  private fun openGallerySince(url: String) {
+    val photos = viewModel.photos.value!!
+    val current = photos.indexOf(url)
+
+    val direction = ArtistProfileFragmentDirections.actionArtistProfileFragmentToFullScreenViewerFragment(
+      photos.toTypedArray(), current
+    )
+    findNavController(). navigate(direction)
+  }
 }

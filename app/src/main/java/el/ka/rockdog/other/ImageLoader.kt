@@ -11,7 +11,7 @@ class ImageLoader(context: Context) {
   private val glide by lazy {
     Glide.with(context).applyDefaultRequestOptions(
       RequestOptions()
-        .centerCrop()
+//        .centerCrop()
         .placeholder(R.drawable.placeholder)
         .error(R.drawable.placeholder)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
