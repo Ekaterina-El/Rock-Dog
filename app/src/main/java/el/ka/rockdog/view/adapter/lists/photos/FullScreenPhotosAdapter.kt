@@ -3,12 +3,9 @@ package el.ka.rockdog.view.adapter.lists.photos
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import el.ka.rockdog.databinding.FullScreenViewerBinding
 import el.ka.rockdog.databinding.ItemPhotoZoomBinding
-import el.ka.rockdog.databinding.PhotoItemBinding
-import el.ka.rockdog.service.model.Artist
 
-class FullScreenPhotosAdapter() : RecyclerView.Adapter<FullScreenPhotoViewHolder>() {
+class FullScreenPhotosAdapter : RecyclerView.Adapter<FullScreenPhotoViewHolder>() {
   private val items = mutableListOf<String>()
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FullScreenPhotoViewHolder {
@@ -38,5 +35,20 @@ class FullScreenPhotosAdapter() : RecyclerView.Adapter<FullScreenPhotoViewHolder
   private fun clear() {
     notifyItemRangeRemoved(0, items.size)
     items.clear()
+  }
+
+  private fun removeItem(url: String) {
+    val pos = items.indexOf(url)
+    if (pos == -1) return
+
+    items.remove(url)
+    notifyItemRangeChanged(pos, items.size)
+  }
+
+
+  fun showAndDeleteUniq(it: Array<String>) {
+    val its = items
+    its.removeAll(it.toMutableList())
+    its.forEach { removeItem(it) }
   }
 }

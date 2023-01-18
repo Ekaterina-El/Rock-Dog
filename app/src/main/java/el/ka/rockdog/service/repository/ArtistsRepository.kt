@@ -4,6 +4,7 @@ import android.net.Uri
 import android.util.Log
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.Source
 import el.ka.rockdog.other.Constants
 import el.ka.rockdog.other.Constants.ARTIST_COVER_FIELD
 import el.ka.rockdog.other.Constants.ARTIST_PHOTOS_FIELD
@@ -75,7 +76,7 @@ object ArtistsRepository {
   }
 
   private suspend fun loadArtistById(id: String, onSuccess: (Artist) -> Unit): ErrorApp? = try {
-    val doc = FirebaseService.artistsCollection.document(id).get().await()
+    val doc = FirebaseService.artistsCollection.document(id).get(Source.SERVER).await()
     val artist = doc.toObject(Artist::class.java)!!
     artist.id = doc.id
     onSuccess(artist)
@@ -135,5 +136,25 @@ object ArtistsRepository {
       return Errors.unknownError
     }
 
+  }
+
+  suspend fun deletePhoto(artistId: String, url: String, onSuccess: () -> Unit): ErrorApp? {
+    return try {
+      // remove from storage
+      FirebaseService.deleteByUrl(url)
+
+      // update note of artist
+      FirebaseService.artistsCollection.document(artistId)
+        .update(ARTIST_PHOTOS_FIELD, FieldValue.arrayRemove(url)).await()
+
+      onSuccess()
+      null
+    } catch (e: FirebaseNetworkException) {
+      Errors.networkError
+    }
+    catch (e: Exception) {
+      val a = e
+      Errors.unknownError
+    }
   }
 }

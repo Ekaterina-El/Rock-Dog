@@ -154,5 +154,8 @@
       android:name="currentPos"
       app:argType="integer"
       android:defaultValue="0" />
+    <argument
+      android:name="artistId"
+      app:argType="string" />
   </fragment>
 </navigation>

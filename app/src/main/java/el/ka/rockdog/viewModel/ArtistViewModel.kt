@@ -64,4 +64,9 @@ class ArtistViewModel(application: Application) : BaseViewModel(application) {
       removeWork(work)
     }
   }
+
+  fun setPhotos(it: List<String>) {
+    _photos.value = it
+    _artist.value!!.photos = it
+  }
 }

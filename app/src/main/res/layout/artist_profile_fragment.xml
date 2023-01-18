@@ -92,7 +92,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/app_padding"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:gravity="center"
         android:text="@{viewModel.artist.artistName}"
         app:layout_constraintTop_toBottomOf="@id/imageWrapperProfile"
@@ -129,6 +129,7 @@
         android:overScrollMode="never"
         android:adapter="@{photosAdapter}"
         app:spanCount="3"
+        android:layout_marginTop="10dp"
         tools:itemCount="6" />
       </androidx.cardview.widget.CardView>
 

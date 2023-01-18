@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -19,7 +20,7 @@ import el.ka.rockdog.viewModel.ArtistViewModel
 
 class ArtistProfileFragment : BaseFragment() {
   private lateinit var binding: ArtistProfileFragmentBinding
-  private lateinit var viewModel: ArtistViewModel
+  private val viewModel by activityViewModels<ArtistViewModel>()
 
   private lateinit var photosAdapter: PhotosAdapter
   private val photosObserver = Observer<List<String>> {
@@ -31,7 +32,6 @@ class ArtistProfileFragment : BaseFragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    viewModel = ViewModelProvider(this)[ArtistViewModel::class.java]
     photosAdapter = PhotosAdapter(limit = 6) { url -> openGallerySince(url) }
 
     binding = ArtistProfileFragmentBinding.inflate(layoutInflater)
@@ -92,11 +92,12 @@ class ArtistProfileFragment : BaseFragment() {
   // endregion
 
   private fun openGallerySince(url: String) {
+    val artistId = viewModel.artist.value!!.id
     val photos = viewModel.photos.value!!
     val current = photos.indexOf(url)
 
     val direction = ArtistProfileFragmentDirections.actionArtistProfileFragmentToFullScreenViewerFragment(
-      photos.toTypedArray(), current
+      photos.toTypedArray(), artistId, current
     )
     findNavController(). navigate(direction)
   }

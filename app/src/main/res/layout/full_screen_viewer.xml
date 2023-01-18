@@ -60,6 +60,10 @@
         tools:text="4/134" />
 
       <ImageView
+        android:id="@+id/vertical_menu"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{() -> master.openPopupMenu()}"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:padding="8dp"
