@@ -1,5 +1,6 @@
 package el.ka.rockdog.view.adapter.lists.photos
 
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +16,6 @@ class FullScreenPhotosAdapter : RecyclerView.Adapter<FullScreenPhotoViewHolder>(
 
   override fun onBindViewHolder(holder: FullScreenPhotoViewHolder, position: Int) {
     if (items.size < position) return
-
     val item = items[position]
     holder.bind(item)
   }
@@ -44,5 +44,4 @@ class FullScreenPhotosAdapter : RecyclerView.Adapter<FullScreenPhotoViewHolder>(
     items.remove(url)
     notifyItemRangeChanged(pos, items.size)
   }
-
 }
