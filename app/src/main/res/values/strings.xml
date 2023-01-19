@@ -80,6 +80,7 @@
   <string name="your_admin_level">You are a level %1$d administrator</string>
   <string name="progressive_rock">Progressive rock</string>
   <string name="no_requests_were_found">No requests were found</string>
+  <string name="no_photos_were_found">No photos were found</string>
   <string name="deny">Deny</string>
   <string name="approve">Approve</string>
   <string name="notifications">Notifications</string>
@@ -96,4 +97,6 @@
   <string name="from_to">%1$d/%2$d</string>
   <string name="delete">Delete</string>
   <string name="download">Download</string>
+  <string name="photos">Photos</string>
+  <string name="band_members">Band members</string>
 </resources>

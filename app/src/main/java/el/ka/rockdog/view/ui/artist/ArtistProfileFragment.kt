@@ -14,6 +14,8 @@ import el.ka.rockdog.databinding.ArtistProfileFragmentBinding
 import el.ka.rockdog.other.CropOptions
 import el.ka.rockdog.other.GridSpacingItemDecoration
 import el.ka.rockdog.other.ImageChanger
+import el.ka.rockdog.service.model.BandMember
+import el.ka.rockdog.view.adapter.lists.bandMembers.BandMembersAdapter
 import el.ka.rockdog.view.adapter.lists.photos.PhotosAdapter
 import el.ka.rockdog.view.ui.BaseFragment
 import el.ka.rockdog.viewModel.ArtistViewModel
@@ -22,9 +24,15 @@ class ArtistProfileFragment : BaseFragment() {
   private lateinit var binding: ArtistProfileFragmentBinding
   private val viewModel by activityViewModels<ArtistViewModel>()
 
+
   private lateinit var photosAdapter: PhotosAdapter
   private val photosObserver = Observer<List<String>> {
     photosAdapter.setItems(it)
+  }
+
+  private lateinit var bandMemberAdapter: BandMembersAdapter
+  private val bandMemberObserver = Observer<List<BandMember>> {
+    bandMemberAdapter.setItems(it)
   }
 
   override fun onCreateView(
@@ -33,11 +41,13 @@ class ArtistProfileFragment : BaseFragment() {
     savedInstanceState: Bundle?
   ): View {
     photosAdapter = PhotosAdapter(limit = 6) { url -> openGallerySince(url) }
+    bandMemberAdapter = BandMembersAdapter()
 
     binding = ArtistProfileFragmentBinding.inflate(layoutInflater)
     binding.apply {
       lifecycleOwner = viewLifecycleOwner
       master = this@ArtistProfileFragment
+      bandMembersAdapter = this@ArtistProfileFragment.bandMemberAdapter
       photosAdapter = this@ArtistProfileFragment.photosAdapter
       viewModel = this@ArtistProfileFragment.viewModel
     }
@@ -70,6 +80,7 @@ class ArtistProfileFragment : BaseFragment() {
     viewModel.work.observe(viewLifecycleOwner, workObserver)
     viewModel.error.observe(viewLifecycleOwner, errorObserver)
     viewModel.photos.observe(viewLifecycleOwner, photosObserver)
+    viewModel.bandMembers.observe(viewLifecycleOwner, bandMemberObserver)
   }
 
   override fun onDestroy() {
@@ -77,6 +88,7 @@ class ArtistProfileFragment : BaseFragment() {
     viewModel.work.removeObserver(workObserver)
     viewModel.error.removeObserver(errorObserver)
     viewModel.photos.removeObserver { photosObserver }
+    viewModel.bandMembers.removeObserver { bandMemberObserver }
   }
 
   // region Images

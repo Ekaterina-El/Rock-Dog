@@ -165,7 +165,7 @@ class FullScreenViewerFragment : BaseFragment() {
 
       Toast.makeText(requireContext(), "Image saved", Toast.LENGTH_SHORT).show()
     } catch (e: Exception) {
-      Toast.makeText(requireContext(), "Image saved", Toast.LENGTH_SHORT).show()
+      Toast.makeText(requireContext(), "Image no saved", Toast.LENGTH_SHORT).show()
       e.printStackTrace()
     }
   }
