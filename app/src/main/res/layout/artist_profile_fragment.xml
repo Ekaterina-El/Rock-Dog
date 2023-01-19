@@ -69,7 +69,7 @@
         android:id="@+id/imageWrapperProfile"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         app:cardCornerRadius="100dp"
         app:cardElevation="20dp"
         app:layout_constraintEnd_toEndOf="parent"

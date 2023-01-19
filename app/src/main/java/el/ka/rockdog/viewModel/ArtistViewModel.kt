@@ -23,7 +23,8 @@ class ArtistViewModel(application: Application) : BaseViewModel(application) {
 
   fun setArtist(artist: Artist) {
     _artist.value = artist
-    _photos.value = artist.photos.asReversed()
+    _photos.value = artist.photos
+//      .asReversed()
     // load albums
   }
 

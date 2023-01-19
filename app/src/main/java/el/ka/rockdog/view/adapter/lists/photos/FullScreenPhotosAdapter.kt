@@ -45,10 +45,4 @@ class FullScreenPhotosAdapter : RecyclerView.Adapter<FullScreenPhotoViewHolder>(
     notifyItemRangeChanged(pos, items.size)
   }
 
-
-  fun showAndDeleteUniq(it: Array<String>) {
-    val its = items
-    its.removeAll(it.toMutableList())
-    its.forEach { removeItem(it) }
-  }
 }
