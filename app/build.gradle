@@ -65,4 +65,5 @@ dependencies {
 
     // Photo viewer with zooming
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+
 }

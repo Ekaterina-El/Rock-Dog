@@ -113,4 +113,8 @@ class ArtistProfileFragment : BaseFragment() {
     )
     findNavController(). navigate(direction)
   }
+
+  fun openPopupMenu() {
+
+  }
 }
