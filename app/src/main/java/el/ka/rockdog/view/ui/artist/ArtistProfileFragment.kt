@@ -1,6 +1,5 @@
 package el.ka.rockdog.view.ui.artist
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -20,8 +19,8 @@ import el.ka.rockdog.other.ImageChanger
 import el.ka.rockdog.service.model.BandMember
 import el.ka.rockdog.view.adapter.lists.bandMembers.BandMemberViewHolder
 import el.ka.rockdog.view.adapter.lists.bandMembers.BandMembersAdapter
-import el.ka.rockdog.view.adapter.lists.notifications.NotificationViewHolder
 import el.ka.rockdog.view.adapter.lists.photos.PhotosAdapter
+import el.ka.rockdog.view.dialog.BandMemberDialog
 import el.ka.rockdog.view.dialog.ChangeDescriptionDialog
 import el.ka.rockdog.view.ui.BaseFragment
 import el.ka.rockdog.viewModel.ArtistViewModel
@@ -100,10 +99,6 @@ class ArtistProfileFragment : BaseFragment() {
     viewModel.bandMembers.removeObserver { bandMemberObserver }
   }
 
-  private fun addBandMember() {
-
-  }
-
   // region Images
   private lateinit var imageChanger: ImageChanger
 
@@ -120,15 +115,18 @@ class ArtistProfileFragment : BaseFragment() {
     val photos = viewModel.photos.value!!
     val current = photos.indexOf(url)
 
-    val direction = ArtistProfileFragmentDirections.actionArtistProfileFragmentToFullScreenViewerFragment(
-      photos.toTypedArray(), artistId, current
-    )
-    findNavController(). navigate(direction)
+    val direction =
+      ArtistProfileFragmentDirections.actionArtistProfileFragmentToFullScreenViewerFragment(
+        photos.toTypedArray(), artistId, current
+      )
+    findNavController().navigate(direction)
   }
   // endregion
 
-  private val bandMembersCallback = object: ItemTouchHelper.SimpleCallback(0,
-    ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+  private val bandMembersCallback = object : ItemTouchHelper.SimpleCallback(
+    0,
+    ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+  ) {
     override fun onMove(
       recyclerView: RecyclerView,
       viewHolder: RecyclerView.ViewHolder,
@@ -147,10 +145,25 @@ class ArtistProfileFragment : BaseFragment() {
   private fun initPopupMenu() {
     popupMenu = PopupMenu(context, binding.verticalMenu)
     popupMenu?.apply {
-      this.menu.add(0, CHANGE_DESCRIPTION, Menu.NONE, requireContext().getString(R.string.change_description))
-      this.menu.add(0, ADD_BAND_MEMBER, Menu.NONE, requireContext().getString(R.string.add_band_member))
+      this.menu.add(
+        0,
+        CHANGE_DESCRIPTION,
+        Menu.NONE,
+        requireContext().getString(R.string.change_description)
+      )
+      this.menu.add(
+        0,
+        ADD_BAND_MEMBER,
+        Menu.NONE,
+        requireContext().getString(R.string.add_band_member)
+      )
       this.menu.add(0, ADD_PHOTO, Menu.NONE, requireContext().getString(R.string.add_photo))
-      this.menu.add(0, ADD_SOCIAL_MEDIA, Menu.NONE, requireContext().getString(R.string.add_social_media))
+      this.menu.add(
+        0,
+        ADD_SOCIAL_MEDIA,
+        Menu.NONE,
+        requireContext().getString(R.string.add_social_media)
+      )
       this.menu.add(0, ADD_ALBUM, Menu.NONE, requireContext().getString(R.string.add_album))
 
       this.setOnMenuItemClickListener {
@@ -165,6 +178,13 @@ class ArtistProfileFragment : BaseFragment() {
     }
   }
 
+  fun openPopupMenu() {
+    if (popupMenu == null) initPopupMenu()
+    popupMenu!!.show()
+  }
+  // endregion
+
+  // region Change description
   private var changeDescriptionDialog: ChangeDescriptionDialog? = null
   private fun changeDescription() {
     if (changeDescriptionDialog == null) createChangeDescriptionDialog()
@@ -175,7 +195,7 @@ class ArtistProfileFragment : BaseFragment() {
   }
 
   private fun createChangeDescriptionDialog() {
-    val listener = object: ChangeDescriptionDialog.Companion.Listener {
+    val listener = object : ChangeDescriptionDialog.Companion.Listener {
       override fun onSave(description: String) {
         viewModel.updateDescription(description)
         changeDescriptionDialog?.dismiss()
@@ -183,10 +203,24 @@ class ArtistProfileFragment : BaseFragment() {
     }
     changeDescriptionDialog = ChangeDescriptionDialog(requireContext(), listener)
   }
+  // endregion
 
-  fun openPopupMenu() {
-    if (popupMenu == null) initPopupMenu()
-    popupMenu!!.show()
+  // region Band member
+  private var bandMemberDialog: BandMemberDialog? = null
+  private fun addBandMember() {
+    if (bandMemberDialog == null) createBandMemberDialog()
+    bandMemberDialog!!.clear()
+    bandMemberDialog!!.open()
+  }
+
+  private fun createBandMemberDialog() {
+    val listener = object: BandMemberDialog.Companion.Listener {
+      override fun onSave(bandMember: BandMember) {
+        viewModel.addBandMember(bandMember)
+        bandMemberDialog?.dismiss()
+      }
+    }
+    bandMemberDialog = BandMemberDialog(requireContext(), listener)
   }
   // endregion
 

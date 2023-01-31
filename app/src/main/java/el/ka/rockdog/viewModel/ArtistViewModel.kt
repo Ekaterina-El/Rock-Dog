@@ -10,6 +10,7 @@ import el.ka.rockdog.service.model.Artist
 import el.ka.rockdog.service.model.BandMember
 import el.ka.rockdog.service.model.ErrorApp
 import el.ka.rockdog.service.repository.ArtistsRepository
+import el.ka.rockdog.view.ui.artist.ArtistProfileFragment.Companion.ADD_BAND_MEMBER
 import kotlinx.coroutines.launch
 
 class ArtistViewModel(application: Application) : BaseViewModel(application) {
@@ -102,6 +103,28 @@ class ArtistViewModel(application: Application) : BaseViewModel(application) {
     }
   }
 
+  private fun editBandMember(isAdd: Boolean, bandMember: BandMember) {
+    val artist = _artist.value!!
+    val bandMembers = artist.bandMembers.toMutableList()
+    if (isAdd) bandMembers.add(bandMember) else bandMembers.remove(bandMember)
+    artist.bandMembers = bandMembers
+    _bandMembers.value = bandMembers
+    _artist.value = artist
+  }
+
+  fun addBandMember(bandMember: BandMember) {
+    val work = Work.ADD_BAND_MEMBER
+    addWork(work)
+
+    viewModelScope.launch {
+      val artistId = currentArtistId
+      _error.value = ArtistsRepository.addBandMember(artistId, bandMember) {
+        editBandMember(isAdd = true, bandMember)
+      }
+      removeWork(work)
+    }
+  }
+
   fun deleteBandMember(bandMember: BandMember) {
     val work = Work.DELETE_BAND_MEMBER
     addWork(work)
@@ -109,11 +132,7 @@ class ArtistViewModel(application: Application) : BaseViewModel(application) {
     viewModelScope.launch {
       val artistId = currentArtistId
       _error.value = ArtistsRepository.deleteBandMember(artistId, bandMember) {
-        val artist = _artist.value!!
-        val bandMembers = artist.bandMembers.toMutableList()
-        bandMembers.remove(bandMember)
-        artist.bandMembers = bandMembers
-        _artist.value = artist
+        editBandMember(isAdd = false, bandMember)
       }
       removeWork(work)
     }

@@ -173,14 +173,16 @@ object ArtistsRepository {
     }
   }
 
-  suspend fun deleteBandMember(
+  private suspend fun editBandMember(
+    isAdd: Boolean = true,
     artistId: String,
     bandMember: BandMember,
     onSuccess: () -> Unit
   ): ErrorApp? {
     return try {
-      FirebaseService.artistsCollection.document(artistId)
-        .update(ARTIST_BAND_MEMBERS, FieldValue.arrayRemove(bandMember)).await()
+      val fv = if (isAdd) FieldValue.arrayUnion(bandMember) else FieldValue.arrayRemove(bandMember)
+//      if (isAdd) ... todo: Загружзка изображения
+      FirebaseService.artistsCollection.document(artistId).update(ARTIST_BAND_MEMBERS, fv).await()
       onSuccess()
       null
     } catch (e: FirebaseNetworkException) {
@@ -189,4 +191,17 @@ object ArtistsRepository {
       Errors.unknownError
     }
   }
+
+  suspend fun addBandMember(
+    artistId: String,
+    bandMember: BandMember,
+    onSuccess: () -> Unit
+  ): ErrorApp? = editBandMember(isAdd = true, artistId, bandMember, onSuccess)
+
+  suspend fun deleteBandMember(
+    artistId: String,
+    bandMember: BandMember,
+    onSuccess: () -> Unit
+  ): ErrorApp? = editBandMember(isAdd = false, artistId, bandMember, onSuccess)
+
 }

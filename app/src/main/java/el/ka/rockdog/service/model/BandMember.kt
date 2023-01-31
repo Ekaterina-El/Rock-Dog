@@ -6,5 +6,4 @@ data class BandMember(
   val name: String = "",
   val major: String = "",
   val photoUrl: String = "",
-  val id: String = Calendar.getInstance().time.toString(),
   )
