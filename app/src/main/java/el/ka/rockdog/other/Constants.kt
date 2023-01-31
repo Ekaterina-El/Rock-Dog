@@ -16,5 +16,6 @@ object Constants {
 
   const val ARTIST_PHOTOS_FIELD  = "photos"
   const val ARTIST_COVER_FIELD  = "coverUrl"
+  const val ARTIST_DESCRIPTION  = "artistDescription"
   const val ARTIST_NAME_FIELD = "artistName"
 }

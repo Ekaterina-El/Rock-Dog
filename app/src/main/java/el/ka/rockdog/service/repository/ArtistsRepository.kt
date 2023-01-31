@@ -7,6 +7,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Source
 import el.ka.rockdog.other.Constants
 import el.ka.rockdog.other.Constants.ARTIST_COVER_FIELD
+import el.ka.rockdog.other.Constants.ARTIST_DESCRIPTION
 import el.ka.rockdog.other.Constants.ARTIST_PHOTOS_FIELD
 import el.ka.rockdog.service.model.Artist
 import el.ka.rockdog.service.model.ErrorApp
@@ -151,9 +152,25 @@ object ArtistsRepository {
       null
     } catch (e: FirebaseNetworkException) {
       Errors.networkError
-    }
-    catch (e: Exception) {
+    } catch (e: Exception) {
       val a = e
+      Errors.unknownError
+    }
+  }
+
+  suspend fun changeDescription(
+    artistId: String,
+    newDescription: String,
+    onSuccess: () -> Unit
+  ): ErrorApp? {
+    return try {
+      FirebaseService.artistsCollection.document(artistId)
+        .update(ARTIST_DESCRIPTION, newDescription).await()
+      onSuccess()
+      null
+    } catch (e: FirebaseNetworkException) {
+      Errors.networkError
+    } catch (e: Exception) {
       Errors.unknownError
     }
   }

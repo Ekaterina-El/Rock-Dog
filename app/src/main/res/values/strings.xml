@@ -102,4 +102,5 @@
   <string name="add_band_member">Add band member</string>
   <string name="add_album">Add album</string>
   <string name="add_social_media">Add social media</string>
+  <string name="change_description">Change description</string>
 </resources>

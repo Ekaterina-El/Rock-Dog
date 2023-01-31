@@ -47,8 +47,7 @@ class ArtistViewModel(application: Application) : BaseViewModel(application) {
     addWork(work)
 
     viewModelScope.launch {
-      val artistId = _artist.value!!.id
-
+      val artistId = currentArtistId!!
       _error.value = ArtistsRepository.changeCover(artistId, uri, _artist.value!!.coverUrl) { url ->
         val artist = _artist.value!!
         artist.coverUrl = url
@@ -58,6 +57,8 @@ class ArtistViewModel(application: Application) : BaseViewModel(application) {
 
     }
   }
+
+  private val currentArtistId: String get() = _artist.value!!.id
 
   fun addPhoto(uri: Uri) {
     val work = Work.ADD_PHOTO
@@ -83,5 +84,20 @@ class ArtistViewModel(application: Application) : BaseViewModel(application) {
   fun setPhotos(it: List<String>) {
     _photos.value = it
     _artist.value!!.photos = it
+  }
+
+  fun updateDescription(newDescription: String) {
+    val work = Work.CHANGE_ARTIST_DESCRIPTION
+    addWork(work)
+
+    viewModelScope.launch {
+      val artistId = currentArtistId
+      _error.value = ArtistsRepository.changeDescription(artistId, newDescription) {
+        val artist = _artist.value!!
+        artist.artistDescription = newDescription
+        _artist.value = artist
+      }
+      removeWork(work)
+    }
   }
 }

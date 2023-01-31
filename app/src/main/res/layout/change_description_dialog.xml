@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+  </data>
+
+  <androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:overScrollMode="never">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:paddingHorizontal="@dimen/app_padding"
+      android:paddingVertical="35dp">
+
+      <TextView
+        style="@style/text.header2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="15dp"
+        android:text="@string/description" />
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/fieldDescription"
+        style="@style/FieldWrapper.contrast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="@string/description"
+        app:counterEnabled="true"
+        app:counterMaxLength="280"
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/text"
+          style="@style/FieldContent.contrast"
+          android:gravity="top|left"
+          android:inputType="text|textMultiLine"
+          android:lines="10"
+          android:maxLength="280"
+          android:maxLines="10"
+          android:scrollbars="vertical"
+          tools:ignore="RtlHardcoded" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <TextView
+        android:id="@+id/buttonOk"
+        style="@style/text.clickable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingHorizontal="15dp"
+        android:paddingTop="15dp"
+        android:text="@string/save"
+
+        android:textSize="16sp" />
+    </LinearLayout>
+  </androidx.core.widget.NestedScrollView>
+</layout>

@@ -1,7 +1,7 @@
 package el.ka.rockdog.view.ui.artist
 
+import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
@@ -9,9 +9,7 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.canhub.cropper.CropImageOptions
 import el.ka.rockdog.R
 import el.ka.rockdog.databinding.ArtistProfileFragmentBinding
 import el.ka.rockdog.other.CropOptions
@@ -20,8 +18,8 @@ import el.ka.rockdog.other.ImageChanger
 import el.ka.rockdog.service.model.BandMember
 import el.ka.rockdog.view.adapter.lists.bandMembers.BandMembersAdapter
 import el.ka.rockdog.view.adapter.lists.photos.PhotosAdapter
+import el.ka.rockdog.view.dialog.ChangeDescriptionDialog
 import el.ka.rockdog.view.ui.BaseFragment
-import el.ka.rockdog.view.ui.fullScreenViewer.FullScreenViewerFragment
 import el.ka.rockdog.viewModel.ArtistViewModel
 
 class ArtistProfileFragment : BaseFragment() {
@@ -128,6 +126,7 @@ class ArtistProfileFragment : BaseFragment() {
   private fun initPopupMenu() {
     popupMenu = PopupMenu(context, binding.verticalMenu)
     popupMenu?.apply {
+      this.menu.add(0, CHANGE_DESCRIPTION, Menu.NONE, requireContext().getString(R.string.change_description))
       this.menu.add(0, ADD_BAND_MEMBER, Menu.NONE, requireContext().getString(R.string.add_band_member))
       this.menu.add(0, ADD_PHOTO, Menu.NONE, requireContext().getString(R.string.add_photo))
       this.menu.add(0, ADD_SOCIAL_MEDIA, Menu.NONE, requireContext().getString(R.string.add_social_media))
@@ -137,13 +136,31 @@ class ArtistProfileFragment : BaseFragment() {
         when (it.itemId) {
           ADD_BAND_MEMBER -> addBandMember()
           ADD_PHOTO -> addPhoto()
+          CHANGE_DESCRIPTION -> changeDescription()
           else -> {}
         }
         return@setOnMenuItemClickListener true
       }
     }
+  }
 
+  private var changeDescriptionDialog: ChangeDescriptionDialog? = null
+  private fun changeDescription() {
+    if (changeDescriptionDialog == null) createChangeDescriptionDialog()
+    changeDescriptionDialog!!.clear()
 
+    val currentDescription = viewModel.artist.value!!.artistDescription
+    changeDescriptionDialog!!.open(currentDescription)
+  }
+
+  private fun createChangeDescriptionDialog() {
+    val listener = object: ChangeDescriptionDialog.Companion.Listener {
+      override fun onSave(description: String) {
+        viewModel.updateDescription(description)
+        changeDescriptionDialog?.dismiss()
+      }
+    }
+    changeDescriptionDialog = ChangeDescriptionDialog(requireContext(), listener)
   }
 
   fun openPopupMenu() {
@@ -157,5 +174,6 @@ class ArtistProfileFragment : BaseFragment() {
     const val ADD_PHOTO = 2
     const val ADD_SOCIAL_MEDIA = 3
     const val ADD_ALBUM = 4
+    const val CHANGE_DESCRIPTION = 5
   }
 }
