@@ -1,7 +1,6 @@
 package el.ka.rockdog.service.repository
 
 import android.net.Uri
-import android.util.Log
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Source
@@ -10,9 +9,10 @@ import el.ka.rockdog.other.Constants.ARTIST_BAND_MEMBERS
 import el.ka.rockdog.other.Constants.ARTIST_COVER_FIELD
 import el.ka.rockdog.other.Constants.ARTIST_DESCRIPTION
 import el.ka.rockdog.other.Constants.ARTIST_PHOTOS_FIELD
+import el.ka.rockdog.other.StorageType
 import el.ka.rockdog.service.model.*
+import el.ka.rockdog.service.repository.FirebaseService.uploadToStorage
 import kotlinx.coroutines.tasks.await
-import java.util.*
 
 object ArtistsRepository {
   suspend fun isUniqueArtistName(name: String): Boolean {
@@ -89,53 +89,42 @@ object ArtistsRepository {
     uri: Uri,
     oldCoverUrl: String,
     onSuccess: (String) -> Unit
-  ): ErrorApp? {
-    try {
-      val time = Calendar.getInstance().time
-      val path = "$artistId/$time"
+  ): ErrorApp? = try {
+    // load to store
+    val url = uploadToStorage(uri, StorageType.ARTIST_COVER, "$artistId/")
 
-      // load to store
-      val task = FirebaseService.artistPhotosStore.child(path).putFile(uri).await()
-      val url = task.storage.downloadUrl.await()
+    // delete old version of cover
+    if (oldCoverUrl != "") FirebaseService.deleteByUrl(oldCoverUrl)
 
-      // delete old version of cover
-      if (oldCoverUrl != "") FirebaseService.deleteByUrl(oldCoverUrl)
+    // update note of artist
+    FirebaseService.artistsCollection.document(artistId).update(ARTIST_COVER_FIELD, url)
+      .await()
 
-      // update note of artist
-      FirebaseService.artistsCollection.document(artistId).update(ARTIST_COVER_FIELD, url).await()
-      onSuccess(url.toString())
-    } catch (e: FirebaseNetworkException) {
-      return Errors.networkError
-    } catch (e: Exception) {
-      return Errors.unknownError
-    }
-
-    return null
+    onSuccess(url)
+    null
+  } catch (e: FirebaseNetworkException) {
+    Errors.networkError
+  } catch (e: Exception) {
+    Errors.unknownError
   }
 
-  suspend fun addPhoto(artistId: String, uri: Uri, onSuccess: (String) -> Unit): ErrorApp? {
-    try {
-      // add to store
-      val time = Calendar.getInstance().time
-      val path = "$artistId/photos/$time"
-      val task = FirebaseService.artistPhotosStore.child(path).putFile(uri).await()
-      val url = task.storage.downloadUrl.await()
+  suspend fun addPhoto(artistId: String, uri: Uri, onSuccess: (String) -> Unit): ErrorApp? = try {
+    // add to store
+    val url = uploadToStorage(uri, StorageType.ARTIST_PHOTO, "$artistId/")
 
-      // update note of artist
-      FirebaseService.artistsCollection.document(artistId)
-        .update(ARTIST_PHOTOS_FIELD, FieldValue.arrayUnion(url)).await()
+    // update note of artist
+    FirebaseService.artistsCollection.document(artistId)
+      .update(ARTIST_PHOTOS_FIELD, FieldValue.arrayUnion(url))
+      .await()
 
-      onSuccess(url.toString())
-      return null
-    } catch (e: FirebaseNetworkException) {
-      return Errors.networkError
-    } catch (e: Exception) {
-      val a = e.message
-      Log.d("addPhoto", "$a")
-      return Errors.unknownError
-    }
-
+    onSuccess(url)
+    null
+  } catch (e: FirebaseNetworkException) {
+    Errors.networkError
+  } catch (e: Exception) {
+    Errors.unknownError
   }
+
 
   suspend fun deletePhoto(artistId: String, url: String, onSuccess: () -> Unit): ErrorApp? {
     return try {
@@ -178,31 +167,26 @@ object ArtistsRepository {
     artistId: String,
     bandMember: BandMember,
     onSuccess: () -> Unit
-  ): ErrorApp? {
-    return try {
-      if (isAdd) {
-        val time = Calendar.getInstance().time
-        val path = "$artistId/band_members/$time"
-        val uri = Uri.parse(bandMember.photoUrl)
-
-        val doc = FirebaseService.artistPhotosStore.child(path).putFile(uri).await()
-        val url = doc.storage.downloadUrl.await().toString()
-        bandMember.photoUrl = url
-      } else {
-        if (bandMember.photoUrl != "") FirebaseService.deleteByUrl(bandMember.photoUrl)
-      }
-
-      val fv = if (isAdd) FieldValue.arrayUnion(bandMember) else FieldValue.arrayRemove(bandMember)
-      FirebaseService.artistsCollection.document(artistId).update(ARTIST_BAND_MEMBERS, fv).await()
-      onSuccess()
-
-      null
-    } catch (e: FirebaseNetworkException) {
-      Errors.networkError
-    } catch (e: Exception) {
-      Errors.unknownError
+  ): ErrorApp? = try {
+    if (isAdd) {
+      val uri = Uri.parse(bandMember.photoUrl)
+      val url = uploadToStorage(uri, StorageType.BAND_MEMBER, "$artistId/")
+      bandMember.photoUrl = url
+    } else {
+      if (bandMember.photoUrl != "") FirebaseService.deleteByUrl(bandMember.photoUrl)
     }
+
+    val fv = if (isAdd) FieldValue.arrayUnion(bandMember) else FieldValue.arrayRemove(bandMember)
+    FirebaseService.artistsCollection.document(artistId).update(ARTIST_BAND_MEMBERS, fv).await()
+    onSuccess()
+
+    null
+  } catch (e: FirebaseNetworkException) {
+    Errors.networkError
+  } catch (e: Exception) {
+    Errors.unknownError
   }
+
 
   suspend fun addBandMember(
     artistId: String,
@@ -215,5 +199,4 @@ object ArtistsRepository {
     bandMember: BandMember,
     onSuccess: () -> Unit
   ): ErrorApp? = editBandMember(isAdd = false, artistId, bandMember, onSuccess)
-
 }

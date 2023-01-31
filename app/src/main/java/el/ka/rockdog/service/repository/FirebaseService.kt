@@ -1,5 +1,6 @@
 package el.ka.rockdog.service.repository
 
+import android.net.Uri
 import android.util.Log
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
@@ -7,7 +8,9 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import el.ka.rockdog.other.Constants
+import el.ka.rockdog.other.StorageType
 import kotlinx.coroutines.tasks.await
+import java.util.*
 
 object FirebaseService {
   suspend fun fetchDocument(ref: DocumentReference): DocumentSnapshot? {
@@ -22,6 +25,25 @@ object FirebaseService {
 
   suspend fun deleteByUrl(url: String) {
     Firebase.storage.getReferenceFromUrl(url).delete().await()
+  }
+
+  suspend fun uploadToStorage(uri: Uri, type: StorageType, prefPath: String): String {
+    val time = Calendar.getInstance().time
+
+    val path = prefPath + when (type) {
+      StorageType.BAND_MEMBER -> "band_members/$time"
+      StorageType.ARTIST_PHOTO -> "photos/$time"
+      StorageType.ARTIST_COVER -> "$time"
+    }
+
+    val storage = when (type) {
+      StorageType.BAND_MEMBER,
+      StorageType.ARTIST_PHOTO,
+      StorageType.ARTIST_COVER -> artistPhotosStore
+    }
+
+    val doc = storage.child(path).putFile(uri).await()
+    return doc.storage.downloadUrl.await().toString()
   }
 
   private const val PROFILE_PHOTOS_COLLECTION = "profilePhotos/"
