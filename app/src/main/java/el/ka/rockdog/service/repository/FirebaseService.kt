@@ -31,15 +31,19 @@ object FirebaseService {
     val time = Calendar.getInstance().time
 
     val path = prefPath + when (type) {
-      StorageType.BAND_MEMBER -> "band_members/$time"
-      StorageType.ARTIST_PHOTO -> "photos/$time"
-      StorageType.ARTIST_COVER -> "$time"
-    }
+      StorageType.BAND_MEMBER -> "band_members/"
+      StorageType.ARTIST_PHOTO -> "photos/"
+
+      StorageType.ARTIST_COVER,
+      StorageType.USER_PROFILE -> ""
+    } + "$time"
 
     val storage = when (type) {
       StorageType.BAND_MEMBER,
       StorageType.ARTIST_PHOTO,
       StorageType.ARTIST_COVER -> artistPhotosStore
+
+      StorageType.USER_PROFILE -> profilePhotosStore
     }
 
     val doc = storage.child(path).putFile(uri).await()
@@ -49,8 +53,12 @@ object FirebaseService {
   private const val PROFILE_PHOTOS_COLLECTION = "profilePhotos/"
   private const val ARTIS_PHOTOS_COLLECTION = "artistPhotos/"
 
-  val profilePhotosStore by lazy { Firebase.storage.reference.child(PROFILE_PHOTOS_COLLECTION) }
-  val artistPhotosStore by lazy { Firebase.storage.reference.child(ARTIS_PHOTOS_COLLECTION) }
+  private val profilePhotosStore by lazy {
+    Firebase.storage.reference.child(
+      PROFILE_PHOTOS_COLLECTION
+    )
+  }
+  private val artistPhotosStore by lazy { Firebase.storage.reference.child(ARTIS_PHOTOS_COLLECTION) }
   val albumsCollection by lazy { Firebase.firestore.collection(Constants.ALBUMS_COLLECTION) }
   val songsCollection by lazy { Firebase.firestore.collection(Constants.SONGS_COLLECTION) }
   val usersCollection by lazy { Firebase.firestore.collection(Constants.USERS_COLLECTION) }

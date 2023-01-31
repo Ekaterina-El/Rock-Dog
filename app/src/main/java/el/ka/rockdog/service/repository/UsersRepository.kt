@@ -2,18 +2,18 @@ package el.ka.rockdog.service.repository
 
 import android.net.Uri
 import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.ktx.firestore
 import el.ka.rockdog.other.Constants.ARTIST_IDS_FIELD
 import el.ka.rockdog.other.Constants.EMAIL_FIELD
 import el.ka.rockdog.other.Constants.NOTIFICATIONS_IDS_FIELD
 import el.ka.rockdog.other.Constants.PROFILE_URL_FIELD
 import el.ka.rockdog.other.Constants.USER_NAME_FIELD
+import el.ka.rockdog.other.StorageType
 import el.ka.rockdog.service.model.ErrorApp
 import el.ka.rockdog.service.model.Errors
 import el.ka.rockdog.service.model.Notification
 import el.ka.rockdog.service.model.User
+import el.ka.rockdog.service.repository.FirebaseService.uploadToStorage
 import kotlinx.coroutines.tasks.await
-import java.util.*
 
 object UsersRepository {
   suspend fun getUser(id: String): User? {
@@ -58,28 +58,23 @@ object UsersRepository {
     uri: Uri,
     oldProfileImage: String,
     onLoad: (String) -> Unit
-  ): ErrorApp? {
-    return try {
-      val time = Calendar.getInstance().time
-      val uid = AuthRepository.currentUid!!
+  ): ErrorApp? = try {
+    // load to store
+    val uid = AuthRepository.currentUid!!
+    val url = uploadToStorage(uri, StorageType.USER_PROFILE, "$uid/")
 
-      // load to store
-      val url = FirebaseService.profilePhotosStore
-        .child("$uid/$time")
-        .putFile(uri).await().storage.downloadUrl.await()
+    // delete old version of profile image
+    if (oldProfileImage != "") FirebaseService.deleteByUrl(oldProfileImage)
 
-      // delete old version of profile image
-      if (oldProfileImage != "") FirebaseService.deleteByUrl(oldProfileImage)
+    // update note of artist
+    FirebaseService.usersCollection.document(uid).update(PROFILE_URL_FIELD, url).await()
+    onLoad(url)
 
-      // update note of artist
-      FirebaseService.usersCollection.document(uid).update(PROFILE_URL_FIELD, url).await()
-      onLoad(url.toString())
-
-      null
-    } catch (e: Exception) {
-      Errors.unknownError
-    }
+    null
+  } catch (e: Exception) {
+    Errors.unknownError
   }
+
 
   suspend fun notifyUser(uid: String, notification: Notification): ErrorApp? {
     return try {
