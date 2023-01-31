@@ -9,7 +9,7 @@ data class Artist(
   var artistDescription: String = "",
   var photos: List<String> = listOf(),
   var genres: List<MusicGenre> = listOf(),
-  var bandMember: List<BandMember> = listOf(),
+  var bandMembers: List<BandMember> = listOf(),
   var createAt: Date = Calendar.getInstance().time,
   var coverUrl: String = "",
 ): java.io.Serializable

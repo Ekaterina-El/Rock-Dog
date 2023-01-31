@@ -10,13 +10,17 @@ import android.widget.PopupMenu
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import el.ka.rockdog.R
 import el.ka.rockdog.databinding.ArtistProfileFragmentBinding
 import el.ka.rockdog.other.CropOptions
 import el.ka.rockdog.other.GridSpacingItemDecoration
 import el.ka.rockdog.other.ImageChanger
 import el.ka.rockdog.service.model.BandMember
+import el.ka.rockdog.view.adapter.lists.bandMembers.BandMemberViewHolder
 import el.ka.rockdog.view.adapter.lists.bandMembers.BandMembersAdapter
+import el.ka.rockdog.view.adapter.lists.notifications.NotificationViewHolder
 import el.ka.rockdog.view.adapter.lists.photos.PhotosAdapter
 import el.ka.rockdog.view.dialog.ChangeDescriptionDialog
 import el.ka.rockdog.view.ui.BaseFragment
@@ -69,6 +73,9 @@ class ArtistProfileFragment : BaseFragment() {
 
     val decoration = GridSpacingItemDecoration(3, 6, false)
     binding.artistImages.addItemDecoration(decoration)
+
+    val helper = ItemTouchHelper(bandMembersCallback)
+    helper.attachToRecyclerView(binding.artistBandMembers)
   }
 
   private fun getArtistFromArgs() {
@@ -119,6 +126,20 @@ class ArtistProfileFragment : BaseFragment() {
     findNavController(). navigate(direction)
   }
   // endregion
+
+  private val bandMembersCallback = object: ItemTouchHelper.SimpleCallback(0,
+    ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+    override fun onMove(
+      recyclerView: RecyclerView,
+      viewHolder: RecyclerView.ViewHolder,
+      target: RecyclerView.ViewHolder
+    ): Boolean = false
+
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+      val bandMember = (viewHolder as BandMemberViewHolder).binding.bandMember ?: return
+      viewModel.deleteBandMember(bandMember)
+    }
+  }
 
   // region Popup menu
   private var popupMenu: PopupMenu? = null

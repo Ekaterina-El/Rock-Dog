@@ -6,13 +6,11 @@ import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Source
 import el.ka.rockdog.other.Constants
+import el.ka.rockdog.other.Constants.ARTIST_BAND_MEMBERS
 import el.ka.rockdog.other.Constants.ARTIST_COVER_FIELD
 import el.ka.rockdog.other.Constants.ARTIST_DESCRIPTION
 import el.ka.rockdog.other.Constants.ARTIST_PHOTOS_FIELD
-import el.ka.rockdog.service.model.Artist
-import el.ka.rockdog.service.model.ErrorApp
-import el.ka.rockdog.service.model.Errors
-import el.ka.rockdog.service.model.RequestToRegistrationArtist
+import el.ka.rockdog.service.model.*
 import kotlinx.coroutines.tasks.await
 import java.util.*
 
@@ -166,6 +164,23 @@ object ArtistsRepository {
     return try {
       FirebaseService.artistsCollection.document(artistId)
         .update(ARTIST_DESCRIPTION, newDescription).await()
+      onSuccess()
+      null
+    } catch (e: FirebaseNetworkException) {
+      Errors.networkError
+    } catch (e: Exception) {
+      Errors.unknownError
+    }
+  }
+
+  suspend fun deleteBandMember(
+    artistId: String,
+    bandMember: BandMember,
+    onSuccess: () -> Unit
+  ): ErrorApp? {
+    return try {
+      FirebaseService.artistsCollection.document(artistId)
+        .update(ARTIST_BAND_MEMBERS, FieldValue.arrayRemove(bandMember)).await()
       onSuccess()
       null
     } catch (e: FirebaseNetworkException) {
