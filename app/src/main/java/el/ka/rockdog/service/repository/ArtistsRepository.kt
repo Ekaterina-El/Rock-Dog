@@ -41,13 +41,7 @@ object ArtistsRepository {
 
   suspend fun createArtistByRequest(request: RequestToRegistrationArtist): ErrorApp? {
     return try {
-      val artists = Artist(
-        id = request.uid,
-        artistName = request.artistName,
-        artistDescription = request.artistDescription,
-        genres = request.genres
-      )
-
+      val artists = request.toArtist()
       val artisId = FirebaseService.artistsCollection.add(artists).await().id
       UsersRepository.addArtistId(request.uid, artisId)   // Add artist id to user document
     } catch (e: Exception) {
@@ -140,7 +134,6 @@ object ArtistsRepository {
     } catch (e: FirebaseNetworkException) {
       Errors.networkError
     } catch (e: Exception) {
-      val a = e
       Errors.unknownError
     }
   }

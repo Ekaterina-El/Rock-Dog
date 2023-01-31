@@ -10,4 +10,11 @@ data class RequestToRegistrationArtist(
   var artistDescription: String = "",
   var genres: List<MusicGenre> = listOf(),
   var createAt: Date? = null
-): java.io.Serializable
+): java.io.Serializable {
+  fun toArtist() = Artist(
+    id = uid,
+    artistName = artistName,
+    artistDescription = artistDescription,
+    genres = genres
+  )
+}
