@@ -5,6 +5,9 @@
 
   <data>
 
+    <variable
+      name="imageUrl"
+      type="String" />
   </data>
 
   <androidx.core.widget.NestedScrollView
@@ -27,11 +30,21 @@
         android:layout_marginBottom="15dp"
         android:text="@string/add_band_member" />
 
+      <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageBandMember"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        app:imageUrl="@{imageUrl}"
+        tools:src="@drawable/example" />
+
       <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/fieldName"
         style="@style/FieldWrapper.contrast"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:hint="@string/band_member_name"
         app:counterEnabled="true"
         app:counterMaxLength="36"
@@ -45,11 +58,11 @@
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
-        android:layout_marginTop="10dp"
         android:id="@+id/fieldDescription"
         style="@style/FieldWrapper.contrast"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:hint="@string/band_member_description"
         app:counterEnabled="true"
         app:counterMaxLength="36"

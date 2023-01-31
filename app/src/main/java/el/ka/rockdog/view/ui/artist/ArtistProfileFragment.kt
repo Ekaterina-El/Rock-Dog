@@ -220,7 +220,7 @@ class ArtistProfileFragment : BaseFragment() {
         bandMemberDialog?.dismiss()
       }
     }
-    bandMemberDialog = BandMemberDialog(requireContext(), listener)
+    bandMemberDialog = BandMemberDialog(requireContext(), listener, imageChanger)
   }
   // endregion
 

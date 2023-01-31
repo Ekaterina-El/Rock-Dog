@@ -5,13 +5,20 @@ import android.content.Context
 import android.widget.EditText
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import de.hdodenhof.circleimageview.CircleImageView
 import el.ka.rockdog.R
+import el.ka.rockdog.databinding.ArtistRegistrationRequestDialogBinding
+import el.ka.rockdog.databinding.BandMemberDialogBinding
+import el.ka.rockdog.other.CropOptions
+import el.ka.rockdog.other.ImageChanger
 import el.ka.rockdog.service.model.BandMember
 
-class BandMemberDialog(context: Context, listener: Listener): Dialog(context) {
+class BandMemberDialog(context: Context, listener: Listener, imageChanger: ImageChanger): Dialog(context) {
+  private val binding by lazy { BandMemberDialogBinding.inflate(layoutInflater) }
+
   fun clear() {
-    findViewById<EditText>(R.id.textViewName).setText("")
-    findViewById<EditText>(R.id.textViewDescription).setText("")
+    binding.textViewName.setText("")
+    binding.textViewDescription.setText("")
   }
 
   fun open() {
@@ -19,7 +26,7 @@ class BandMemberDialog(context: Context, listener: Listener): Dialog(context) {
   }
 
   init {
-    setContentView(R.layout.band_member_dialog)
+    setContentView(binding.root)
     window!!.setLayout(
       ConstraintLayout.LayoutParams.MATCH_PARENT,
       ConstraintLayout.LayoutParams.WRAP_CONTENT
@@ -27,13 +34,17 @@ class BandMemberDialog(context: Context, listener: Listener): Dialog(context) {
     window!!.setWindowAnimations(R.style.Slide)
     setCancelable(true)
 
-    findViewById<TextView>(R.id.buttonOk).setOnClickListener {
-      val name = findViewById<EditText>(R.id.textViewName).text.toString()
-      val major = findViewById<EditText>(R.id.textViewDescription).text.toString()
-//      val photoUrl = ... todo: Установка изображения
+    binding.buttonOk.setOnClickListener {
+      val name = binding.textViewName.text.toString()
+      val major = binding.textViewDescription.text.toString()
+      val photoUrl = binding.imageUrl ?: ""
 
-      val bandMember = BandMember(name, major, "")
+      val bandMember = BandMember(name, major, photoUrl)
       listener.onSave(bandMember)
+    }
+
+    binding.imageBandMember.setOnClickListener {
+      imageChanger.change(CropOptions.rectCropImageOptions) { binding.imageUrl = it.toString() }
     }
   }
 

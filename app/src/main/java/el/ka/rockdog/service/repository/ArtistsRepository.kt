@@ -180,10 +180,22 @@ object ArtistsRepository {
     onSuccess: () -> Unit
   ): ErrorApp? {
     return try {
+      if (isAdd) {
+        val time = Calendar.getInstance().time
+        val path = "$artistId/band_members/$time"
+        val uri = Uri.parse(bandMember.photoUrl)
+
+        val doc = FirebaseService.artistPhotosStore.child(path).putFile(uri).await()
+        val url = doc.storage.downloadUrl.await().toString()
+        bandMember.photoUrl = url
+      } else {
+        if (bandMember.photoUrl != "") FirebaseService.deleteByUrl(bandMember.photoUrl)
+      }
+
       val fv = if (isAdd) FieldValue.arrayUnion(bandMember) else FieldValue.arrayRemove(bandMember)
-//      if (isAdd) ... todo: Загружзка изображения
       FirebaseService.artistsCollection.document(artistId).update(ARTIST_BAND_MEMBERS, fv).await()
       onSuccess()
+
       null
     } catch (e: FirebaseNetworkException) {
       Errors.networkError
